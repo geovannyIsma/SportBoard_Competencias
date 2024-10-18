@@ -1,37 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
 
+// Definición de colores en variables
+@use 'variables.scss' as *;
+
+// Estilos globales
+:host {
+    // Estilos de la página principal
+    display: grid;
+    // Definición de áreas
+    grid-template-areas:
+        "header header"
+        "sidebar content"
+        "footer footer";
+    // Definición de columnas y filas
+    grid-template-columns: auto 1fr;
+    // Definición de filas
+    grid-template-rows: auto 1fr auto;
+    // Altura de la página
+    height: 100vh;
+}
+
 html,
 body {
     background-color: #f0f2f5;
-    height: 100%;
-}
-body {
-    margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+    height: 100%;
+    margin: 0;
 }
 
 header {
-    background-color: #fff;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
-    padding: 16px 0;
-    position: fixed;
-    width: 100%;
-    z-index: 1000;
+    grid-area: header;
+    background-color: $primary;
+    color: $font-color-light;
+    padding: 10px;
+    text-align: center;
 }
 
 footer {
-    background-color: #fff; // especifica a color do footer
-    box-shadow: 0 -2px 4px 0 rgba(0, 0, 0, 0.1); // adiciona uma sombra
-    padding: 16px 0;  // adiciona un padding
-    position: fixed; // fija el footer en la parte inferior de la pantalla
-    width: 100%; // ocupa todo el ancho de la pantalla
-    z-index: 1000; // z-index para que el footer se muestre por encima de otros elementos
-    bottom: 0; // fija el footer en la parte inferior de la pantalla
+    grid-area: footer;
+    background-color: $primary;
+    color: $font-color-light;
+    padding: 10px;
+    text-align: center;
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
+    grid-area: sidebar;
+    background-color: $secondary;
+    width: 250px;
+    padding: 15px;
+    transition: transform $transition-duration;
+}
+
+main {
+    flex: 1; /* Hace que el contenido crezca según el espacio disponible */
+    padding: 20px;
+    overflow-y: auto; /* Añade scroll si el contenido es muy grande */
+}
+
+section {
+    grid-area: content;
+    background-color: $support;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.spacer {
+    flex: 1; /* Añade espacio entre elementos */
 }
