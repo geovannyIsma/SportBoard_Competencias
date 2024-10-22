@@ -20,13 +20,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatCardModule,
         MatDatepickerModule,
         MatDialogModule,
-        MatProgressBarModule,
-        MatTableModule,
-        MatTabsModule,
-        MatSidenavModule,
-        MatToolbarModule,
         MatIconModule,
         MatListModule,
+        MatProgressBarModule,
+        MatSidenavModule,
+        MatTableModule,
+        MatTabsModule,
+        MatToolbarModule,
     ],
 })
 export class SharedModule {}
