@@ -9,9 +9,8 @@ import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-compet
   ],
   imports: [
     CommonModule,
-    CompetenciasRoutingModule,
     PerfilesComponent,
-    GestionCompetenciaComponent,
+    CompetenciasRoutingModule,
   ]
 })
 
