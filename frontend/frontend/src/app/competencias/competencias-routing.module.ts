@@ -1,11 +1,17 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
 import { GestionCompetenciaComponent } from '../competencias/GestionCompetencia/gestion-competencia.component';
+
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'gestion-competencia',
+    redirectTo: 'perfiles',
     pathMatch: 'full'
+  },
+  {
+    path: 'perfiles',
+    component: PerfilesComponent
   },
   {
     path: 'gestion-competencia',
