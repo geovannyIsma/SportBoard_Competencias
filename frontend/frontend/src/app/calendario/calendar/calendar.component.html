@@ -1,0 +1,66 @@
+<div class="calendar-container">
+    <h2 class="calendar-title">Enero 2024</h2>
+  
+    <div class="calendar-controls">
+      <button class="prev-month-btn">&lt;</button>
+      <span class="month-label">Enero</span>
+      <button class="next-month-btn">&gt;</button>
+      <select class="view-selector">
+        <option value="month">Mes</option>
+        <option value="week">Semana</option>
+        <option value="day">Día</option>
+      </select>
+      <button class="manage-matches-btn">Gestionar partidos</button>
+    </div>
+  
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <th>Lunes</th>
+          <th>Martes</th>
+          <th>Miércoles</th>
+          <th>Jueves</th>
+          <th>Viernes</th>
+          <th>Sábado</th>
+          <th>Domingo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="day-cell">01</td>
+          <td class="day-cell">02</td>
+          <td class="day-cell">03</td>
+          <td class="day-cell">
+            <div class="match">
+              <span class="team home-team">Libertad FC</span>
+              <span class="score">2</span>
+              <span class="team away-team">Guayaquil City</span>
+              <span class="score">0</span>
+            </div>
+          </td>
+          <td class="day-cell">05</td>
+          <td class="day-cell">06</td>
+          <td class="day-cell">07</td>
+        </tr>
+        <!-- Agrega más filas y columnas de partidos según sea necesario -->
+      </tbody>
+    </table>
+  
+    <div class="filters">
+      <h3>Filtros</h3>
+      <div class="filter-group">
+        <label for="torneo">Torneo</label>
+        <select id="torneo">
+          <option>Copa Ecuador</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label for="temporada">Temporada</label>
+        <select id="temporada">
+          <option>2024 - 2025</option>
+        </select>
+      </div>
+      <!-- Agrega más filtros como categoría, equipo, etc. -->
+    </div>
+  </div>
+  
