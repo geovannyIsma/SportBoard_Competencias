@@ -2,13 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { CompetenciasRoutingModule } from './competencias-routing.module';
-
-
+import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
+import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-competencia.component';
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
-    CompetenciasRoutingModule
+    CompetenciasRoutingModule,
+    PerfilesComponent,
+    GestionCompetenciaComponent,
   ]
 })
+
 export class CompetenciasModule { }
+
