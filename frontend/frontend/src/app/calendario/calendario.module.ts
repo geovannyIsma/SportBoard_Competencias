@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarioRoutingModule } from './calendario-routing.module';
+import { SorteoComponent } from './sorteo/sorteo.component';
 
 
 @NgModule({
@@ -9,8 +10,9 @@ import { CalendarioRoutingModule } from './calendario-routing.module';
   imports: [
     CommonModule,
     CalendarioRoutingModule,
-    CalendarComponent
+    CalendarComponent,
+    SorteoComponent,
   ],
-  exports: [CalendarComponent]
+  exports: [SorteoComponent]
 })
 export class CalendarioModule { }
