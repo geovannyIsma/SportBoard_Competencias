@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'sorteo',
     component: SorteoComponent
+  },
+  {
+    path: 'matchable',
+    component: MatchtableComponent
   }
 ];
 
