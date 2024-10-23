@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { GestionCompetenciaComponent} from '../GestionCompetencia/gestion-competencia.component';
+import { PerfilEquipoComponent } from '../perfil-equipo/perfil-equipo.component';
 @Component({
   selector: 'app-perfiles',
   standalone: true,
@@ -14,15 +15,15 @@ import { GestionCompetenciaComponent} from '../GestionCompetencia/gestion-compet
 export class PerfilesComponent {
   constructor(private router: Router) { }
   
-  navigateToCalendario() {
-    this.router.navigate(['/calendario']); 
+  navigateToPerfilEquipo() {
+    this.router.navigate(['/competencias/perfil-equipo']); 
   }
 
-  navigateToTiempoReal() {
-    this.router.navigate(['/tiempo-real']); 
+  navigateToPerfilJugador() {
+    this.router.navigate(['/competencias/perfil-jugador']); 
   }
 
   navigateToGestionCompetencia() {
-    this.router.navigate(['/gestion-competencia']); 
+    this.router.navigate(['/competencias/gestion-competencia']); 
   }
 }

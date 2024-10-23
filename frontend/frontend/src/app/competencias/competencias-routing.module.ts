@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
 import { GestionCompetenciaComponent } from '../competencias/GestionCompetencia/gestion-competencia.component';
-
+import { PerfilEquipoComponent } from '../competencias/perfil-equipo/perfil-equipo.component';
+import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,6 +17,14 @@ const routes: Routes = [
   {
     path: 'gestion-competencia',
     component: GestionCompetenciaComponent
+  },
+  {
+    path: 'perfil-equipo',
+    component: PerfilEquipoComponent
+  },
+  {
+    path: 'perfil-jugador',
+    component: PerfilJugadorComponent
   }
 ];
 @NgModule({
