@@ -1,0 +1,94 @@
+// Colores Primarios y Secundarios
+$primary: #D4EED1;        // Verde pastel principal
+$secondary: #D4EED1;      // Verde pastel claro (para fondos)
+$accent: #FFF3B0;         // Amarillo pastel como color de acento
+$complementary: #F9C6C9;  // Rosa pastel como color complementario
+
+// Colores de soporte
+$support: #B0E0E6;        // Azul pastel suave (fondo secundario)
+$dark-primary: #7FB77E;   // Verde oscuro pastel para detalles o texto
+
+// Colores de texto
+$font-color-dark: #4F4F4F;   // Color de texto oscuro
+$font-color-light: #FFFFFF;  // Color de texto claro
+
+// Otras variables
+$transition-duration: 0.3s;  // Duración de las transiciones
+
+body {
+  background-color: $secondary;
+  font-family: Arial, sans-serif;
+  color: $font-color-dark;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  color: $dark-primary;
+  margin-bottom: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+}
+
+.bombo {
+  background-color: $primary;
+  border-radius: 10px;
+  padding: 20px;
+  width: 20%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bombo h2 {
+  color: $dark-primary;
+  text-align: center;
+}
+
+.bombo ul {
+  list-style: none;
+  padding: 0;
+}
+
+.bombo ul li {
+  padding: 10px 0;
+  text-align: center;
+  color: $font-color-dark;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color $transition-duration;
+  font-size: 16px;
+}
+
+.cancel {
+  background-color: $complementary;
+  margin-right: 10px;
+}
+
+.cancel:hover {
+  background-color: darken($complementary, 10%);
+}
+
+.draw {
+  background-color: $dark-primary;
+  color: $font-color-light;
+}
+
+.draw:hover {
+  background-color: lighten($dark-primary, 10%);
+}
