@@ -10,8 +10,8 @@ import { SorteoComponent } from './sorteo/sorteo.component';
   imports: [
     CommonModule,
     CalendarioRoutingModule,
-    CalendarComponent
-    SorteoComponent
+    CalendarComponent,
+    SorteoComponent,
   ],
   exports: [SorteoComponent]
 })
