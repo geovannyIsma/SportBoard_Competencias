@@ -1,0 +1,185 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 800px;
+  }
+  
+  .team-stats {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .team {
+    width: 45%;
+  }
+  
+  .stat {
+    margin-bottom: 10px;
+  }
+  
+  .progress-bar {
+    background-color: #f3f3f3;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    background-color: #4caf50;
+    height: 20px;
+  }
+  
+  .field {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background-color: #4caf50;
+    border: 2px solid white;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);  /* Cambiado de 5 a 7 para más espacio */
+    gap: 10px;
+    margin-top: 20px;
+}
+
+  
+  .player {
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 12px;
+    margin: 5px;
+    user-select: none; /* Desactiva la selección del texto */
+  }
+  
+/* Equipo 1 posiciones */
+.gk {
+    grid-row: 3;
+    grid-column: 1;
+  }
+  
+  .def1 {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  
+  .def2 {
+    grid-row: 3;
+    grid-column: 2;
+  }
+  
+  .def3 {
+    grid-row: 4;
+    grid-column: 2;
+  }
+  
+  .mid1 {
+    grid-row: 1;
+    grid-column: 3;
+  }
+  
+  .mid2 {
+    grid-row: 2;
+    grid-column: 3;
+  }
+  
+  .mid3 {
+    grid-row: 4;
+    grid-column: 3;
+  }
+  
+  .mid4 {
+    grid-row: 5;
+    grid-column: 3;
+  }
+  
+  .fwd1 {
+    grid-row: 2;
+    grid-column: 4;
+  }
+  
+  .fwd2 {
+    grid-row: 3;
+    grid-column: 4;
+  }
+  
+  .fwd3 {
+    grid-row: 4;
+    grid-column: 4;
+  }
+  
+  /* Equipo 2 posiciones (oponente) */
+  .gk-opponent {
+    grid-row: 3;
+    grid-column: 5;
+  }
+  
+  .def1-opponent {
+    grid-row: 2;
+    grid-column: 4;
+  }
+  
+  .def2-opponent {
+    grid-row: 3;
+    grid-column: 4;
+  }
+  
+  .def3-opponent {
+    grid-row: 4;
+    grid-column: 4;
+  }
+  
+  .mid1-opponent {
+    grid-row: 1;
+    grid-column: 5;
+  }
+  
+  .mid2-opponent {
+    grid-row: 2;
+    grid-column: 5;
+  }
+  
+  .mid3-opponent {
+    grid-row: 4;
+    grid-column: 5;
+  }
+  
+  .mid4-opponent {
+    grid-row: 5;
+    grid-column: 5;
+  }
+  
+  .fwd1-opponent {
+    grid-row: 2;
+    grid-column: 6;
+  }
+  
+  .fwd2-opponent {
+    grid-row: 3;
+    grid-column: 6;
+  }
+  
+  .fwd3-opponent {
+    grid-row: 4;
+    grid-column: 6;
+  }
+  

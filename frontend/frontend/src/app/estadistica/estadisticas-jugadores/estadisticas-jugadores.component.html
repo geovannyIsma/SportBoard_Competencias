@@ -1,0 +1,13 @@
+<div class="player-stats">
+  <mat-card *ngFor="let player of players">
+    <img mat-card-image [src]="player.imageUrl" alt="{{ player.name }}">
+    <mat-card-header>
+      <mat-card-title>{{ player.name }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Puntos: {{ player.points }}</p>
+      <p>Asistencias: {{ player.assists }}</p>
+      <mat-progress-bar mode="determinate" [value]="player.performanceRate"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+</div>
