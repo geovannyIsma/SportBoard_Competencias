@@ -61,3 +61,31 @@ th {
     transform: scale(1.1); /* Efecto de zoom al pasar el cursor */
     box-shadow: 0 16px 16px rgba(0, 0, 0, 0.2); /* Aumenta la sombra al hacer hover */
 }
+
+.ventana {
+  margin: 20px;
+}
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+.tab {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  margin-right: 5px;
+  background: #f1f1f1;
+}
+.tab.active {
+  background: white;
+  font-weight: bold;
+  border-top: 2px solid blue;
+}
+.logos {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
