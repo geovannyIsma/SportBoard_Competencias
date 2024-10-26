@@ -36,17 +36,25 @@
   
             <!-- Calendario con menú desplegable -->
             <mat-list-item>
-              <a mat-line [matMenuTriggerFor]="calendarMenu">
+              <a (click)="toggleCalendarMenu()">
                 <mat-icon mat-list-icon>calendar_today</mat-icon>
                 Calendario
               </a>
-              <mat-menu #calendarMenu="matMenu">
-                <button mat-menu-item [routerLink]="['/calendario']">Calendario</button>
-                <button mat-menu-item [routerLink]="['/calendario/sorteo']">Sorteo</button>
-                <button mat-menu-item [routerLink]="['/calendario/matchable']">Partidos</button>
-              </mat-menu>
             </mat-list-item>
-  
+            <div *ngIf="isCalendarMenuOpen">  
+              <mat-list-item [routerLink]="['calendario']" class="menu-item">
+                <mat-icon mat-list-icon>view_week</mat-icon>
+                Calendario
+              </mat-list-item>
+              <mat-list-item [routerLink]="['calendario/matchable']" class="menu-item">
+                  <mat-icon mat-list-icon>date_range</mat-icon>
+                  Lista Partidos
+              </mat-list-item>
+              <mat-list-item [routerLink]="['calendario/sorteo']" class="menu-item">
+                  <mat-icon mat-list-icon>view_week</mat-icon>
+                  Sorteo
+              </mat-list-item>
+            </div>
             <mat-list-item>
               <a mat-line [routerLink]="['tiempo-real']">
                 <mat-icon mat-list-icon>update</mat-icon>
