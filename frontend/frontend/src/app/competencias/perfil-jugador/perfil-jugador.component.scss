@@ -1,0 +1,132 @@
+.contenedor-principal {
+    display: flex; /* Activa flexbox */
+    flex-wrap: wrap; /*Ajuste de Elementos en varias lineas */
+    justify-content: space-between; /* Espacio entre los elementos */
+    gap: 20px;
+    max-width: 100%;
+    /*padding: 100px; /* Ancho máximo para el contenedor */
+    box-sizing: border-box;
+}
+
+.icon-container {
+  display: flex;            /* Activa flexbox */
+  align-items: center;       /* Alinea verticalmente el contenido */
+  justify-content: center;   /* Alinea horizontalmente el contenido */
+}
+
+
+.perfil-jugador {
+    border: 1px solid #ccc;
+    padding: 20px;
+    max-width: 300px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+
+    h2 {
+        color: #333;
+        text-align: center;
+       
+    }
+
+    p {
+        font-size: 16px;
+        color: #555;
+    }
+}
+
+.button-container {
+    display: flex; /* Activa flexbox */
+    justify-content: center; /* Centra horizontalmente */
+    margin-top: 20px; /* Espacio superior para separar del contenido anterior */
+
+    button {
+        background-color: #ffffff; /* Color de fondo */
+        color: rgb(0, 0, 0); /* Color del texto */
+        border: none; /* Sin borde */
+        padding: 10px 20px; /* Relleno */
+        border-radius: 5px; /* Bordes redondeados */
+        cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        font-size: 16px; /* Tamaño de la fuente */
+    }
+
+    button:hover {
+        background-color: #0056b3; /* Color de fondo al pasar el cursor */
+    }
+}
+
+.texto-miinfo {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.container-informacion {
+    border: 1px solid #ccc;
+    padding: 25px;
+    max-width: 850px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    margin-right: 0px;
+}
+
+table {
+    width: 850px; /* Ancho de la tabla */
+    border-collapse: collapse; /* Colapsa bordes */
+}
+
+th,
+td {
+    border: 1px solid #f3f3f3; /* Bordes de celdas */
+    padding: 10px; /* Espaciado dentro de las celdas */
+    text-align: left; /* Alineación del texto */
+}
+
+th,
+tr {
+    background-color: #ffffff; /* Color de fondo para el encabezado */
+}
+
+.texto-negrita {
+    font-weight: bold; /* O también puedes usar 700 */
+}
+
+.container-estadistica {
+    border: 1px solid #ccc;
+    padding: 25px;
+    max-width: 1000px; /* Ancho máximo del contenedor de estadísticas */
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    margin-left: 325px; /* Centra el contenedor en la página con márgenes automáticos */
+    margin-right: 0px;
+}
+
+.button-container-estadistica {
+  display: flex; /* Activa flexbox */
+  flex-direction: column; /* Apila los elementos en una columna */
+  align-items: center; /* Centra horizontalmente */
+  margin-top: 20px; /* Espacio superior para separar del contenido anterior */
+}
+
+.button-row {
+  display: flex; /* Activa flexbox para las filas */
+  justify-content: center; /* Centra los botones en cada fila */
+  margin: 10px 0; /* Margen entre las filas de botones */
+}
+
+.button-row button {
+  background-color: #8CE2AD; /* Color de fondo */
+  color: rgb(0, 0, 0); /* Color del texto */
+  border: none; /* Sin borde */
+  padding: 10px; /* Relleno */
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  font-size: 16px; /* Tamaño de la fuente */
+  margin: 0 5px; /* Margen entre botones */
+  flex-grow: 1; /* Permite que los botones crezcan para ocupar espacio igual */
+  min-width: 420px; /* Ancho mínimo para los botones */
+  text-align: left;
+  padding-left: 125px;
+}
+
+.button-row button:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el cursor */
+}
