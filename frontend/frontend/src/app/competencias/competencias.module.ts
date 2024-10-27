@@ -12,8 +12,12 @@ import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
   imports: [
     CommonModule,
     PerfilesComponent,
+<<<<<<< Updated upstream
     PerfilEquipoComponent,
     CompetenciasRoutingModule,
+=======
+    GestionCompetenciaComponent
+>>>>>>> Stashed changes
   ]
 })
 
