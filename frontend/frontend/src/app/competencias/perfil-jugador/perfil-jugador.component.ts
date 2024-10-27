@@ -14,43 +14,39 @@ import { MatIconModule } from '@angular/material/icon';
 export class PerfilJugadorComponent {
 
   PerfilJugador = {
-    Nombre: 'Lionel Messi',
-    NumJugador: '10',
-    FechaNacimiento: '24/06/1987',
+    Nombre: 'Lamine Yamal',
+    Edad: '17 años',
     Peso: '72 Kg',
-    Altura: '1.7m',
-    Nacionalidad: 'Argentino',
-    Telefono: '0000000000',
-    Email: 'lionel.messi@gmail.com'
-
+    Altura: '1.8m',
+    Nacionalidad: 'Español',
   };
 
   PerfilInformacion = {
-    Equipo: 'Manchester City',
-    Entrenador: 'Pep Guardiola',
+    Equipo: 'F. C. Barcelona',
+    Entrenador: 'Hansi Flick',
     Posicion: 'Delantero',
     Rendimiento: '10 Estrellas'
   }
 
   onClickB1() {
     alert('Ha hecho click en modificar');
-    
+
   }
   onClickB2() {
     alert('Ha hecho click en Estadísticas Detalladas');
-    
+
   }
   onClickB3() {
     alert('Ha hecho click en Historial de Lesiones');
-    
+
   }
   onClickB4() {
     alert('Ha hecho click en Historial de Clubes');
-    
+
   }
   onClickB5() {
     alert('Ha hecho click en Historial de Entrenamientos');
-    
+
   }
 
 }

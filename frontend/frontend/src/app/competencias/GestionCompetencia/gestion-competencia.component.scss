@@ -138,3 +138,25 @@ table {
     background-color: #4CAF50; /* Azul para el botón de Guardar */
 }
 
+/* Para dispositivos grandes */
+@media (min-width: 1025px) {
+    .contenedor-principal {
+        flex-direction: row; /* Asegura que los elementos se alineen en fila */
+    }
+}
+
+/* Para dispositivos medianos */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila los contenedores en columna si es necesario */
+    }
+}
+
+/* Para dispositivos pequeños (móviles) */
+@media (max-width: 600px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila todos los elementos verticalmente */
+    }
+}
+
+
