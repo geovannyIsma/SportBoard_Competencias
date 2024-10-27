@@ -1,103 +1,61 @@
-<div class="reglas-container">
+<div class="contenedor-principal">
+    <div class="container">
+        <mat-card class="competencia-form">
+            <div class="info-y-formulario">
 
-    <!-- Sección de información del jugador -->
-    <div class="player-info">
-        <img src="https://www.freepnglogos.com/uploads/lol-logo-png/lol-world-championship-liquipedia-league-of-legends-24.png" alt="Competencia Logo" class="team-logo" />
-        <h2>LIGA UNL</h2>
-        <p><strong>N° Equipos: </strong> 30</p>
-        <p><strong>Fecha de inicio: </strong> 29/06/2022</p>
-        <button class="edit-button">Modificar</button>
+                <!-- Información de la competencia -->
+                <div class="player-info">
+                    <img src="https://www.freepnglogos.com/uploads/lol-logo-png/lol-world-championship-liquipedia-league-of-legends-24.png"
+                         alt="Competencia Logo"
+                         class="team-logo" />
+                    <h2>LIGA UNL</h2>
+                    <p><strong>N° Equipos: </strong> 30</p>
+                    <p><strong>Fecha de inicio: </strong> 29/06/2022</p>
+                    <button class="custom-button save-button">Modificar</button>
+                </div>
+
+                <!-- Formulario de administración de reglas -->
+                <div class="player-details">
+                    <mat-card-title class="form-title">Administrar Reglas de Competencia</mat-card-title>
+
+                    <!-- Combobox para tipo de competencia -->
+                    <label for="tipo-competencia">Tipo de Competencia:</label>
+                    <select id="tipo-competencia" [(ngModel)]="tipoCompetencia">
+                        <option value="Liga">Liga</option>
+                        <option value="Torneo">Torneo</option>
+                        <option value="Eliminatoria">Eliminatoria</option>
+                    </select>
+
+                    <!-- Campo de Descripción de la Regla -->
+                    <mat-form-field appearance="outline" class="descripcion-regla">
+                        <mat-label>Descripción de la Regla</mat-label>
+                        <input matInput placeholder="Ingrese la descripción de la regla" [(ngModel)]="descripcionRegla" name="descripcionRegla" required>
+                    </mat-form-field>
+
+                    <div class="button-container">
+                        <button class="custom-button save-button" (click)="agregarRegla()">Agregar Regla</button>
+                        <button class="custom-button save-button" (click)="modificarRegla()">Modificar Regla</button>
+                        <button class="custom-button save-button" (click)="eliminarRegla()">Eliminar Regla</button>
+                    </div>
+
+                    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+                    <!-- Tabla de Reglas guardadas, ahora debajo de los botones -->
+                    <mat-card *ngIf="reglas.length > 0" class="tabla-reglas">
+                        <mat-card-title>Reglas Guardadas</mat-card-title>
+                        <table mat-table [dataSource]="reglas" class="mat-elevation-z8">
+                            <!-- Columna de Descripción de la Regla -->
+                            <ng-container matColumnDef="descripcion">
+                                <th mat-header-cell *matHeaderCellDef> Descripción de la Regla </th>
+                                <td mat-cell *matCellDef="let regla" (click)="seleccionarRegla(regla)"> {{regla.descripcion}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="seleccionarRegla(row)"></tr>
+                        </table>
+                    </mat-card>
+                </div>
+            </div>
+        </mat-card>
     </div>
-
-    <!-- Sección de tabla con detalles de las reglas -->
-    <div class="player-details">
-        <h3>Reglas de la Competencia</h3>
-        <table id="rules-table">
-            <thead>
-                <tr>
-                    <th>Regla</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Ejemplo de reglas, se pueden añadir dinámicamente -->
-                <tr onclick="selectRule(this)">
-                    <td>Regla 1: Todos los partidos deben ser jugados en el horario establecido.</td>
-                </tr>
-                <tr onclick="selectRule(this)">
-                    <td>Regla 2: Se permiten 5 sustituciones por partido.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="button-container">
-            <button class="stats-card" onclick="addRule()">Agregar Regla</button>
-            <button class="stats-card" onclick="editRule()">Modificar Regla</button>
-            <button class="stats-card" onclick="deleteRule()">Eliminar Regla</button>
-        </div>
-
-        <div id="selected-rule" style="margin-top: 20px;"></div>
-    </div>
-
 </div>
-
-<script>
-    let selectedRule = '';
-
-    // Función para seleccionar una regla y mostrarla en la casilla
-    function selectRule(row) {
-        const ruleText = row.cells[0].innerText;
-        selectedRule = ruleText;
-        document.getElementById('selected-rule').innerText = `Regla Seleccionada: ${ruleText}`;
-    }
-
-    // Función para agregar una nueva regla
-    function addRule() {
-        const newRule = prompt("Ingrese la nueva regla:");
-        if (newRule) {
-            const table = document.getElementById('rules-table').getElementsByTagName('tbody')[0];
-            const newRow = table.insertRow();
-            const newCell = newRow.insertCell(0);
-            newCell.innerText = newRule;
-            newRow.onclick = () => selectRule(newRow); // Asignar evento de selección
-        }
-    }
-
-    // Función para modificar la regla seleccionada
-    function editRule() {
-        if (selectedRule) {
-            const modifiedRule = prompt("Modificar la regla:", selectedRule);
-            if (modifiedRule) {
-                const rows = document.getElementById('rules-table').getElementsByTagName('tbody')[0].rows;
-                for (let row of rows) {
-                    if (row.cells[0].innerText === selectedRule) {
-                        row.cells[0].innerText = modifiedRule;
-                        selectedRule = modifiedRule; // Actualiza la regla seleccionada
-                        document.getElementById('selected-rule').innerText = `Regla Seleccionada: ${modifiedRule}`;
-                        break;
-                    }
-                }
-            }
-        } else {
-            alert("Por favor, seleccione una regla para modificar.");
-        }
-    }
-
-    // Función para eliminar la regla seleccionada
-    function deleteRule() {
-        if (selectedRule) {
-            if (confirm("¿Estás seguro de que deseas eliminar esta regla?")) {
-                const rows = document.getElementById('rules-table').getElementsByTagName('tbody')[0].rows;
-                for (let row of rows) {
-                    if (row.cells[0].innerText === selectedRule) {
-                        row.remove();
-                        selectedRule = ''; // Reinicia la selección
-                        document.getElementById('selected-rule').innerText = '';
-                        break;
-                    }
-                }
-            }
-        } else {
-            alert("Por favor, seleccione una regla para eliminar.");
-        }
-    }
-</script>
