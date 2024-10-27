@@ -1,1 +1,103 @@
-<p>perfil-reglas works!</p>
+<div class="reglas-container">
+
+    <!-- Sección de información del jugador -->
+    <div class="player-info">
+        <img src="https://www.freepnglogos.com/uploads/lol-logo-png/lol-world-championship-liquipedia-league-of-legends-24.png" alt="Competencia Logo" class="team-logo" />
+        <h2>LIGA UNL</h2>
+        <p><strong>N° Equipos: </strong> 30</p>
+        <p><strong>Fecha de inicio: </strong> 29/06/2022</p>
+        <button class="edit-button">Modificar</button>
+    </div>
+
+    <!-- Sección de tabla con detalles de las reglas -->
+    <div class="player-details">
+        <h3>Reglas de la Competencia</h3>
+        <table id="rules-table">
+            <thead>
+                <tr>
+                    <th>Regla</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Ejemplo de reglas, se pueden añadir dinámicamente -->
+                <tr onclick="selectRule(this)">
+                    <td>Regla 1: Todos los partidos deben ser jugados en el horario establecido.</td>
+                </tr>
+                <tr onclick="selectRule(this)">
+                    <td>Regla 2: Se permiten 5 sustituciones por partido.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="button-container">
+            <button class="stats-card" onclick="addRule()">Agregar Regla</button>
+            <button class="stats-card" onclick="editRule()">Modificar Regla</button>
+            <button class="stats-card" onclick="deleteRule()">Eliminar Regla</button>
+        </div>
+
+        <div id="selected-rule" style="margin-top: 20px;"></div>
+    </div>
+
+</div>
+
+<script>
+    let selectedRule = '';
+
+    // Función para seleccionar una regla y mostrarla en la casilla
+    function selectRule(row) {
+        const ruleText = row.cells[0].innerText;
+        selectedRule = ruleText;
+        document.getElementById('selected-rule').innerText = `Regla Seleccionada: ${ruleText}`;
+    }
+
+    // Función para agregar una nueva regla
+    function addRule() {
+        const newRule = prompt("Ingrese la nueva regla:");
+        if (newRule) {
+            const table = document.getElementById('rules-table').getElementsByTagName('tbody')[0];
+            const newRow = table.insertRow();
+            const newCell = newRow.insertCell(0);
+            newCell.innerText = newRule;
+            newRow.onclick = () => selectRule(newRow); // Asignar evento de selección
+        }
+    }
+
+    // Función para modificar la regla seleccionada
+    function editRule() {
+        if (selectedRule) {
+            const modifiedRule = prompt("Modificar la regla:", selectedRule);
+            if (modifiedRule) {
+                const rows = document.getElementById('rules-table').getElementsByTagName('tbody')[0].rows;
+                for (let row of rows) {
+                    if (row.cells[0].innerText === selectedRule) {
+                        row.cells[0].innerText = modifiedRule;
+                        selectedRule = modifiedRule; // Actualiza la regla seleccionada
+                        document.getElementById('selected-rule').innerText = `Regla Seleccionada: ${modifiedRule}`;
+                        break;
+                    }
+                }
+            }
+        } else {
+            alert("Por favor, seleccione una regla para modificar.");
+        }
+    }
+
+    // Función para eliminar la regla seleccionada
+    function deleteRule() {
+        if (selectedRule) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta regla?")) {
+                const rows = document.getElementById('rules-table').getElementsByTagName('tbody')[0].rows;
+                for (let row of rows) {
+                    if (row.cells[0].innerText === selectedRule) {
+                        row.remove();
+                        selectedRule = ''; // Reinicia la selección
+                        document.getElementById('selected-rule').innerText = '';
+                        break;
+                    }
+                }
+            }
+        } else {
+            alert("Por favor, seleccione una regla para eliminar.");
+        }
+    }
+</script>
