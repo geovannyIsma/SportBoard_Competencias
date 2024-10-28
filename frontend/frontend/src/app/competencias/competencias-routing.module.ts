@@ -5,6 +5,7 @@ import { GestionCompetenciaComponent } from '../competencias/GestionCompetencia/
 import { PerfilEquipoComponent } from '../competencias/perfil-equipo/perfil-equipo.component';
 import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
 import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
+import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 
 const routes: Routes = [
   {
