@@ -7,6 +7,7 @@ import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-ju
 import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
 import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 import { ListadoCompetenciasComponent} from './listado-competencias/listado-competencias.component';
+import { ListadoJugadoresComponent} from './listado-jugadores/listado-jugadores.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
     path: 'perfil-jugador',
     component: PerfilJugadorComponent
   },
+    {
+        path:'listado-jugador',
+        component: ListadoJugadoresComponent
+    },
     {
     path: 'perfil-reglas',
     component: PerfilReglasComponent

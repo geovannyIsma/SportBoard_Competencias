@@ -21,7 +21,7 @@ export class PerfilesComponent {
   }
 
   navigateToPerfilJugador() {
-    this.router.navigate(['/competencias/perfil-jugador']);
+    this.router.navigate(['/competencias/listado-jugador']);
   }
   navigateToPerfilReglas() {
     this.router.navigate(['/competencias/perfil-reglas']);
