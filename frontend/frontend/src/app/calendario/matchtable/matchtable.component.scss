@@ -89,3 +89,23 @@ th {
   flex-wrap: wrap;
   justify-content: center;
 }
+.equipo1-cell, .equipo2-cell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.escudo {
+  width: 30px;
+  height: auto;
+  max-height: 30px;
+}
+
+.izquierda {
+  margin-right: 10px;
+}
+
+.derecha {
+  margin-left: 10px;
+}
