@@ -4,7 +4,8 @@ import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
 import { GestionCompetenciaComponent } from '../competencias/GestionCompetencia/gestion-competencia.component';
 import { PerfilEquipoComponent } from '../competencias/perfil-equipo/perfil-equipo.component';
 import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
-import {PerfilReglasComponent} from '../competencias/perfil-reglas/perfil-reglas.component';
+import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
+import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,10 @@ const routes: Routes = [
   {
     path: 'perfil-equipo',
     component: PerfilEquipoComponent
+  },
+  {
+    path: 'listado-equipos',
+    component: ListadoEquiposComponent
   },
   {
     path: 'perfil-jugador',
