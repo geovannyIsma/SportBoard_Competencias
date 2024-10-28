@@ -12,5 +12,19 @@ import { SharedModule } from '../../shared/shared.module';
   styleUrl: './perfil-equipo.component.scss'
 })
 export class PerfilEquipoComponent {
+  modoEdicion = false; // Esta variable se usa para validar si estamos en modo editar o no
 
+  modificarEquipo() {
+    this.modoEdicion = true; // Habilita los campos y muestrar botones Confirmar/Cancelar
+  }
+
+  guardarCambios() {
+    alert('Cambios guardados exitosamente.');
+    this.modoEdicion = false; // Se desactiva el modo edición
+  }
+
+  cancelarEdicion() {
+    alert('Edición cancelada.');
+    this.modoEdicion = false; // Se desactiva el modo edición
+  }
 }

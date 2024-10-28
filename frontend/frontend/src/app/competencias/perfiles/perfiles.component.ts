@@ -16,7 +16,8 @@ export class PerfilesComponent {
   constructor(private router: Router) { }
   
   navigateToPerfilEquipo() {
-    this.router.navigate(['/competencias/perfil-equipo']); 
+    //this.router.navigate(['/competencias/perfil-equipo']); 
+    this.router.navigate(['/competencias/listado-equipos']);
   }
 
   navigateToPerfilJugador() {
