@@ -6,6 +6,7 @@ import { PerfilEquipoComponent } from '../competencias/perfil-equipo/perfil-equi
 import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
 import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
 import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
+import { ListadoCompetenciasComponent} from './listado-competencias/listado-competencias.component';
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'gestion-competencia',
     component: GestionCompetenciaComponent
+  },
+  {
+    path: 'listado-competencia',
+    component: ListadoCompetenciasComponent
   },
   {
     path: 'perfil-equipo',

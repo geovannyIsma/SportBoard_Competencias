@@ -16,7 +16,7 @@ export class PerfilesComponent {
   constructor(private router: Router) { }
 
   navigateToPerfilEquipo() {
-    //this.router.navigate(['/competencias/perfil-equipo']); 
+    //this.router.navigate(['/competencias/perfil-equipo']);
     this.router.navigate(['/competencias/listado-equipos']);
   }
 
@@ -27,6 +27,6 @@ export class PerfilesComponent {
     this.router.navigate(['/competencias/perfil-reglas']);
   }
   navigateToGestionCompetencia() {
-    this.router.navigate(['/competencias/gestion-competencia']);
+    this.router.navigate(['/competencias/listado-competencia']);
   }
 }
