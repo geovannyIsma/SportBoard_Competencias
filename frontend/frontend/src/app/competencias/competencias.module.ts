@@ -16,7 +16,7 @@ import {PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
     PerfilesComponent,
     PerfilEquipoComponent,
       PerfilReglasComponent,
-    CompetenciasRoutingModule,
+    CompetenciasRoutingModule
   ]
 })
 
