@@ -7,7 +7,7 @@
           alt="Barcelona Logo" class="team-logo" />
         <h2>Barcelona</h2>
         <p><strong>Entrenador: </strong> Hansi Flick</p>
-        <p><strong>Pai­s de Origen:</strong> España</p>
+        <p><strong>Pais de Origen:</strong> España</p>
         <p><strong>Fecha de Creacionn:</strong> 10/07/1928</p>
         <button (click)="modificarEquipo()" class="edit-button">Modificar</button>
       </div>
@@ -19,22 +19,22 @@
         <table>
           <tr>
             <td><strong>Nombre del Equipo</strong></td>
-            <td><input type="text" value="FC Barcelona" class="data-equipo form-control" 
+            <td><input type="text" value="FC Barcelona" class="data-equipo form-control"
               [disabled]="!modoEdicion" /></td>
           </tr>
           <tr>
             <td><strong>Entrenador</strong></td>
-            <td><input type="text" value="Hansi Flick" class="data-equipo form-control" 
+            <td><input type="text" value="Hansi Flick" class="data-equipo form-control"
               [disabled]="!modoEdicion" /></td>
           </tr>
           <tr>
-            <td><strong>Pai­s de Origen</strong></td>
-            <td><input type="text" value="España" class="data-equipo form-control" 
+            <td><strong>Pais de Origen</strong></td>
+            <td><input type="text" value="España" class="data-equipo form-control"
               [disabled]="!modoEdicion" /></td>
           </tr>
           <tr>
             <td><strong>Fecha de Creación</strong></td>
-            <td><input type="text" value="10 de Julio de 1928" class="data-equipo form-control" 
+            <td><input type="text" value="10 de Julio de 1928" class="data-equipo form-control"
               [disabled]="!modoEdicion" /></td>
           </tr>
         </table>
@@ -43,7 +43,7 @@
           <button class="btn btn-success me-2" (click)="guardarCambios()">Guardar</button>
           <button class="btn btn-secondary" (click)="cancelarEdicion()">Cancelar</button>
         </div>
-        
+
       </div>
 
       <mat-tab-group dynamicHeight>

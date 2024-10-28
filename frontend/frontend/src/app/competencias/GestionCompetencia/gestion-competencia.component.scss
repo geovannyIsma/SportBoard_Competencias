@@ -85,6 +85,7 @@ table {
 
 .button-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px; /* Espacio entre los botones */
     justify-content: center;
     align-items: center;

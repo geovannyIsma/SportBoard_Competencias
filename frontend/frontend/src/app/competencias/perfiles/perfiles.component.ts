@@ -16,17 +16,17 @@ export class PerfilesComponent {
   constructor(private router: Router) { }
 
   navigateToPerfilEquipo() {
-    //this.router.navigate(['/competencias/perfil-equipo']); 
+    //this.router.navigate(['/competencias/perfil-equipo']);
     this.router.navigate(['/competencias/listado-equipos']);
   }
 
   navigateToPerfilJugador() {
-    this.router.navigate(['/competencias/perfil-jugador']);
+    this.router.navigate(['/competencias/listado-jugador']);
   }
   navigateToPerfilReglas() {
     this.router.navigate(['/competencias/perfil-reglas']);
   }
   navigateToGestionCompetencia() {
-    this.router.navigate(['/competencias/gestion-competencia']);
+    this.router.navigate(['/competencias/listado-competencia']);
   }
 }
