@@ -1,0 +1,78 @@
+<div class="contenedor-principal">
+    <div class="perfil-jugador">
+      <div class="icon-container">
+        <mat-icon> person_pin</mat-icon>
+      </div>  
+      
+        <h2>{{ PerfilJugador.Nombre }}</h2>
+        <p>
+            <strong>Numero de Jugador:</strong> {{ PerfilJugador.NumJugador }}
+        </p>
+        <p>
+            <strong>Fecha de Nacimiento:</strong>
+            {{ PerfilJugador.FechaNacimiento }}
+        </p>
+        <p><strong>Peso:</strong> {{ PerfilJugador.Peso }}</p>
+        <p><strong>Altura:</strong> {{ PerfilJugador.Altura }}</p>
+        <p><strong>Nacionalidad:</strong> {{ PerfilJugador.Nacionalidad }}</p>
+        <p><strong>Telefono:</strong> {{ PerfilJugador.Telefono }}</p>
+        <p><strong>E-mail:</strong> {{ PerfilJugador.Email }}</p>
+        <div class="button-container">
+            <button (click)="onClickB1()">
+                <mat-icon>edit</mat-icon>
+                <span> Modificar</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="container-informacion">
+        <h2 class="texto-miinfo">Informacion</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Equipo</td>
+                    <td>{{ PerfilInformacion.Equipo }}</td>
+                </tr>
+                <tr>
+                    <td>Entrenador</td>
+                    <td>{{ PerfilInformacion.Entrenador }}</td>
+                </tr>
+                <tr>
+                    <td>Posicion</td>
+                    <td>{{ PerfilInformacion.Posicion }}</td>
+                </tr>
+                <tr>
+                    <td>Rendimiento</td>
+                    <td>{{ PerfilInformacion.Rendimiento }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container-estadistica">
+    <h2 class="texto-miinfo">Estadi­sticas</h2>
+    <div class="button-container-estadistica">
+        <div class="button-row">
+            <button (click)="onClickB2()">
+                <mat-icon>receipt</mat-icon>
+                <span>Estadisticas Detalladas</span>
+            </button>
+            <button (click)="onClickB3()">
+                <mat-icon>calendar_today</mat-icon>
+                <span>Historial Lesiones</span>
+            </button>
+        </div>
+        <div class="button-row">
+            <button (click)="onClickB4()">
+                <mat-icon>event</mat-icon>
+                <span>Historial Clubes</span>
+            </button>
+            <button (click)="onClickB5()">
+                <mat-icon> comment</mat-icon>
+                <span>Historial Entrenamientos</span>
+            </button>
+        </div>
+    </div>
+</div>
+
