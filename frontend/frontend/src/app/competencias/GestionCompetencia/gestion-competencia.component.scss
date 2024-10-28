@@ -5,7 +5,24 @@
   padding: 2rem;
   background-color: #f5f5f5; // Color de fondo suave
 }
+.player-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+  }
 
+  /* Estilo de la información del jugador */
+  .player-info {
+    width: 30%;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
 .container {
   width: 100%;
   max-width: 800px; // Ancho máximo para el contenedor
@@ -36,7 +53,7 @@
   font-size: 24px; // Tamaño de fuente
   font-weight: bold; // Negrita
   margin-bottom: 2rem; // Separación con los campos del formulario
-  color: #3f51b5; // Color del título
+  color: #5cb53f; // Color del título
 }
 
 // Estilo para el mensaje de error
@@ -65,3 +82,81 @@ table {
   background-color: #3f51b5; // Color de fondo para el encabezado
   color: white; // Color del texto del encabezado
 }
+
+.button-container {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.custom-button {
+    background-color: aqua; /* Color de fondo personalizado */
+    color: white; /* Color del texto */
+    border: none;
+    padding: 5px 10px; /* Tamaño del botón */
+    border-radius: 4px; /* Esquinas redondeadas */
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espacio entre el icono y el texto */
+    transition: background-color 0.3s ease; /* Transición suave en el color de fondo */
+}
+
+.custom-button:hover {
+    background-color: #00796b; /* Color más oscuro al pasar el ratón */
+}
+.drop-zone {
+    width: 100%;
+    max-width: 300px;
+    padding: 20px;
+    border: 2px dashed #4CAF50;
+    border-radius: 8px;
+    text-align: center;
+    color: #4CAF50;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.drop-zone:hover {
+    background-color: #f1f1f1;
+}
+
+.drop-zone.dragover {
+    background-color: #e0f7fa; /* Color de fondo al arrastrar */
+}
+
+.save-button {
+    background-color: #4CAF50; /* Azul para el botón de Guardar */
+}
+.cancel-button {
+    background-color: #4CAF50; /* Azul para el botón de Guardar */
+}
+
+/* Para dispositivos grandes */
+@media (min-width: 1025px) {
+    .contenedor-principal {
+        flex-direction: row; /* Asegura que los elementos se alineen en fila */
+    }
+}
+
+/* Para dispositivos medianos */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila los contenedores en columna si es necesario */
+    }
+}
+
+/* Para dispositivos pequeños (móviles) */
+@media (max-width: 600px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila todos los elementos verticalmente */
+    }
+}
+
+

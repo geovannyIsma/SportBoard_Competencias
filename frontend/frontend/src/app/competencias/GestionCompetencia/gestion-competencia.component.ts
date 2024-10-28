@@ -25,7 +25,7 @@ import { MatTableModule } from '@angular/material/table';
     MatNativeDateModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule,  
+    ReactiveFormsModule,
   ],
   templateUrl: './gestion-competencia.component.html',
   styleUrls: ['./gestion-competencia.component.scss']
@@ -37,6 +37,7 @@ export class GestionCompetenciaComponent {
   errorMessage: string = '';
   competencias: any[] = [];
   displayedColumns: string[] = ['nombre', 'fechaInicio', 'fechaFin'];
+  selectedFile: File | null = null;
   guardar() {
     this.errorMessage = ''; // Resetear el mensaje de error
 
@@ -47,8 +48,8 @@ export class GestionCompetenciaComponent {
 
     const nuevaCompetencia = {
       nombre: this.nombre,
-      fechaInicio: this.fechaInicio.toLocaleDateString(), 
-      fechaFin: this.fechaFin.toLocaleDateString() 
+      fechaInicio: this.fechaInicio.toLocaleDateString(),
+      fechaFin: this.fechaFin.toLocaleDateString()
     };
     this.competencias.push(nuevaCompetencia);
     this.resetForm();
@@ -58,5 +59,41 @@ export class GestionCompetenciaComponent {
     this.fechaInicio = null;
     this.fechaFin = null;
   }
+
+   onDragOver(event: DragEvent) {
+    event.preventDefault();
+    const dropZone = event.currentTarget as HTMLElement;
+    dropZone.classList.add('dragover');
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    const dropZone = event.currentTarget as HTMLElement;
+    dropZone.classList.remove('dragover');
+
+    if (event.dataTransfer?.files.length) {
+      this.selectedFile = event.dataTransfer.files[0];
+      console.log("Archivo seleccionado:", this.selectedFile);
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files?.length) {
+      this.selectedFile = input.files[0];
+      console.log("Archivo seleccionado:", this.selectedFile);
+    }
+  }
+
+  guardarArchivo() {
+    // Lógica para guardar el archivo
+    console.log("Archivo guardado:", this.selectedFile);
+  }
+  cancelar() {
+  this.resetForm(); // Limpia el formulario
+  this.selectedFile = null; // Quita el archivo seleccionado
+  console.log("Formulario cancelado");
+}
+
 }
 

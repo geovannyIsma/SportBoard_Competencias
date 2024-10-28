@@ -31,6 +31,10 @@ const routes: Routes = [
   {
     path: 'perfil-jugador',
     component: PerfilJugadorComponent
+  },
+    {
+    path: 'perfil-reglas',
+    component: PerfilReglasComponent
   }
 ];
 @NgModule({
