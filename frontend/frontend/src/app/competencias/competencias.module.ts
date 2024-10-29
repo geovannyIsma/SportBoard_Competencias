@@ -6,6 +6,7 @@ import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
 import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
 import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-competencia.component';
 import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
+import { GestionEquipoComponent } from './gestion-equipo/gestion-equipo.component';
 import {PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 
 @NgModule({
@@ -16,7 +17,11 @@ import {PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
     PerfilesComponent,
     PerfilEquipoComponent,
       PerfilReglasComponent,
-    CompetenciasRoutingModule
+    CompetenciasRoutingModule,
+    PerfilJugadorComponent,
+    CompetenciasRoutingModule,
+    GestionCompetenciaComponent,
+    GestionEquipoComponent
   ]
 })
 

@@ -8,7 +8,9 @@ import { PerfilEquipoComponent } from '../perfil-equipo/perfil-equipo.component'
   standalone: true,
   imports: [
     MatIconModule,
-  ],
+     GestionCompetenciaComponent, 
+     PerfilEquipoComponent
+   ],
   templateUrl: './perfiles.component.html',
   styleUrl: './perfiles.component.scss'
 })
@@ -28,5 +30,9 @@ export class PerfilesComponent {
   }
   navigateToGestionCompetencia() {
     this.router.navigate(['/competencias/listado-competencia']);
+  }
+
+  navigateToGestionEquipo() {
+    this.router.navigate(['/competencias/gestion-equipo']); 
   }
 }
