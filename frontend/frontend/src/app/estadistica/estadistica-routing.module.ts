@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EstadisticasComponent } from './estadisticas/estadisticas.component';
-import { EstadisticasEquiposComponent } from './estadisticas-equipos/estadisticas-equipos.component';
-import { EstadisticasJugadoresComponent } from './estadisticas-jugadores/estadisticas-jugadores.component';
-import { PartidosProximosComponent } from './partidos-proximos/partidos-proximos.component';
-import { ResultadosComponent } from './resultados/resultados.component';
+import { ResultadosEstadisticaComponent } from './resultados-estadistica/resultados-estadistica.component';
 import { TablaPosicionesComponent } from './tabla-posiciones/tabla-posiciones.component';
+import { JugadoresEstadisticaComponent } from './jugadores-estadistica/jugadores-estadistica.component';
+import { EquiposEstadisticaComponent } from './equipos-estadistica/equipos-estadistica.component';
+import { CompetenciaEstadisticaComponent } from './competencia-estadistica/competencia-estadistica.component';
+import { CompetenciaInfoComponent } from './competencia-info/competencia-info.component';
 
 const routes: Routes = [
-  { path: '', component: EstadisticasComponent, children: [
-    { path: 'equipos', component: EstadisticasEquiposComponent },
-    { path: 'jugadores', component: EstadisticasJugadoresComponent },
-    { path: 'partidos-proximos', component: PartidosProximosComponent },
-    { path: 'resultados', component: ResultadosComponent },
-    { path: 'tabla-posiciones', component: TablaPosicionesComponent },
-  ] }
+  {
+    path: '', component: CompetenciaEstadisticaComponent,
+    children: [
+      {path: '', redirectTo: 'competencia-info', pathMatch:'full'},
+      {path: 'competencia-info', component: CompetenciaInfoComponent},
+      { path: 'resultado-estadistica', component: ResultadosEstadisticaComponent },
+      { path: 'tabla-posiciones', component: TablaPosicionesComponent },
+      { path: 'jugadores-estadisticas', component: JugadoresEstadisticaComponent },
+      { path: 'equipos-estadisticas', component: EquiposEstadisticaComponent },
+    ]
+  }
 ];
 
 @NgModule({

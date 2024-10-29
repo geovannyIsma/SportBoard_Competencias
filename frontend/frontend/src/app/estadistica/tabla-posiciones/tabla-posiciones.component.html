@@ -1,53 +1,69 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!-- Equipo Column -->
-    <ng-container matColumnDef="equipo">
+<div class="standings-container">
+    <h2>Tabla de Posiciones</h2>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+      <!-- Posición Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef> Posición </th>
+        <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+      </ng-container>
+  
+      <!-- Equipo Column -->
+      <ng-container matColumnDef="team">
         <th mat-header-cell *matHeaderCellDef> Equipo </th>
-        <td mat-cell *matCellDef="let element"> {{element.equipo}} </td>
-    </ng-container>
-
-    <!-- Puntos Column -->
-    <ng-container matColumnDef="puntos">
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.logo" alt="{{element.team}}" class="team-logo">
+          {{element.team}}
+        </td>
+      </ng-container>
+  
+      <!-- Jugados Column -->
+      <ng-container matColumnDef="played">
+        <th mat-header-cell *matHeaderCellDef> Jugados </th>
+        <td mat-cell *matCellDef="let element"> {{element.played}} </td>
+      </ng-container>
+  
+      <!-- Ganados Column -->
+      <ng-container matColumnDef="won">
+        <th mat-header-cell *matHeaderCellDef> Ganados </th>
+        <td mat-cell *matCellDef="let element"> {{element.won}} </td>
+      </ng-container>
+  
+      <!-- Empatados Column -->
+      <ng-container matColumnDef="drawn">
+        <th mat-header-cell *matHeaderCellDef> Empatados </th>
+        <td mat-cell *matCellDef="let element"> {{element.drawn}} </td>
+      </ng-container>
+  
+      <!-- Perdidos Column -->
+      <ng-container matColumnDef="lost">
+        <th mat-header-cell *matHeaderCellDef> Perdidos </th>
+        <td mat-cell *matCellDef="let element"> {{element.lost}} </td>
+      </ng-container>
+  
+      <!-- Últimos Partidos Column -->
+      <ng-container matColumnDef="lastMatches">
+        <th mat-header-cell *matHeaderCellDef> Últimos partidos </th>
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngFor="let match of element.lastMatches">
+            <mat-icon [ngClass]="{
+              'won-icon': match === 'W',
+              'drawn-icon': match === 'D',
+              'lost-icon': match === 'L'
+            }">
+              {{ match === 'W' ? 'check_circle' : match === 'D' ? 'remove_circle' : 'cancel' }}
+            </mat-icon>
+          </ng-container>
+        </td>
+      </ng-container>
+  
+      <!-- Puntos Column -->
+      <ng-container matColumnDef="points">
         <th mat-header-cell *matHeaderCellDef> Puntos </th>
-        <td mat-cell *matCellDef="let element"> {{element.puntos}} </td>
-    </ng-container>
-
-    <!-- Partidos Jugados Column -->
-    <ng-container matColumnDef="partidosJugados">
-        <th mat-header-cell *matHeaderCellDef> PJ </th>
-        <td mat-cell *matCellDef="let element"> {{element.partidosJugados}} </td>
-    </ng-container>
-
-    <!-- Partidos Ganados Column -->
-    <ng-container matColumnDef="partidosGanados">
-        <th mat-header-cell *matHeaderCellDef> PG </th>
-        <td mat-cell *matCellDef="let element">
-            <mat-icon [ngClass]="{'win-icon': element.partidosGanados > 0, 'no-win-icon': element.partidosGanados == 0}">
-                {{element.partidosGanados > 0 ? 'check_circle' : 'cancel'}}
-            </mat-icon>
-        </td>
-    </ng-container>
-
-    <!-- Partidos Empatados Column -->
-    <ng-container matColumnDef="partidosEmpatados">
-        <th mat-header-cell *matHeaderCellDef> PE </th>
-        <td mat-cell *matCellDef="let element">
-            <mat-icon [ngClass]="{'draw-icon': element.partidosEmpatados > 0, 'no-draw-icon': element.partidosEmpatados == 0}">
-                {{element.partidosEmpatados > 0 ? 'remove_circle' : 'cancel'}}
-            </mat-icon>
-        </td>
-    </ng-container>
-
-    <!-- Partidos Perdidos Column -->
-    <ng-container matColumnDef="partidosPerdidos">
-        <th mat-header-cell *matHeaderCellDef> PP </th>
-        <td mat-cell *matCellDef="let element">
-            <mat-icon [ngClass]="{'lose-icon': element.partidosPerdidos > 0, 'no-lose-icon': element.partidosPerdidos == 0}">
-                {{element.partidosPerdidos > 0 ? 'highlight_off' : 'cancel'}}
-            </mat-icon>
-        </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+        <td mat-cell *matCellDef="let element"> {{element.points}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>

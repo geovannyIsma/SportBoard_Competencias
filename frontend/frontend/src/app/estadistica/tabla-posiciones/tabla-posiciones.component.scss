@@ -1,23 +1,30 @@
-.win-icon {
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.team-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.won-icon {
     color: green;
-  }
-  
-  .no-win-icon {
-    color: red;
-  }
-  
-  .draw-icon {
+    margin-right: 4px;
+}
+
+.drawn-icon {
     color: orange;
-  }
-  
-  .no-draw-icon {
+    margin-right: 4px;
+}
+
+.lost-icon {
     color: red;
-  }
-  
-  .lose-icon {
-    color: red;
-  }
-  
-  .no-lose-icon {
-    color: green;
-  }
+    margin-right: 4px;
+}

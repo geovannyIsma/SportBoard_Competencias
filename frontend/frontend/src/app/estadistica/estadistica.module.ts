@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { EstadisticasRoutingModule } from './estadistica-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { EstadisticasEquiposComponent } from './estadisticas-equipos/estadisticas-equipos.component';
-import { EstadisticasJugadoresComponent } from './estadisticas-jugadores/estadisticas-jugadores.component';
-import { PartidosProximosComponent } from './partidos-proximos/partidos-proximos.component';
-import { ResultadosComponent } from './resultados/resultados.component';
-import { TablaPosicionesComponent } from './tabla-posiciones/tabla-posiciones.component';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
-import { PartidoModalComponent } from './partido-modal/partido-modal.component';
+import { EncabezadoCompetenciaComponent } from './encabezado-competencia/encabezado-competencia.component';
+import { CompetenciaEstadisticaComponent } from './competencia-estadistica/competencia-estadistica.component';
+import { TabsEstadisticasComponent } from './tabs-estadisticas/tabs-estadisticas.component';
+import { EquiposComponent } from './equipos/equipos.component';
+import { PartidoProximosEstadisticaComponent } from './partido-proximos-estadistica/partido-proximos-estadistica.component';
+import { EquiposEstadisticaComponent } from "./equipos-estadistica/equipos-estadistica.component";
+import { ResultadosEstadisticaComponent } from "./resultados-estadistica/resultados-estadistica.component";
+import { TablaPosicionesComponent } from "./tabla-posiciones/tabla-posiciones.component";
+import { JugadoresEstadisticaComponent } from "./jugadores-estadistica/jugadores-estadistica.component";
+import { CompetenciaInfoComponent } from './competencia-info/competencia-info.component';
 
 @NgModule({
   declarations: [
-    EstadisticasComponent,
-    EstadisticasEquiposComponent,
-    EstadisticasJugadoresComponent,
-    PartidosProximosComponent,
-    ResultadosComponent,
+    CompetenciaInfoComponent,
+    CompetenciaEstadisticaComponent,
+    EncabezadoCompetenciaComponent,
+    TabsEstadisticasComponent,
+    EquiposComponent,
+    PartidoProximosEstadisticaComponent,
+    EquiposEstadisticaComponent,
+    JugadoresEstadisticaComponent,
+    ResultadosEstadisticaComponent,
     TablaPosicionesComponent,
-    PartidoModalComponent
   ],
   imports: [
     CommonModule,
