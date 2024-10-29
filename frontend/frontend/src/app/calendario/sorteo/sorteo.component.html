@@ -1,52 +1,26 @@
-<h1>Bombos - Fase Liga</h1>
+<h1>Resultados del Sorteo - Fase de Grupos</h1>
 
-  <div class="container">
-    <div class="bombo">
-      <h2>Bombo 1</h2>
-      <ul>
-        <li>Real Madrid</li>
-        <li>Manchester City</li>
-        <li>FC Barcelona</li>
-        <li>Bayern Munich</li>
-        <li>Liverpool</li>
-      </ul>
-    </div>
-
-    <div class="bombo">
-      <h2>Bombo 2</h2>
-      <ul>
-        <li>Juventus</li>
-        <li>Milan</li>
-        <li>Aston Villa</li>
-        <li>Arsenal</li>
-        <li>Brujas</li>
-      </ul>
-    </div>
-
-    <div class="bombo">
-      <h2>Bombo 3</h2>
-      <ul>
-        <li>PSV</li>
-        <li>Celtic</li>
-        <li>Lille</li>
-        <li>Estrella Roja</li>
-        <li>Dinamo</li>
-      </ul>
-    </div>
-
-    <div class="bombo">
-      <h2>Bombo 4</h2>
-      <ul>
-        <li>Young Boys</li>
-        <li>Monaco</li>
-        <li>Girona</li>
-        <li>Bolonia</li>
-        <li>Manchester United</li>
-      </ul>
-    </div>
+<div class="container">
+  <div class="bombo" *ngFor="let group of groups | keyvalue" (click)="selectGroup(group.key)">
+    <h2>Grupo {{ group.key }}</h2>
+    <ul>
+      <li *ngFor="let team of group.value">{{ team }}</li>
+    </ul>
   </div>
 
-  <div class="buttons">
-    <button class="cancel">Cancelar</button>
-    <button class="draw">Sortear</button>
+  <div class="matches" *ngIf="selectedGroup">
+    <h2>Enfrentamientos del Grupo {{ selectedGroup }}</h2>
+    <div class="versus" *ngFor="let match of matches">
+      <div class="match">
+        <span>{{ match.home }}</span>
+        <span class="vs">vs</span>
+        <span>{{ match.away }}</span>
+      </div>
+    </div>
   </div>
+</div>
+
+<div class="buttons">
+  <button mat-raised-button color="primary" class="cancel">Cancelar</button>
+  <button mat-raised-button color="accent" class="draw">Sortear</button>
+</div>
