@@ -2,8 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EstadisticasRoutingModule } from './estadistica-routing.module';
 import { SharedModule } from '../shared/shared.module';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
 import { EncabezadoCompetenciaComponent } from './encabezado-competencia/encabezado-competencia.component';
 import { CompetenciaEstadisticaComponent } from './competencia-estadistica/competencia-estadistica.component';
 import { TabsEstadisticasComponent } from './tabs-estadisticas/tabs-estadisticas.component';
@@ -33,7 +36,10 @@ import { CompetenciaInfoComponent } from './competencia-info/competencia-info.co
     EstadisticasRoutingModule,
     SharedModule,
     MatIconModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule,
+    MatToolbarModule,
+    MatTableModule,
   ]
 })
 export class EstadisticaModule { }
