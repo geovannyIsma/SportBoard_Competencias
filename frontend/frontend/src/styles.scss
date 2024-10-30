@@ -70,3 +70,6 @@ section {
 .spacer {
     flex: 1; /* Añade espacio entre elementos */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
