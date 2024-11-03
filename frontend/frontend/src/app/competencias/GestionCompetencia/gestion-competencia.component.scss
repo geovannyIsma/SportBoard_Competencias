@@ -64,10 +64,12 @@
 }
 
 // Estilo para la tabla de competencias
+/* Estilo para la tabla de competencias */
 table {
-  width: 100%; // Ancho completo
-  margin-top: 2rem; // Espaciado superior
+  width: 100%; /* Ancho completo */
+  margin-top: 2rem; /* Espaciado superior */
 }
+
 
 .mat-table {
   width: 100%; // Ancho completo de la tabla
@@ -85,7 +87,6 @@ table {
 
 .button-container {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px; /* Espacio entre los botones */
     justify-content: center;
     align-items: center;
@@ -138,6 +139,12 @@ table {
 .cancel-button {
     background-color: #4CAF50; /* Azul para el botón de Guardar */
 }
+
+/* Añade margen superior a la carta de competencias */
+.saved-competitions-card {
+  margin-top: 2rem; /* Ajusta el valor según necesites */
+}
+
 
 /* Para dispositivos grandes */
 @media (min-width: 1025px) {
