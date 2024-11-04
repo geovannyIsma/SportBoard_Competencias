@@ -29,6 +29,19 @@
     text-align: center;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column; /* O 'row' si quieres en línea */
+    gap: 10px; /* Espacio entre los elementos */
+  }
+  
+  .form-group p {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+  }
+  .form-group input {
+    margin-left: 10px; /* Ajusta el valor según sea necesario */
+}
 /* Ajustes de tamaño y estilo de los contenedores de información y estadísticas */
 .container-informacion, .container-estadistica {
     flex: 1; /* Ocupan espacio igual dentro de .contenedor-secundario */
@@ -69,7 +82,7 @@
     background-color: #ffffff;
 }
 
-.container-informacion th,
+.container-informacion th, 
 .container-informacion td {
     border: 1px solid #ccc;
     padding: 10px;
@@ -102,6 +115,12 @@
     flex-direction: column;
     align-items: center;
     margin-top: 100%;
+}
+
+.button-guardar-eliminar {
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
 }
 
 .button-container-estadistica {
