@@ -10,6 +10,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+
+
 @Component({
   selector: 'app-gestion-competencia',
   standalone: true,
@@ -35,25 +38,32 @@ export class GestionCompetenciaComponent {
   fechaInicio: Date | null = null;
   fechaFin: Date | null = null;
   errorMessage: string = '';
-  competencias: any[] = [];
+  competencias: { nombre: string; fechaInicio: Date; fechaFin: Date }[] = [];
+  dataSource = new MatTableDataSource(this.competencias); // Define dataSource
   displayedColumns: string[] = ['nombre', 'fechaInicio', 'fechaFin'];
   selectedFile: File | null = null;
+
   guardar() {
     this.errorMessage = ''; // Resetear el mensaje de error
 
     if (!this.nombre || !this.fechaInicio || !this.fechaFin) {
-      this.errorMessage = 'Por favor, complete todos los campos obligatorios.'; // Mensaje de error
+      this.errorMessage = 'Por favor, complete todos los campos obligatorios.';
       return;
     }
 
     const nuevaCompetencia = {
       nombre: this.nombre,
-      fechaInicio: this.fechaInicio.toLocaleDateString(),
-      fechaFin: this.fechaFin.toLocaleDateString()
+      fechaInicio: new Date(this.fechaInicio), // Asegura que se almacene como objeto Date
+      fechaFin: new Date(this.fechaFin)
     };
+
+    // Agregar la nueva competencia al array y actualizar dataSource
     this.competencias.push(nuevaCompetencia);
+    this.dataSource.data = [...this.competencias]; // Actualiza dataSource
+
     this.resetForm();
   }
+  
   resetForm() {
     this.nombre = '';
     this.fechaInicio = null;
