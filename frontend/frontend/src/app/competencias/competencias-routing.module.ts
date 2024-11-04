@@ -11,6 +11,17 @@ import { ListadoCompetenciasComponent} from './listado-competencias/listado-comp
 import { ListadoJugadoresComponent} from './listado-jugadores/listado-jugadores.component';
 
 const routes: Routes = [
+    {
+    path: '',
+    redirectTo: 'perfiles',
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfiles',
+    component: PerfilesComponent
+  },
+
+
   {
     path: 'gestion-competencia',
     component: GestionCompetenciaComponent
@@ -23,7 +34,7 @@ const routes: Routes = [
   {
     path: 'perfil-jugador',
     component: PerfilJugadorComponent //Ruta del componente
-  }
+  },
 
   { path: 'gestion-equipo',
     component: GestionEquipoComponent
@@ -39,10 +50,6 @@ const routes: Routes = [
   {
     path: 'listado-equipos',
     component: ListadoEquiposComponent
-  },
-  {
-    path: 'perfil-jugador',
-    component: PerfilJugadorComponent
   },
     {
         path:'listado-jugador',

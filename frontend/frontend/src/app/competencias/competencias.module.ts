@@ -22,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
     PerfilJugadorComponent,
     CompetenciasRoutingModule,
     GestionCompetenciaComponent,
-    GestionEquipoComponent
+    GestionEquipoComponent,
     MatIconModule
   ]
 })
