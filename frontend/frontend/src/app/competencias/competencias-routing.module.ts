@@ -12,18 +12,18 @@ import { ListadoJugadoresComponent} from './listado-jugadores/listado-jugadores.
 
 const routes: Routes = [
   {
-    path: '',
-    redirectTo: 'perfiles',
-    pathMatch: 'full'
-  },
-  {
-    path: 'perfiles',
-    component: PerfilesComponent
-  },
-  {
     path: 'gestion-competencia',
     component: GestionCompetenciaComponent
   },
+  {
+    path: '',
+    redirectTo: 'perfil-jugador',  // Redirige automáticamente al componente Perfil Jugador
+    pathMatch: 'full'
+  },
+  {
+    path: 'perfil-jugador',
+    component: PerfilJugadorComponent //Ruta del componente
+  }
 
   { path: 'gestion-equipo',
     component: GestionEquipoComponent

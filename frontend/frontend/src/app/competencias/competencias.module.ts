@@ -8,6 +8,7 @@ import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-compet
 import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
 import { GestionEquipoComponent } from './gestion-equipo/gestion-equipo.component';
 import {PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import {PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
     CompetenciasRoutingModule,
     GestionCompetenciaComponent,
     GestionEquipoComponent
+    MatIconModule
   ]
 })
 

@@ -12,41 +12,36 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class PerfilJugadorComponent {
+  modoEdicion = false; 
 
-  PerfilJugador = {
-    Nombre: 'Lamine Yamal',
-    Edad: '17 años',
-    Peso: '72 Kg',
-    Altura: '1.8m',
-    Nacionalidad: 'Español',
-  };
-
-  PerfilInformacion = {
-    Equipo: 'F. C. Barcelona',
-    Entrenador: 'Hansi Flick',
-    Posicion: 'Delantero',
-    Rendimiento: '10 Estrellas'
+  modificarInfo() {
+    this.modoEdicion = true;
+  }
+  guardarCambios() {
+    alert('Cambios guardados exitosamente.');
+    this.modoEdicion = false; // Se desactiva el modo edición
   }
 
-  onClickB1() {
-    alert('Ha hecho click en modificar');
-
+  cancelarEdicion() {
+    alert('Edición cancelada.');
+    this.modoEdicion = false; // Se desactiva el modo edición
   }
+
   onClickB2() {
     alert('Ha hecho click en Estadísticas Detalladas');
-
+    
   }
   onClickB3() {
     alert('Ha hecho click en Historial de Lesiones');
-
+    
   }
   onClickB4() {
     alert('Ha hecho click en Historial de Clubes');
-
+    
   }
   onClickB5() {
     alert('Ha hecho click en Historial de Entrenamientos');
-
+    
   }
 
 }
