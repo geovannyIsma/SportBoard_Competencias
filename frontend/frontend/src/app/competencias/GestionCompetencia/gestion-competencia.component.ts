@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatTableDataSource } from '@angular/material/table';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class GestionCompetenciaComponent {
   dataSource = new MatTableDataSource(this.competencias); // Define dataSource
   displayedColumns: string[] = ['nombre', 'fechaInicio', 'fechaFin'];
   selectedFile: File | null = null;
-
+constructor(private router: Router) { }
   guardar() {
     this.errorMessage = ''; // Resetear el mensaje de error
 
@@ -63,7 +64,7 @@ export class GestionCompetenciaComponent {
 
     this.resetForm();
   }
-  
+
   resetForm() {
     this.nombre = '';
     this.fechaInicio = null;
@@ -104,6 +105,8 @@ export class GestionCompetenciaComponent {
   this.selectedFile = null; // Quita el archivo seleccionado
   console.log("Formulario cancelado");
 }
-
+  navigateToGestionCompetencias() {
+    this.router.navigate(['/competencias/listado-competencia']);
+  }
 }
 
