@@ -9,6 +9,7 @@ import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.compo
 import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 import { ListadoCompetenciasComponent} from './listado-competencias/listado-competencias.component';
 import { ListadoJugadoresComponent} from './listado-jugadores/listado-jugadores.component';
+import {ListadoReglasComponent} from './listado-reglas/listado-reglas.component';
 
 const routes: Routes = [
     {
@@ -58,7 +59,11 @@ const routes: Routes = [
     {
     path: 'perfil-reglas',
     component: PerfilReglasComponent
-  }
+  },
+    {
+    path: 'listado-reglas',
+    component: ListadoReglasComponent
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

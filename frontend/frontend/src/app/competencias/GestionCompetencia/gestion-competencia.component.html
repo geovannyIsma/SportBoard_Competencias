@@ -55,6 +55,9 @@
                 <button class="custom-button save-button" (click)="cancelar()">
                       <mat-icon>save</mat-icon> Añadir Equipo
                 </button>
+              <button class="custom-button save-button" (click)="navigateToGestionCompetencias()">
+                      <mat-icon>save</mat-icon> Añadir Competencia
+                </button>
           </div>
 
           <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>

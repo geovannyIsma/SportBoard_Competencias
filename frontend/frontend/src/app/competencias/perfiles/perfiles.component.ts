@@ -8,7 +8,7 @@ import { PerfilEquipoComponent } from '../perfil-equipo/perfil-equipo.component'
   standalone: true,
   imports: [
     MatIconModule,
-     GestionCompetenciaComponent, 
+     GestionCompetenciaComponent,
      PerfilEquipoComponent
    ],
   templateUrl: './perfiles.component.html',
@@ -26,13 +26,13 @@ export class PerfilesComponent {
     this.router.navigate(['/competencias/listado-jugador']);
   }
   navigateToPerfilReglas() {
-    this.router.navigate(['/competencias/perfil-reglas']);
+    this.router.navigate(['/competencias/listado-reglas']);
   }
   navigateToGestionCompetencia() {
-    this.router.navigate(['/competencias/listado-competencia']);
+    this.router.navigate(['/competencias/gestion-competencia']);
   }
 
   navigateToGestionEquipo() {
-    this.router.navigate(['/competencias/gestion-equipo']); 
+    this.router.navigate(['/competencias/gestion-equipo']);
   }
 }
