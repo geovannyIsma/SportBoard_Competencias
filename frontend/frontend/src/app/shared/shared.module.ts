@@ -11,6 +11,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
     declarations: [],
@@ -27,6 +28,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatTableModule,
         MatTabsModule,
         MatToolbarModule,
+        MatExpansionModule
     ],
 })
 export class SharedModule {}
