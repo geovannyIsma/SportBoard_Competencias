@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { SlidebarComponent } from './core/sidebar/sidebar.component';
+import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { SharedModule } from './shared/shared.module';
 
 @Component({
@@ -14,7 +14,7 @@ import { SharedModule } from './shared/shared.module';
         RouterModule,
         RouterOutlet,
         SharedModule,
-        SlidebarComponent,
+        SidebarComponent
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',

@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -10,4 +11,10 @@ import { SharedModule } from '../../shared/shared.module';
 })
 export class HeaderComponent {
     @Output() toggleSidebar = new EventEmitter<void>();
-}
+
+    constructor(private router: Router) {}
+        navigateToInicioSesion() {
+            this.router.navigate(['/usuarios/inicio-sesion']);
+        }
+    }
+
