@@ -1,19 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SidebarComponent } from './sidebar.component';
+import { GestionUsuarioComponent } from './gestion-usuario.component';
 
-
-describe('SidebarComponent', () => {
-  let component: SidebarComponent;
-  let fixture: ComponentFixture<SidebarComponent>;
+describe('GestionUsuarioComponent', () => {
+  let component: GestionUsuarioComponent;
+  let fixture: ComponentFixture<GestionUsuarioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SidebarComponent]
+      imports: [GestionUsuarioComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SidebarComponent);
+    fixture = TestBed.createComponent(GestionUsuarioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -21,4 +20,5 @@ describe('SidebarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

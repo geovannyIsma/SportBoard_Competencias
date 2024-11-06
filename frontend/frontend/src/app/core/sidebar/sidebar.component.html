@@ -22,10 +22,13 @@
             </a>
           </mat-list-item>
           <mat-list-item>
-            <a mat-line [routerLink]="['usuarios']">
+            <botton mat-line [matMenuTriggerFor]="usuariosMenu">
               <mat-icon mat-list-icon>people</mat-icon>
               Usuarios
-            </a>
+            </botton>
+            <mat-menu #usuariosMenu="matMenu">
+              <button mat-menu-item (click)="navigateToGestionUsuario()">Gestión de Usuarios</button>
+            </mat-menu>
           </mat-list-item>
           <mat-list-item>
             <a mat-line [routerLink]="['competencias']">
