@@ -18,6 +18,7 @@ interface Partido {
     estadio: string;
     fecha: string;
     hora: string;
+    enVivo: boolean;
 }
 
 
@@ -37,6 +38,7 @@ export class MatchtableComponent {
         'estadio',
         'fecha',
         'hora',
+        'enVivo',
     ];
     partidos: Partido[] = [
       {
@@ -50,6 +52,7 @@ export class MatchtableComponent {
           estadio: 'Camp Nou',
           fecha: '2024-10-22',
           hora: '18:00',
+          enVivo: false,
       },
       {
           id: 2,
@@ -62,6 +65,7 @@ export class MatchtableComponent {
           estadio: 'Old Trafford',
           fecha: '2024-10-23',
           hora: '16:00',
+          enVivo: false,
       },
       {
           id: 3,
@@ -74,6 +78,7 @@ export class MatchtableComponent {
           estadio: 'Monumental',
           fecha: '2024-10-24',
           hora: '20:00',
+          enVivo: false,
       },
       {
           id: 4,
@@ -86,6 +91,7 @@ export class MatchtableComponent {
           estadio: 'Allianz Stadium',
           fecha: '2024-10-25',
           hora: '21:00',
+          enVivo: false,
       },
       {
           id: 5,
@@ -98,6 +104,7 @@ export class MatchtableComponent {
           estadio: 'Parc des Princes',
           fecha: '2024-10-26',
           hora: '19:00',
+          enVivo: false,
       },
       {
           id: 6,
@@ -110,6 +117,7 @@ export class MatchtableComponent {
           estadio: 'Allianz Arena',
           fecha: '2024-10-27',
           hora: '18:30',
+          enVivo: false,
       },
       {
           id: 7,
@@ -122,6 +130,7 @@ export class MatchtableComponent {
           estadio: 'Anoeta',
           fecha: '2024-10-28',
           hora: '17:00',
+          enVivo: false,
       },
       {
           id: 8,
@@ -134,6 +143,7 @@ export class MatchtableComponent {
           estadio: 'Ramón Sánchez-Pizjuán',
           fecha: '2024-10-29',
           hora: '20:00',
+          enVivo: false,
       },
       {
           id: 9,
@@ -146,6 +156,7 @@ export class MatchtableComponent {
           estadio: 'Azteca',
           fecha: '2024-10-30',
           hora: '18:00',
+          enVivo: false,
       },
       {
           id: 10,
@@ -158,6 +169,7 @@ export class MatchtableComponent {
           estadio: 'Banc of California Stadium',
           fecha: '2024-10-31',
           hora: '21:30',
+          enVivo: false,
       },
       {
           id: 11,
@@ -170,6 +182,7 @@ export class MatchtableComponent {
           estadio: 'DRV PNK Stadium',
           fecha: '2024-11-01',
           hora: '20:00',
+          enVivo: false,
       },
       {
           id: 12,
@@ -182,6 +195,7 @@ export class MatchtableComponent {
           estadio: 'Morumbi',
           fecha: '2024-11-02',
           hora: '19:00',
+          enVivo: false,
       },
       {
           id: 13,
@@ -194,6 +208,7 @@ export class MatchtableComponent {
           estadio: 'Palmaseca',
           fecha: '2024-11-03',
           hora: '18:00',
+          enVivo: false,
       },
       {
           id: 14,
@@ -206,6 +221,7 @@ export class MatchtableComponent {
           estadio: 'Arena do Grêmio',
           fecha: '2024-11-04',
           hora: '21:00',
+          enVivo: false,
       },
       {
           id: 15,
@@ -218,7 +234,115 @@ export class MatchtableComponent {
           estadio: 'Universitario',
           fecha: '2024-11-05',
           hora: '20:00',
+          enVivo: false,
       },
+      {
+        id: 16,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'Delfin',
+        escudo2: 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/1011.png',
+        estadio: 'Universitario',
+        fecha: '2025-10-05',
+        hora: '20:00',
+        enVivo: false,
+    },
+    {
+        id: 17,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'Emelec',
+        escudo2: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/EscudoCSEmelec.png',
+        estadio: 'Universitario',
+        fecha: '2025-09-05',
+        hora: '20:00',
+        enVivo: false,
+    },
+    {
+        id: 18,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'AngelesGalaxy',
+        escudo2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Los_Angeles_Galaxy_logo.svg/800px-Los_Angeles_Galaxy_logo.svg.png',
+        estadio: 'Universitario',
+        fecha: '2025-08-15',
+        hora: '20:00',
+        enVivo: false,
+    },
+    {
+        id: 19,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'Delfin',
+        escudo2: 'https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/1011.png',
+        estadio: 'Universitario',
+        fecha: '2024-11-05',
+        hora: '20:00',
+        enVivo: true,
+    },
+    {
+        id: 20,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'Emelec',
+        escudo2: 'https://upload.wikimedia.org/wikipedia/commons/0/0b/EscudoCSEmelec.png',
+        estadio: 'Universitario',
+        fecha: '2024-11-05',
+        hora: '20:00',
+        enVivo: true,
+    },
+    {
+        id: 21,
+        escudo1: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Escudo_CD_El_Nacional.png/150px-Escudo_CD_El_Nacional.png',
+        nombreEq1: 'Nacional',
+        puntaje1: 0,
+        puntaje2: 0,
+        nombreEq2: 'AngelesGalaxy',
+        escudo2: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Los_Angeles_Galaxy_logo.svg/800px-Los_Angeles_Galaxy_logo.svg.png',
+        estadio: 'Universitario',
+        fecha: '2024-11-05',
+        hora: '20:00',
+        enVivo: true,
+    },
   ];
   
+  public tabSeleccionada: string = 'pasados'; 
+  public expandedPartido: any;
+
+    cambiarTab(tab: string) {
+        this.tabSeleccionada = tab;
+        this.expandedPartido = null;
+    }
+
+    toggleExpansionPanel(partido: any) { 
+        this.expandedPartido = this.expandedPartido === partido ? null : partido; 
+    }
+
+
+    getPartidosFiltrados(): Partido[] {
+        const hoy = new Date();
+        return this.partidos.filter(partido => {
+            const fechaPartido = new Date(partido.fecha);
+            if (this.tabSeleccionada === 'pasados') {
+                return fechaPartido < hoy;
+            } else if (this.tabSeleccionada === 'proximos') {
+                return fechaPartido > hoy;
+            } else if (this.tabSeleccionada === 'vivo') {
+                return partido.enVivo; 
+            }
+            return false;
+        });
+    }
+
 }
+
