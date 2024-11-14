@@ -436,3 +436,4 @@ cython_debug/
 !/db.sqlite3
 /sportProfile/migrations/
 !/sportProfile/migrations/0001_initial.py
+!/.venv/
