@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+    api-gateway:
+        extends:
+            file: .api-gateway/docker-compose.override.yml
+            service: api-gateway
+
+networks:
+    sportboard:
+        driver: bridge
