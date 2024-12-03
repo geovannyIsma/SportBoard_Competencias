@@ -9,8 +9,15 @@ using System.Collections.Generic;
 
 namespace SeedData
 {
+    /// <summary>
+    /// Provides methods to initialize data from CSV files.
+    /// </summary>
     public static class DataInitializer
     {
+        /// <summary>
+        /// Seeds the database from CSV files if no groups or catalogs exist.
+        /// </summary>
+        /// <param name="context">The database context to use for seeding data.</param>
         public static void SeedFromCsv(ApplicationDbContext context)
         {
             if (!context.Groups.Any() && !context.Catalogs.Any())
