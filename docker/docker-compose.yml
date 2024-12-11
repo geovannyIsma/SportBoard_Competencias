@@ -1,10 +1,22 @@
 version: "3.8"
+name: SportBoard-container
+
 services:
-    api-gateway:
+    postgres:
         extends:
-            file: .api-gateway/docker-compose.override.yml
-            service: api-gateway
+            file: ./api-gateway/docker-compose.override.yml
+            service: postgres
+
+    kong-migrations:
+        extends:
+            file: ./api-gateway/docker-compose.override.yml
+            service: kong-migrations
+
+    kong:
+        extends:
+            file: ./api-gateway/docker-compose.override.yml
+            service: kong
 
 networks:
-    sportboard:
-        driver: bridge
+    default:
+        name: kong-network
