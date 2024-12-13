@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Catalogs.Controllers;
 
 namespace Catalogs.Data
 {
@@ -20,8 +19,15 @@ namespace Catalogs.Data
             .HasForeignKey(c => c.IdCatalog)
             .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Catalog>()
+            .HasOne(c => c.group)
+            .WithMany(g => g.CatalogList)
+            .HasForeignKey(c => c.GroupCode)
+            .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Group>()
             .HasKey(g => g.Code);
+
 
             modelBuilder.Entity<Group>()
             .HasOne(g => g.Parent)

@@ -13,7 +13,7 @@ public class Catalog : Component
     public List<Catalog>? Children { get; set; }
 
     public string GroupCode { get; set; }
-    public Group? group { get; set; }
+    public Group group { get; set; }
 
     // Constructores
     public Catalog()

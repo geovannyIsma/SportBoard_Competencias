@@ -17,6 +17,12 @@ services:
             file: ./api-gateway/docker-compose.override.yml
             service: kong
 
+# Microservicio de catálogo
+    sqlserver:
+        extends:
+            file: ./backend/ms6-catalog/docker-compose.override.yml
+            service: sqlserver
+
 networks:
     default:
         name: kong-network
