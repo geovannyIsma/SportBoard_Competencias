@@ -19,7 +19,7 @@ services:
 
     ms2-competencies:
         extends:
-            file: ./api-gateway/docker-compose.override.yml
+            file: ./backend/ms2-competencies/docker-compose.override.yml
             service: ms2-competencies
 
 networks:
