@@ -2,6 +2,17 @@ version: "3.8"
 name: SportBoard-container
 
 services:
+    postgres-competencies:
+        image: postgres:13
+        container_name: postgres-competencies
+        restart: always
+        environment:
+            POSTGRES_USER: competencies_user
+            POSTGRES_DB: competencies_db
+            POSTGRES_PASSWORD: competencies_password
+        ports:
+            - "5433:5432"
+
     ms2-competencies:
         build:
             context: ../../../
@@ -10,10 +21,8 @@ services:
         restart: always
         environment:
             - DJANGO_SETTINGS_MODULE=competencies.settings
+            - DATABASE_URL=postgres://competencies_user:competencies_password@postgres-competencies:5432/competencies_db
         ports:
             - "8003:8003"
         depends_on:
-            - postgres
-
-
-
+            - postgres-competencies

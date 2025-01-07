@@ -22,6 +22,11 @@ services:
             file: ./backend/ms2-competencies/docker-compose.override.yml
             service: ms2-competencies
 
+    postgres-competencies:
+        extends:
+            file: ./backend/ms2-competencies/docker-compose.override.yml
+            service: postgres-competencies
+
 networks:
     default:
         name: kong-network
