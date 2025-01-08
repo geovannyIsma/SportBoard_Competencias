@@ -1,4 +1,3 @@
-version: "3.8"
 name: SportBoard-container
 
 services:
@@ -16,6 +15,17 @@ services:
         extends:
             file: ./api-gateway/docker-compose.override.yml
             service: kong
+
+# Microservicio de catálogo
+    sqlserver:
+        extends:
+            file: ./backend/ms6-catalog/docker-compose.override.yml
+            service: sqlserver
+    
+    catalogs:
+        extends:
+            file: ./backend/ms6-catalog/docker-compose.override.yml
+            service: catalogs
 
 networks:
     default:
