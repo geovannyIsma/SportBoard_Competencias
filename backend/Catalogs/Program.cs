@@ -42,9 +42,8 @@ using (var scope = app.Services.CreateScope())
     DataInitializer.SeedFromCsv(context);
 }
 
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -54,4 +53,4 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.Run();
+app.Run("http://*:5241");
