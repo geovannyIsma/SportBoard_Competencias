@@ -13,8 +13,11 @@ export class HeaderComponent {
     @Output() toggleSidebar = new EventEmitter<void>();
 
     constructor(private router: Router) {}
-        navigateToInicioSesion() {
-            this.router.navigate(['/usuarios/inicio-sesion']);
-        }
+    navigateToInicioSesion() {
+        this.router.navigate(['/usuarios/inicio-sesion']);
     }
 
+    logout() {
+        this.router.navigate(['/usuarios/inicio-sesion']);
+    }
+}
