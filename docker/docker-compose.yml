@@ -28,5 +28,6 @@ services:
             service: catalogs
 
 networks:
-    default:
-        name: kong-network
+    sportboard-network:
+        name: sportboard-network
+        driver: bridge

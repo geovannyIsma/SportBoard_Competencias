@@ -12,6 +12,10 @@ services:
             POSTGRES_PASSWORD: kong
         ports:
             - "5432:5432"
+        networks:
+            - sportboard-network
+        # Asegúrate de que PostgreSQL esté configurado para aceptar conexiones externas
+        # Puedes agregar una configuración adicional en el archivo postgresql.conf si es necesario
 
     kong-migrations:
         image: kong:3.4
@@ -25,13 +29,15 @@ services:
             KONG_PG_USER: kong
             KONG_PG_PASSWORD: kong
         command: kong migrations bootstrap
+        networks:
+            - sportboard-network
 
     kong:
         image: kong:3.4
         container_name: kong
         restart: always # reiniciar siempre
         depends_on:
-            - postgres
+            - kong-migrations
         environment:
             KONG_DATABASE: postgres # base de datos
             KONG_PG_HOST: postgres  # host de la base de datos
@@ -56,7 +62,9 @@ services:
             kong config db_import /kong.yml &&
             kong start
             "
+        networks:
+            - sportboard-network
 
 networks:
-    default:
-        name: kong-network
+    sportboard-network:
+        external: true

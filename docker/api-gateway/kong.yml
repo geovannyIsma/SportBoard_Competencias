@@ -3,8 +3,14 @@ _transform: true
 
 services:
   - name: groups-service
-    url: http://localhost:5241/api/groups
+    url: http://catalogs:5241/api/groups
     routes:
       - name: groups-route
         paths:
           - /groups
+  - name: catalogs-service
+    url: http://catalogs:5241/api/catalogs
+    routes:
+      - name: catalogs-route
+        paths:
+          - /catalogs
