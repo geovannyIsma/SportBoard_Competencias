@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PerfilesComponent } from '../competencias/perfiles/perfiles.component';
-import { GestionCompetenciaComponent } from '../competencias/GestionCompetencia/gestion-competencia.component';
-import { PerfilEquipoComponent } from '../competencias/perfil-equipo/perfil-equipo.component';
-import { PerfilJugadorComponent } from '../competencias/perfil-jugador/perfil-jugador.component';
-import { GestionEquipoComponent } from '../competencias/gestion-equipo/gestion-equipo.component';
+import { PerfilesComponent } from './perfiles/perfiles.component';
+import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-competencia.component';
+import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
+import { PerfilJugadorComponent } from './perfil-jugador/perfil-jugador.component';
+import { GestionEquipoComponent } from './gestion-equipo/gestion-equipo.component';
 import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
 import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
 import { ListadoCompetenciasComponent} from './listado-competencias/listado-competencias.component';
