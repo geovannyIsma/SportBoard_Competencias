@@ -7,10 +7,10 @@ services:
     routes:
       - name: groups-route
         paths:
-          - /groups
+          - /catalog/groups
   - name: catalogs-service
     url: http://catalogs:5241/api/catalogs
     routes:
       - name: catalogs-route
         paths:
-          - /catalogs
+          - /catalog/catalogs
