@@ -4,7 +4,7 @@ export const environment = {
     protocol: 'http',
     baseUrl: 'localhost',
     port: 8000,
-    suffix: '/api',
+    suffix: '', // '/api',
     apiUrl: '',
     services: {
         catalog: {

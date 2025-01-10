@@ -6,12 +6,16 @@ import { CatalogsComponent } from './catalogs/catalogs.component';
 import { GroupsComponent } from './groups/groups.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
+import { GroupService } from '../services/catalogs/group.service';
 
 @NgModule({
     declarations: [
         CatalogsComponent,
         GroupsComponent,
-        DashboardComponent
+        DashboardComponent,
+    ],
+    providers: [
+        GroupService
     ],
     imports: [CommonModule, CatalogsRoutingModule, SharedModule],
 })
