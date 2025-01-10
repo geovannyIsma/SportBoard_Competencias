@@ -14,8 +14,6 @@ services:
             - "5432:5432"
         networks:
             - sportboard-network
-        # Asegúrate de que PostgreSQL esté configurado para aceptar conexiones externas
-        # Puedes agregar una configuración adicional en el archivo postgresql.conf si es necesario
 
     kong-migrations:
         image: kong:3.4
@@ -68,3 +66,4 @@ services:
 networks:
     sportboard-network:
         external: true
+
