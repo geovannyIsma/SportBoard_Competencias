@@ -11,7 +11,6 @@ export class GroupsComponent implements OnInit {
     groups: Group[] = [];
     selectedGroup: Group | null = null;
     newGroup: Group = {
-        id: 0,
         code: '',
         name: '',
     };
@@ -30,5 +29,16 @@ export class GroupsComponent implements OnInit {
 
     selectGroup(group: Group): void {
         this.selectedGroup = { ...group };
+    }
+
+    deleteGroup(group: Group): void {
+        this.groupService.deleteGroup(group.code).subscribe(() => {
+            this.loadGroups();
+        });
+    }
+
+    viewGroup(group: Group): void {
+        // Implementar la lógica para ver el grupo
+        console.log('Ver grupo:', group);
     }
 }

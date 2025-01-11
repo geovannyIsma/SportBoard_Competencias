@@ -1,5 +1,5 @@
 export interface Group {
-    id: number;
+    // id: number; // Eliminado porque code es la llave principal
     name: string;
     code: string;
     parentCode?: string;
