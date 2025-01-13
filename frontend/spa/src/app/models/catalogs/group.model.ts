@@ -6,6 +6,9 @@ export interface Group {
     parent?: Group;
     children?: Group[];
     catalogList?: Catalog[];
+    description?: string;
+    isActive?: boolean;
+    version?: number;
 }
 
 export interface Catalog {

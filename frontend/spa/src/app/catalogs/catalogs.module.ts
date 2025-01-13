@@ -7,11 +7,13 @@ import { GroupsComponent } from './groups/groups.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { GroupService } from '../services/catalogs/group.service';
+import { GroupDialogComponent } from './groups/group-dialog/group-dialog.component';
 
 @NgModule({
     declarations: [
         CatalogsComponent,
         GroupsComponent,
+        GroupDialogComponent,
         DashboardComponent,
     ],
     providers: [

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Group } from '../../models/catalogs/group.model';
 import { GroupService } from '../../services/catalogs/group.service';
+import { GroupDialogComponent } from './group-dialog/group-dialog.component';
+import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-groups',
@@ -9,13 +13,10 @@ import { GroupService } from '../../services/catalogs/group.service';
 })
 export class GroupsComponent implements OnInit {
     groups: Group[] = [];
-    selectedGroup: Group | null = null;
-    newGroup: Group = {
-        code: '',
-        name: '',
-    };
+    dataSource = new MatTableDataSource<Group>();
+    displayedColumns: string[] = ['code', 'name', 'parentCode', 'description', 'isActive', 'version', 'actions'];
 
-    constructor(private groupService: GroupService) {}
+    constructor(private groupService: GroupService, public dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.loadGroups();
@@ -24,21 +25,45 @@ export class GroupsComponent implements OnInit {
     loadGroups(): void {
         this.groupService.getAllGroups().subscribe((data: Group[]) => {
             this.groups = data;
+            this.dataSource.data = this.groups;
+        });
+    }
+
+    openDialog(group?: Group): void {
+        const dialogRef = this.dialog.open(GroupDialogComponent, {
+            width: '350px',
+            data: group ? { ...group } : { code: '', name: '', parentCode: '', description: '', isActive: true, version: 0 },
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                if (result.id) {
+                    this.groupService
+                        .updateGroup(result.id, result)
+                        .subscribe(() => this.loadGroups());
+                } else {
+                    this.groupService
+                        .createGroup(result)
+                        .subscribe(() => this.loadGroups());
+                }
+            }
         });
     }
 
     selectGroup(group: Group): void {
-        this.selectedGroup = { ...group };
+        this.openDialog(group);
     }
 
-    deleteGroup(group: Group): void {
-        this.groupService.deleteGroup(group.code).subscribe(() => {
-            this.loadGroups();
+    deleteGroup(code: string): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '250px',
+            data: { message: '¿Estás seguro de que deseas eliminar este grupo?' },
         });
-    }
 
-    viewGroup(group: Group): void {
-        // Implementar la lógica para ver el grupo
-        console.log('Ver grupo:', group);
+        dialogRef.afterClosed().subscribe((result) => {
+            if (result) {
+                this.groupService.deleteGroup(code).subscribe(() => this.loadGroups());
+            }
+        });
     }
 }

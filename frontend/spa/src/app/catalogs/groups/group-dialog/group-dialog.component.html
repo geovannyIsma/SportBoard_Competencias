@@ -1,0 +1,30 @@
+<h1 mat-dialog-title>{{ data.code ? 'Editar Grupo' : 'Agregar Grupo' }}</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Code</mat-label>
+        <input matInput [(ngModel)]="data.code" name="code">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="data.name" name="name">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Parent Code</mat-label>
+        <input matInput [(ngModel)]="data.parentCode" name="parentCode">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Descripción</mat-label>
+        <input matInput [(ngModel)]="data.description" name="description">
+    </mat-form-field>
+    <div class="checkbox-container">
+        <mat-checkbox [(ngModel)]="data.isActive" name="isActive">Activo</mat-checkbox>
+    </div>
+    <mat-form-field>
+        <mat-label>Versión</mat-label>
+        <input matInput type="number" [(ngModel)]="data.version" name="version">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button [mat-dialog-close]="data">{{ data.code ? 'Guardar' : 'Agregar' }}</button>
+</div>
