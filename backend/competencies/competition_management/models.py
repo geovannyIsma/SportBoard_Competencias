@@ -1,249 +1,275 @@
-# competition_management/models.py
-
 from django.db import models
-from abc import ABC, abstractmethod
+from abc import ABC, abstractmethod, ABCMeta
 from django.core.exceptions import ValidationError
 
-class Person(models.Model):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    dni = models.CharField(max_length=100, unique=True)
 
-    class Meta:
-        abstract = True
+class User(models.Model):
+    ROLE_CHOICES = [
+        ('Coach', 'Coach'),
+        ('Player', 'Player'),
+    ]
 
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-class Role(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
+    username = models.CharField(max_length=255, unique=True)
+    email = models.EmailField(unique=True)
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.username} ({self.role})"
 
-class User(Person):
-    email = models.EmailField()
-    password = models.CharField(max_length=100)
-    rol = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-class Coach(Person):
-    years_experience = models.IntegerField()
-    certification = models.CharField(max_length=100)
-    contract_list = models.ForeignKey('CoachAssignment', on_delete=models.CASCADE, related_name='coach_contracts')
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-class Player(Person):
-    position = models.CharField(max_length=100)
-    number = models.IntegerField()
-    height = models.FloatField()
-    weight = models.FloatField()
-    assigmnet_list = models.ForeignKey('PlayerAssignment', on_delete=models.CASCADE, related_name='player_assignments')
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name} - {self.position} - {self.number}'
-
-class Planning(models.Model):
-    start_date = models.DateField()
-    end_date = models.DateField()
-
-    def __str__(self):
-        return f'{self.start_date} - {self.end_date}'
-
-class Squad(models.Model):
-    football_season = models.ForeignKey(Planning, on_delete=models.CASCADE)
-    assigmnet_list = models.ForeignKey('PlayerAssignment', on_delete=models.CASCADE, related_name='squad_assignments')
-    contract_list = models.ForeignKey('CoachAssignment', on_delete=models.CASCADE, related_name='squad_contracts')
-    team_list = models.ForeignKey('Team', on_delete=models.CASCADE)
-    registration_list = models.ForeignKey('Registration', on_delete=models.CASCADE, related_name='squad_registrations')
-
-    def add_player(self, player):
-        PlayerAssignment.objects.create(player=player, team=self)
-
-    def remove_player(self, player):
-        PlayerAssignment.objects.get(player=player, team=self).delete()
-
-    def __str__(self):
-        return f'{self.football_season} - {self.assigmnet_list} - {self.contract_list} - {self.team_list}'
-
-class Registration(models.Model):
-    serie = models.CharField(max_length=100)
-    squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
-    competence = models.ForeignKey('CompetenceEdition', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.serie} - {self.squad}'
-
-class Competence(models.Model):
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    logo = models.ImageField(upload_to='logos/')
-    format = models.CharField(max_length=100)
-
-    def update_logo(self, logo):
-        self.logo = logo
-        self.save()
-
-    def __str__(self):
-        return self.name
-
-class RuleInterface(ABC):
-    @abstractmethod
-    def change_actor(self, actor):
-        pass
-
-    def evaluate(self):
-        pass
-
-    def sancion(self):
-        pass
-
-class Rule(models.Model):
-    numeration = models.IntegerField()
-    rule_decription = models.TextField()
-    actor = models.ForeignKey(User, on_delete=models.CASCADE)
-    action = models.CharField(max_length=100)
-    type = models.CharField(max_length=100)
-
-    class Meta:
-        abstract = True
-
-    def change_actor(self, actor):
-        self.actor = actor
-        self.save()
-
-    def evaluate(self):
-        # TODO: Implement this method
-        pass
-
-    def sancion(self):
-        # TODO: Implement this method
-        pass
-
-    def __str__(self):
-        return f'{self.numeration} - {self.rule_decription} - {self.actor} - {self.action} - {self.type}'
-
-class Discipline(models.Model):
-    name = models.CharField(max_length=100)
-    surface = models.CharField(max_length=100)
-    federation = models.CharField(max_length=100)
-    rule_list = models.ForeignKey('RuleDiscipline', on_delete=models.CASCADE, related_name='discipline_rules')
-
-    def __str__(self):
-        return f'{self.name} - {self.surface} - {self.federation}'
-
-class RuleCompetence(Rule):
-    pass
-
-class RuleDiscipline(Rule):
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE)
-
-class CompetenceEdition(models.Model):
-    competence_admin = models.ForeignKey(User, on_delete=models.CASCADE)
-    inscription_list = models.ForeignKey('Registration', on_delete=models.CASCADE)
-    subdivision = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
-    planning = models.ForeignKey(Planning, on_delete=models.CASCADE)
-    competence = models.ForeignKey(Competence, on_delete=models.CASCADE)
-    stage_list = models.ForeignKey('Stage', on_delete=models.CASCADE)
-    rule_list = models.OneToOneField('RuleCompetence', on_delete=models.CASCADE)
-    rule_discipline_list = models.ForeignKey('RuleDiscipline', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f'{self.competence_admin} - {self.inscription_list}'
-
-class Stage(models.Model):
-    planning = models.ForeignKey(Planning, on_delete=models.CASCADE)
-
-    def change_start_date(self, start_date):
-        self.planning.start_date = start_date
-        self.planning.save()
-
-    def change_end_date(self, end_date):
-        self.planning.end_date = end_date
-        self.planning.save()
-
-class CoachAssignment(models.Model):
-    coach = models.ForeignKey(Coach, on_delete=models.CASCADE)
-    team = models.ForeignKey(Squad, on_delete=models.CASCADE)
-
-class PlayerAssignment(models.Model):
-    player = models.ForeignKey(Player, on_delete=models.CASCADE)
-    team = models.ForeignKey(Squad, on_delete=models.CASCADE)
 
 class Team(models.Model):
-    name = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='logos/')
-    squad_list = models.ForeignKey(Squad, on_delete=models.CASCADE, related_name='team_squads')
+    name = models.CharField(max_length=255)
+    country = models.ForeignKey('CountryCatalog', on_delete=models.CASCADE)
+    logo = models.ImageField(upload_to="logos/")
+    squads = models.ManyToManyField('Squad', related_name='teams')
 
-    def update_logo(self, logo):
-        self.logo = logo
+    def __str__(self):
+        return self.name
+
+
+class Squad(models.Model):
+    season = models.ForeignKey('Planning', on_delete=models.CASCADE)
+    team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='squads_list')
+    players = models.ManyToManyField(User, through='PlayerAssignment', related_name='squad_players')
+    coaches = models.ManyToManyField(User, through='CoachAssignment', related_name='squad_coaches')
+    registrations = models.ManyToManyField('Registration', related_name='squads')
+
+    def add_player(self, player):
+        self.players.add(player)
+        self.save()
+
+    def remove_player(self, player):
+        self.players.remove(player)
         self.save()
 
     def __str__(self):
-        return f'{self.name} - {self.country}'
+        return f"{self.team.name} ({self.season.start_date.year})"
+
+
+class PlayerAssignment(models.Model):
+    squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
+    player = models.ForeignKey(User, limit_choices_to={'role': 'Player'}, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.player.username} ({self.squad.team.name})"
+
+
+class CoachAssignment(models.Model):
+    squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
+    coach = models.ForeignKey(User, limit_choices_to={'role': 'Coach'}, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.coach.username} ({self.squad.team.name})"
+
 
 class Match(models.Model):
-    away_goals = models.IntegerField()
-    home_goals = models.IntegerField()
-    date = models.DateField()
-    team_list = models.ManyToManyField(Team)
+    home_squad = models.ForeignKey(Squad, related_name='home_matches', on_delete=models.CASCADE)
+    away_squad = models.ForeignKey(Squad, related_name='away_matches', on_delete=models.CASCADE)
+    home_goals = models.PositiveIntegerField(default=0)
+    away_goals = models.PositiveIntegerField(default=0)
+    time = models.DateTimeField()
     stadium = models.ForeignKey('Locality', on_delete=models.CASCADE)
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+    stage = models.ForeignKey('Stage', on_delete=models.CASCADE)
 
-    def clean(self):
-        if self.team_list.count() != 2:
-            raise ValidationError('A match must have two teams')
-
-    def add_goal(self, team):
-        if team in self.team_list.all():
-            if team == self.team_list.first():
-                self.home_goals += 1
-            else:
-                self.away_goals += 1
+    def add_goal(self, squad, player):
+        if squad == self.home_squad:
+            self.home_goals += 1
+        elif squad == self.away_squad:
+            self.away_goals += 1
         else:
-            raise ValidationError('The team is not playing this match')
+            raise ValidationError("Squad not found")
+        self.save()
 
-    def annul_goal(self, team):
-        if team in self.team_list.all():
-            if team == self.team_list.first():
-                self.home_goals -= 1
-            else:
-                self.away_goals -= 1
+    def annul_goal(self, squad, player):
+        if squad == self.home_squad:
+            self.home_goals -= 1
+        elif squad == self.away_squad:
+            self.away_goals -= 1
         else:
-            raise ValidationError('The team is not playing this match')
+            raise ValidationError("Squad not found")
+        self.save()
 
     def define_winner(self):
         if self.home_goals > self.away_goals:
-            return self.team_list.first()
+            return self.home_squad
         elif self.home_goals < self.away_goals:
-            return self.team_list.last()
+            return self.away_squad
         else:
             return None
 
     def __str__(self):
-        return f'{self.team_list.first()} {self.home_goals} - {self.away_goals} {self.team_list.last()}'
+        return f"{self.home_squad.team.name} vs {self.away_squad.team.name} at {self.stadium} on {self.time}"
+
 
 class Locality(models.Model):
-    stadium_name = models.CharField(max_length=100)
-    street_One = models.CharField(max_length=100)
-    street_Two = models.CharField(max_length=100)
-    reference = models.CharField(max_length=100)
+    stadium_name = models.CharField(max_length=255)
+    street_one = models.CharField(max_length=255)
+    street_two = models.CharField(max_length=255)
+    reference = models.CharField(max_length=255)
 
-    def change_stadium(self, stadium_name):
-        self.stadium_name = stadium_name
+    def change_stadium_name(self, new_name):
+        self.stadium_name = new_name
         self.save()
 
-    def change_reference(self, reference, street_One, street_Two):
-        self.reference = reference
-        self.street_One = street_One
-        self.street_Two = street_Two
+    def change_reference(self, new_reference):
+        self.reference = new_reference
         self.save()
 
     def __str__(self):
-        return f'{self.stadium_name} - {self.reference}'
+        return self.stadium_name + " - " + self.reference
+
+
+class Registration(models.Model):
+    squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
+    serie = models.CharField(max_length=255)
+    competencie = models.ForeignKey('CompetitionEdition', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.squad.team.name} - {self.serie}"
+
+
+class Planning(models.Model):
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.start_date} - {self.end_date}"
+
+
+class Rule(models.Model):
+    numeration = models.PositiveIntegerField()
+    rule_description = models.TextField()
+    actor = models.ForeignKey('User', on_delete=models.CASCADE)
+    action = models.CharField(max_length=255)
+    type_rule = models.CharField(max_length=255)
+
+    class Meta:
+        abstract = True  # Esto hace que la clase sea abstracta
+
+    def change_actor(self, new_actor):
+        raise NotImplementedError("Subclasses must implement this method")
+
+    def evaluate_rule(self):
+        raise NotImplementedError("Subclasses must implement this method")
+
+    def sanction(self):
+        raise NotImplementedError("Subclasses must implement this method")
+
+    def __str__(self):
+        return self.rule_description
+
+
+class Discipline(models.Model):
+    name = models.CharField(max_length=255)
+    surface = models.CharField(max_length=255)
+    federation = models.CharField(max_length=255)
+    rule_list = models.ManyToManyField('RuleDiscipline', related_name='disciplines')
+
+    def __str__(self):
+        return self.name
+
+
+class DisciplineCatalog(models.Model):
+    discipline_list = models.ManyToManyField(Discipline)
+
+    def add_discipline_item(self, discipline):
+        self.discipline_list.add(discipline)
+        self.save()
+
+    def remove_discipline_item(self, discipline):
+        self.discipline_list.remove(discipline)
+        self.save()
+
+    def __str__(self):
+        return ", ".join([d.name for d in self.discipline_list.all()])
+
+
+class RuleCompetition(Rule):
+    def __str__(self):
+        return self.rule_description
+
+
+class RuleDiscipline(Rule):
+    discipline = models.ForeignKey('Discipline', on_delete=models.CASCADE, related_name='rule_discipline_set')
+
+    def __str__(self):
+        return f"{self.discipline.name} - {self.rule_description}"
+
+
+class CompetitionEdition(models.Model):
+    competence_admin = models.ForeignKey(User, on_delete=models.CASCADE)
+    planning = models.ForeignKey('Planning', on_delete=models.CASCADE)
+    inscription_list = models.ManyToManyField('Registration')
+    subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions')
+    stage = models.ForeignKey('Stage', on_delete=models.CASCADE)
+    rule_list = models.ManyToManyField('RuleCompetition')
+    rule_discipline_list = models.ManyToManyField('RuleDiscipline')
+    competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.stage.time.start_date} - {self.stage.time.end_date}"
+
+
+class Stage(models.Model):
+    time = models.ForeignKey('Planning', on_delete=models.CASCADE)
+
+    def change_start_date(self, new_date):
+        self.time.start_date = new_date
+        self.time.save()
+
+    def change_end_date(self, new_date):
+        self.time.end_date = new_date
+        self.time.save()
+
+
+class Competence(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    logo = models.ForeignKey('LogoCatalog', on_delete=models.CASCADE)
+    competence_format = models.ForeignKey('FormatCatalog', on_delete=models.CASCADE)
+
+
+class LogoCatalog(models.Model):
+    name = models.CharField(max_length=255)
+
+    def add_item(self, image):
+        return LogoItem.objects.create(logo=image, logo_catalog=self)
+
+    def remove_item(self, item_id):
+        LogoItem.objects.filter(id=item_id, logo_catalog=self).delete()
+
+
+class LogoItem(models.Model):
+    logo = models.ImageField(upload_to="logos/")
+    logo_catalog = models.ForeignKey(LogoCatalog, on_delete=models.CASCADE)
+
+
+class CountryCatalog(models.Model):
+    name = models.CharField(max_length=255)
+
+    def add_item(self, country_name):
+        return CountryItem.objects.create(country_name=country_name, catalog=self)
+
+    def remove_item(self, item_id):
+        CountryItem.objects.filter(id=item_id, catalog=self).delete()
+
+
+class CountryItem(models.Model):
+    country_name = models.CharField(max_length=255)
+    catalog = models.ForeignKey(CountryCatalog, on_delete=models.CASCADE)
+
+
+class FormatCatalog(models.Model):
+    name = models.CharField(max_length=255)
+
+    def add_item(self, format_name):
+        return FormatItem.objects.create(format_name=format_name, catalog=self)
+
+    def remove_item(self, item_id):
+        FormatItem.objects.filter(id=item_id, catalog=self).delete()
+
+
+class FormatItem(models.Model):
+    format_name = models.CharField(max_length=255)
+    catalog = models.ForeignKey(FormatCatalog, on_delete=models.CASCADE)

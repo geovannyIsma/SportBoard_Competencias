@@ -1,23 +1,25 @@
-# competition_management/admin.py
-
 from django.contrib import admin
-from .models import Role, User, Coach, Player, CoachAssignment, PlayerAssignment, Match, Planning, Squad, Registration, Competence, RuleCompetence, RuleDiscipline, Discipline, CompetenceEdition, Stage, Team, Locality
+from .models import *
 
-admin.site.register(Role)
 admin.site.register(User)
-admin.site.register(Coach)
-admin.site.register(Player)
-admin.site.register(CoachAssignment)
 admin.site.register(PlayerAssignment)
+admin.site.register(CoachAssignment)
 admin.site.register(Match)
 admin.site.register(Planning)
 admin.site.register(Squad)
 admin.site.register(Registration)
 admin.site.register(Competence)
-admin.site.register(RuleCompetence)
+admin.site.register(RuleCompetition)
 admin.site.register(RuleDiscipline)
 admin.site.register(Discipline)
-admin.site.register(CompetenceEdition)
+admin.site.register(CompetitionEdition)
 admin.site.register(Stage)
 admin.site.register(Team)
 admin.site.register(Locality)
+admin.site.register(DisciplineCatalog)
+admin.site.register(LogoCatalog)
+admin.site.register(LogoItem)
+admin.site.register(CountryCatalog)
+admin.site.register(CountryItem)
+admin.site.register(FormatCatalog)
+admin.site.register(FormatItem)

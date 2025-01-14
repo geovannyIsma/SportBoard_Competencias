@@ -1,17 +1,12 @@
-# competition_management/urls.py
-
 from rest_framework.routers import DefaultRouter
 from .views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
 router = DefaultRouter()
-router.register(r'roles', RoleViewSet)
 router.register(r'users', UserViewSet)
-router.register(r'coaches', CoachViewSet)
-router.register(r'players', PlayerViewSet)
-router.register(r'coach-assignments', CoachAssignmentViewSet)
 router.register(r'player-assignments', PlayerAssignmentViewSet)
+router.register(r'coach-assignments', CoachAssignmentViewSet)
 router.register(r'matches', MatchViewSet)
 router.register(r'plannings', PlanningViewSet)
 router.register(r'squads', SquadViewSet)
@@ -24,6 +19,13 @@ router.register(r'competence-editions', CompetenceEditionViewSet)
 router.register(r'stages', StageViewSet)
 router.register(r'teams', TeamViewSet)
 router.register(r'localities', LocalityViewSet)
+router.register(r'discipline-catalogs', DisciplineCatalogViewSet)
+router.register(r'logo-catalogs', LogoCatalogViewSet)
+router.register(r'logo-items', LogoItemViewSet)
+router.register(r'country-catalogs', CountryCatalogViewSet)
+router.register(r'country-items', CountryItemViewSet)
+router.register(r'format-catalogs', FormatCatalogViewSet)
+router.register(r'format-items', FormatItemViewSet)
 
 urlpatterns = router.urls
 
