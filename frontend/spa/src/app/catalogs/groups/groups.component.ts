@@ -1,16 +1,17 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Group } from '../../models/catalogs/group.model';
 import { GroupService } from '../../services/catalogs/group.service';
 import { GroupDialogComponent } from './group-dialog/group-dialog.component';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component';
+import { FlashMessageComponent } from '../../shared/flash-message/flash-message.component'; // Importa el componente
 
 @Component({
     selector: 'app-groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
-    standalone: false
+    standalone: false,
 })
 export class GroupsComponent implements OnInit {
     groups: Group[] = [];
@@ -34,7 +35,16 @@ export class GroupsComponent implements OnInit {
     openDialog(group?: Group): void {
         const dialogRef = this.dialog.open(GroupDialogComponent, {
             width: '350px',
-            data: group ? { ...group } : { code: '', name: '', parentCode: '', description: '', isActive: true, version: 0 },
+            data: group
+                ? { ...group }
+                : {
+                      code: '',
+                      name: '',
+                      parentCode: '',
+                      description: '',
+                      isActive: true,
+                      version: 0,
+                  },
         });
 
         dialogRef.afterClosed().subscribe((result) => {
@@ -42,11 +52,21 @@ export class GroupsComponent implements OnInit {
                 if (result.code) {
                     this.groupService
                         .updateGroup(result.code, result)
-                        .subscribe(() => this.loadGroups());
+                        .subscribe(() => {
+                            this.loadGroups();
+                            this.showFlashMessage(
+                                'Grupo actualizado con éxito',
+                                'success'
+                            );
+                        });
                 } else {
-                    this.groupService
-                        .createGroup(result)
-                        .subscribe(() => this.loadGroups());
+                    this.groupService.createGroup(result).subscribe(() => {
+                        this.loadGroups();
+                        this.showFlashMessage(
+                            'Grupo creado con éxito',
+                            'success'
+                        );
+                    });
                 }
             }
         });
@@ -59,13 +79,49 @@ export class GroupsComponent implements OnInit {
     deleteGroup(code: string): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '250px',
-            data: { message: '¿Estás seguro de que deseas eliminar este grupo?' },
+            data: {
+                message: '¿Estás seguro de que deseas eliminar este grupo?',
+            },
         });
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                this.groupService.deleteGroup(code).subscribe(() => this.loadGroups());
+                this.groupService.deleteGroup(code).subscribe(() => {
+                    this.loadGroups();
+                    this.showFlashMessage(
+                        'Grupo eliminado con éxito',
+                        'success'
+                    );
+                });
             }
         });
+    }
+
+    showFlashMessage(
+        message: string,
+        type: 'success' | 'error' | 'info' | 'warning',
+        position: 'top-right' | 'middle-right' | 'bottom-right' = 'top-right',
+        duration: number = 3000
+    ): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+            message,
+            type,
+            position,
+            maxWidth: '90%',
+            minWidth: '400px',
+            duration,
+        };
+        dialogConfig.panelClass = 'flash-message-dialog';
+        dialogConfig.hasBackdrop = false;
+
+        const flashMessageRef = this.dialog.open(
+            FlashMessageComponent,
+            dialogConfig
+        );
+
+        setTimeout(() => {
+            flashMessageRef.close();
+        }, duration);
     }
 }

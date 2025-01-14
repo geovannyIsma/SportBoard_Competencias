@@ -19,10 +19,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FlashMessageComponent } from './flash-message/flash-message.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [
-        ConfirmationDialogComponent
+        ConfirmationDialogComponent,
+        FlashMessageComponent
     ],
     imports: [
         CommonModule,
@@ -44,7 +47,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatExpansionModule,
         MatMenuModule,
         MatInputModule,
-        MatSelectModule
+        MatSelectModule,
+        MatSnackBarModule,
+        MatIconModule // Asegúrate de importar MatIconModule
     ],
     exports: [
         FormsModule,
@@ -66,7 +71,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
         MatMenuModule,
         MatInputModule,
         MatSelectModule,
-        ConfirmationDialogComponent // Exporta el componente de confirmación
+        ConfirmationDialogComponent, // Exporta el componente de confirmación
+        FlashMessageComponent
     ]
 })
 export class SharedModule {}
