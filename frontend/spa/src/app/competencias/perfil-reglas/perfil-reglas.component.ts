@@ -12,23 +12,22 @@ import {MatTableModule} from '@angular/material/table';
 import {MatCheckbox} from '@angular/material/checkbox';
 
 @Component({
-  selector: 'app-perfil-reglas',
-  standalone: true,
+    selector: 'app-perfil-reglas',
     imports: [
         CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTableModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatDatepickerModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTableModule,
         MatCheckbox
     ],
-  templateUrl: './perfil-reglas.component.html',
-  styleUrl: './perfil-reglas.component.scss'
+    templateUrl: './perfil-reglas.component.html',
+    styleUrl: './perfil-reglas.component.scss'
 })
 export class PerfilReglasComponent {
    descripcionRegla: string = '';

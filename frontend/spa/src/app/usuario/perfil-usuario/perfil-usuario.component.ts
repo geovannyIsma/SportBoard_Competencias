@@ -7,18 +7,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-perfil-usuario',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule
-  ],
-  templateUrl: './perfil-usuario.component.html',
-  styleUrl: './perfil-usuario.component.scss'
+    selector: 'app-perfil-usuario',
+    imports: [
+        CommonModule,
+        FormsModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './perfil-usuario.component.html',
+    styleUrl: './perfil-usuario.component.scss'
 })
 export class PerfilUsuarioComponent {
   hide = true

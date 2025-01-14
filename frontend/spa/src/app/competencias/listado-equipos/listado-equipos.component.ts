@@ -5,11 +5,10 @@ import { MatCard } from '@angular/material/card';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-listado-equipos',
-  standalone: true,
-  imports: [RouterModule,MatCard,SharedModule],
-  templateUrl: './listado-equipos.component.html',
-  styleUrl: './listado-equipos.component.scss'
+    selector: 'app-listado-equipos',
+    imports: [RouterModule, MatCard, SharedModule],
+    templateUrl: './listado-equipos.component.html',
+    styleUrl: './listado-equipos.component.scss'
 })
 export class ListadoEquiposComponent {
   equipos = [

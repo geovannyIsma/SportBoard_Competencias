@@ -4,9 +4,10 @@ import { mockTeamStats } from '../data';
 type TeamStat = 'goalsFor' | 'goalsAgainst' | 'goalDifference' | 'points' | 'possession' | 'shotsOnTarget' | 'passesCompleted' | 'yellowCards' | 'redCards';
 
 @Component({
-  selector: 'app-equipos-estadistica',
-  templateUrl: './equipos-estadistica.component.html',
-  styleUrls: ['./equipos-estadistica.component.scss']
+    selector: 'app-equipos-estadistica',
+    templateUrl: './equipos-estadistica.component.html',
+    styleUrls: ['./equipos-estadistica.component.scss'],
+    standalone: false
 })
 export class EquiposEstadisticaComponent {
   teamStats = mockTeamStats;

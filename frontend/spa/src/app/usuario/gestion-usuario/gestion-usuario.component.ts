@@ -35,11 +35,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-gestion-usuario',
-  standalone: true,
-  imports: [SharedModule, CommonModule],
-  templateUrl: './gestion-usuario.component.html',
-  styleUrls: ['./gestion-usuario.component.scss'],
+    selector: 'app-gestion-usuario',
+    imports: [SharedModule, CommonModule],
+    templateUrl: './gestion-usuario.component.html',
+    styleUrls: ['./gestion-usuario.component.scss']
 })
 
 export class GestionUsuarioComponent {

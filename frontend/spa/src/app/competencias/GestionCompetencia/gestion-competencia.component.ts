@@ -15,24 +15,23 @@ import {Router} from '@angular/router';
 
 
 @Component({
-  selector: 'app-gestion-competencia',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './gestion-competencia.component.html',
-  styleUrls: ['./gestion-competencia.component.scss']
+    selector: 'app-gestion-competencia',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ],
+    templateUrl: './gestion-competencia.component.html',
+    styleUrls: ['./gestion-competencia.component.scss']
 })
 export class GestionCompetenciaComponent {
   nombre: string = '';

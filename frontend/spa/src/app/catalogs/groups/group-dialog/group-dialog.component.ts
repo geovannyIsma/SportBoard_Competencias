@@ -6,6 +6,7 @@ import { Group } from '../../../models/catalogs/group.model';
     selector: 'app-group-dialog',
     templateUrl: './group-dialog.component.html',
     styleUrls: ['./group-dialog.component.scss'],
+    standalone: false
 })
 export class GroupDialogComponent {
     constructor(
