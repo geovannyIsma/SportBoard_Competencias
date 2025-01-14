@@ -1,0 +1,34 @@
+docker compose override: 
+version: "3.8"
+name: real-time-container
+
+services:
+    oracle-real-time:
+        image: container-registry.oracle.com/database/express:21.3.0-xe
+        container_name: oracle-real-time
+        restart: always
+        environment:
+            - ORACLE_PASSWORD=oracle_password
+            - ORACLE_ALLOW_REMOTE=true
+        ports:
+            - "1521:1521"
+            - "5500:5500"
+
+    ms3-real-time:
+        build:
+            context: ../../../backend/real-time  # Ruta relativa al código del proyecto Flask
+            dockerfile: ../../../backend/real-time/Dockerfile  # Ruta relativa al Dockerfile
+        container_name: ms3-real-time
+        restart: always
+        environment:
+            - FLASK_APP=app.py
+            - DATABASE_URL=oracle://user:oracle_password@oracle-db:1521/XEPDB1
+        ports:
+            - "5000:5000"
+        depends_on:
+            - oracle-real-time
+        volumes:
+            - static_volume:/app/staticfiles
+
+volumes:
+    static_volume:
