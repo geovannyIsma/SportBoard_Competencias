@@ -1,0 +1,32 @@
+version: "3.8"
+name: real-time-container
+
+services:
+    postgres:
+        extends:
+            file: ../../docker/api-gateway/docker-compose.override.yml
+            service: postgres
+
+    kong-migrations:
+        extends:
+            file: ../../docker/api-gateway/docker-compose.override.yml
+            service: kong-migrations
+
+    kong:
+        extends:
+            file: ../../docker/api-gateway/docker-compose.override.yml
+            service: kong
+
+    ms3-real-time:
+        extends:
+            file: ../../docker/backend/ms3-real-time/docker-compose.override.yml
+            service: ms3-real-time
+
+    oracle-real-time:
+        extends:
+            file: ../../docker/backend/ms3-real-time/docker-compose.override.yml
+            service: oracle-real-time
+
+volumes:
+    static_volume:
+
