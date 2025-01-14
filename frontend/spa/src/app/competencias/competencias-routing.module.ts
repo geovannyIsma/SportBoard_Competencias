@@ -6,13 +6,14 @@ import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
 import { PerfilJugadorComponent } from './perfil-jugador/perfil-jugador.component';
 import { GestionEquipoComponent } from './gestion-equipo/gestion-equipo.component';
 import { ListadoEquiposComponent } from './listado-equipos/listado-equipos.component';
-import { PerfilReglasComponent} from './perfil-reglas/perfil-reglas.component';
-import { ListadoCompetenciasComponent} from './listado-competencias/listado-competencias.component';
-import { ListadoJugadoresComponent} from './listado-jugadores/listado-jugadores.component';
-import {ListadoReglasComponent} from './listado-reglas/listado-reglas.component';
+import { PerfilReglasComponent } from './perfil-reglas/perfil-reglas.component';
+import { ListadoCompetenciasComponent } from './listado-competencias/listado-competencias.component';
+import { ListadoJugadoresComponent } from './listado-jugadores/listado-jugadores.component';
+import { ListadoReglasComponent } from './listado-reglas/listado-reglas.component';
+import { TestApiComponent } from './test-api/test-api.component';
 
 const routes: Routes = [
-    {
+  {
     path: '',
     redirectTo: 'perfiles',
     pathMatch: 'full'
@@ -37,7 +38,8 @@ const routes: Routes = [
     component: PerfilJugadorComponent //Ruta del componente
   },
 
-  { path: 'gestion-equipo',
+  {
+    path: 'gestion-equipo',
     component: GestionEquipoComponent
   },
   {
@@ -52,21 +54,27 @@ const routes: Routes = [
     path: 'listado-equipos',
     component: ListadoEquiposComponent
   },
-    {
-        path:'listado-jugador',
-        component: ListadoJugadoresComponent
-    },
-    {
+  {
+    path: 'listado-jugador',
+    component: ListadoJugadoresComponent
+  },
+  {
     path: 'perfil-reglas',
     component: PerfilReglasComponent
   },
-    {
+  {
     path: 'listado-reglas',
     component: ListadoReglasComponent
+
   },
+  {
+    path: 'test-api',
+    component: TestApiComponent
+  }
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CompetenciasRoutingModule{ }
+export class CompetenciasRoutingModule { }

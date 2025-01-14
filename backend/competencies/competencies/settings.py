@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'competition_management.apps.CompetitionManagementConfig'
+    'competition_management.apps.CompetitionManagementConfig',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'competencies.urls'
@@ -78,6 +80,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'competencies.wsgi.application'
 
+# filepath: /path/to/your/settings.py
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:4200",
+]
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
