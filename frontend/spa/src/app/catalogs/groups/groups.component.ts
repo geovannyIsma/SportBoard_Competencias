@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { Group } from '../../models/catalogs/group.model';
@@ -14,7 +14,8 @@ import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/co
 export class GroupsComponent implements OnInit {
     groups: Group[] = [];
     dataSource = new MatTableDataSource<Group>();
-    displayedColumns: string[] = ['code', 'name', 'parentCode', 'description', 'isActive', 'version', 'actions'];
+    displayedColumns: string[] = ['code', 'name', 'parentCode', 'actions'];
+    @ViewChild('addButton') addButton!: ElementRef<HTMLButtonElement>;
 
     constructor(private groupService: GroupService, public dialog: MatDialog) {}
 
@@ -37,9 +38,9 @@ export class GroupsComponent implements OnInit {
 
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
-                if (result.id) {
+                if (result.code) {
                     this.groupService
-                        .updateGroup(result.id, result)
+                        .updateGroup(result.code, result)
                         .subscribe(() => this.loadGroups());
                 } else {
                     this.groupService
