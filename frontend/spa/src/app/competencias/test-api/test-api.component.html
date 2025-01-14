@@ -1,0 +1,43 @@
+<div>
+    <h2>Localities</h2>
+    <ul>
+      <li *ngFor="let locality of localities">
+        {{ locality.stadium_name }} - {{ locality.reference }}
+      </li>
+    </ul>
+  
+    <h3>Create New Locality</h3>
+    <form (ngSubmit)="createLocality()">
+      <label for="stadium_name">Stadium Name:</label>
+      <input id="stadium_name" [(ngModel)]="newLocality.stadium_name" name="stadium_name" required>
+  
+      <label for="street_one">Street One:</label>
+      <input id="street_one" [(ngModel)]="newLocality.street_one" name="street_one" required>
+  
+      <label for="street_two">Street Two:</label>
+      <input id="street_two" [(ngModel)]="newLocality.street_two" name="street_two" required>
+  
+      <label for="reference">Reference:</label>
+      <input id="reference" [(ngModel)]="newLocality.reference" name="reference" required>
+  
+      <button type="submit">Create Locality</button>
+    </form>
+  
+    <h2>Plannings</h2>
+    <ul>
+      <li *ngFor="let planning of plannings">
+        {{ planning.start_date }} - {{ planning.end_date }}
+      </li>
+    </ul>
+  
+    <h3>Create New Planning</h3>
+    <form (ngSubmit)="createPlanning()">
+      <label for="start_date">Start Date:</label>
+      <input id="start_date" [(ngModel)]="newPlanning.start_date" name="start_date" required>
+  
+      <label for="end_date">End Date:</label>
+      <input id="end_date" [(ngModel)]="newPlanning.end_date" name="end_date" required>
+  
+      <button type="submit">Create Planning</button>
+    </form>
+  </div>
