@@ -12,22 +12,21 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  selector: 'app-agregar-equipo-dialogo',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatCardModule
-  ],
-  templateUrl: './agregar-equipo-dialogo.component.html',
-  styleUrls: ['./agregar-equipo-dialogo.component.scss'], 
+    selector: 'app-agregar-equipo-dialogo',
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatCardModule
+    ],
+    templateUrl: './agregar-equipo-dialogo.component.html',
+    styleUrls: ['./agregar-equipo-dialogo.component.scss']
 })
 export class AgregarEquipoDialogoComponent {
   nombre: string = '';

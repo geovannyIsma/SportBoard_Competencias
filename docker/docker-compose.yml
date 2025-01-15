@@ -39,5 +39,6 @@ services:
             service: postgres-competencies
 
 networks:
-    default:
-        name: kong-network
+    sportboard-network:
+        name: sportboard-network
+        driver: bridge

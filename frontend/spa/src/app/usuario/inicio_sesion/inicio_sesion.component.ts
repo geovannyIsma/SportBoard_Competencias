@@ -7,18 +7,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-inicio-sesion',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule
-  ],
-  templateUrl: './inicio_sesion.component.html',
-  styleUrls: ['./inicio_sesion.component.scss'],
-
+    selector: 'app-inicio-sesion',
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './inicio_sesion.component.html',
+    styleUrls: ['./inicio_sesion.component.scss']
 })
 export class InicioSesionComponent {
   hide = true;

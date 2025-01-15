@@ -12,11 +12,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-editar-usuario',
-  standalone: true,
-  imports: [SharedModule, CommonModule],
-  templateUrl: './editar-usuario.component.html',
-  styleUrl: './editar-usuario.component.scss'
+    selector: 'app-editar-usuario',
+    imports: [SharedModule, CommonModule],
+    templateUrl: './editar-usuario.component.html',
+    styleUrl: './editar-usuario.component.scss'
 })
 
 export class EditarUsuarioComponent {

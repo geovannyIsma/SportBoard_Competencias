@@ -5,9 +5,10 @@ import { GestionCompetenciaComponent } from './gestion-competencia.component';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-competencias',
-  templateUrl: './competencias.component.html',
-  styleUrls: ['./competencias.component.css']
+    selector: 'app-competencias',
+    templateUrl: './competencias.component.html',
+    styleUrls: ['./competencias.component.css'],
+    standalone: false
 })
 export class CompetenciasComponent {
   nombre: string = '';

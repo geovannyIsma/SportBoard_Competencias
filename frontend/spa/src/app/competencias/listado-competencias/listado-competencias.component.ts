@@ -5,8 +5,7 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 import { Router } from '@angular/router';
 @Component({
-  selector: 'app-listado-competencias',
-  standalone: true,
+    selector: 'app-listado-competencias',
     imports: [
         MatCard,
         MatCardContent,
@@ -16,8 +15,8 @@ import { Router } from '@angular/router';
         RouterModule,
         SharedModule
     ],
-  templateUrl: './listado-competencias.component.html',
-  styleUrl: './listado-competencias.component.scss'
+    templateUrl: './listado-competencias.component.html',
+    styleUrl: './listado-competencias.component.scss'
 })
 export class ListadoCompetenciasComponent {
 equipos = [

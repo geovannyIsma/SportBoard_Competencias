@@ -13,23 +13,22 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 
 @Component({
-  selector: 'app-agregar-torneos-dialogo',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatCardModule,
-    MatCheckboxModule,
-  ],
-  templateUrl: './agregar-torneos-dialogo.component.html',
-  styleUrl: './agregar-torneos-dialogo.component.scss'
+    selector: 'app-agregar-torneos-dialogo',
+    imports: [
+        CommonModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatCardModule,
+        MatCheckboxModule,
+    ],
+    templateUrl: './agregar-torneos-dialogo.component.html',
+    styleUrl: './agregar-torneos-dialogo.component.scss'
 })
 export class AgregarTorneosDialogoComponent {
   torneos = [

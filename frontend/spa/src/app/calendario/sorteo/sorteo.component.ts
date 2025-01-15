@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-sorteo',
-  standalone: true,
-  templateUrl: './sorteo.component.html',
-  styleUrls: ['./sorteo.component.scss'],
-  imports: [CommonModule, SorteoComponent],
+    selector: 'app-sorteo',
+    templateUrl: './sorteo.component.html',
+    styleUrls: ['./sorteo.component.scss'],
+    imports: [CommonModule, SorteoComponent]
 })
 
 export class SorteoComponent {

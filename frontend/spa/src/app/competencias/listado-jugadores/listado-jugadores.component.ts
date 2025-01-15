@@ -4,8 +4,7 @@ import {MatIcon} from "@angular/material/icon";
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-listado-jugadores',
-  standalone: true,
+    selector: 'app-listado-jugadores',
     imports: [
         MatCard,
         MatCardContent,
@@ -13,8 +12,8 @@ import {Router} from '@angular/router';
         MatCardTitle,
         MatIcon
     ],
-  templateUrl: './listado-jugadores.component.html',
-  styleUrl: './listado-jugadores.component.scss'
+    templateUrl: './listado-jugadores.component.html',
+    styleUrl: './listado-jugadores.component.scss'
 })
 export class ListadoJugadoresComponent {
 jugador = [

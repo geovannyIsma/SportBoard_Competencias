@@ -4,15 +4,14 @@ import { Router } from '@angular/router';
 import { GestionCompetenciaComponent} from '../GestionCompetencia/gestion-competencia.component';
 import { PerfilEquipoComponent } from '../perfil-equipo/perfil-equipo.component';
 @Component({
-  selector: 'app-perfiles',
-  standalone: true,
-  imports: [
-    MatIconModule,
-     GestionCompetenciaComponent,
-     PerfilEquipoComponent
-   ],
-  templateUrl: './perfiles.component.html',
-  styleUrl: './perfiles.component.scss'
+    selector: 'app-perfiles',
+    imports: [
+        MatIconModule,
+        GestionCompetenciaComponent,
+        PerfilEquipoComponent
+    ],
+    templateUrl: './perfiles.component.html',
+    styleUrl: './perfiles.component.scss'
 })
 export class PerfilesComponent {
   constructor(private router: Router) { }
