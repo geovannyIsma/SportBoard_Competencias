@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Catalog } from '../../models/catalogs/group.model';
 import { CatalogService } from '../../services/catalogs/catalog.service';
 import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.component'; // Importar BreadcrumbComponent
+import { Catalog } from '../../models/catalogs/catalog.model';
 
 @Component({
     selector: 'app-catalogs',
@@ -12,7 +12,8 @@ import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.componen
 export class CatalogsComponent implements OnInit {
     breadcrumbs = [
         { label: 'Home', url: '/' },
-        { label: 'Catálogos', url: '/catalogs' }
+        { label: 'Catalogs', url: '/catalogos' },
+        { label: 'Catálogos', url: '/catalogos/catalogs/' }
     ];
     catalogs: Catalog[] = [];
 
