@@ -1,6 +1,7 @@
+<app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
 <h4>Catálogos</h4>
 <div>
-    <mat-form-field class="search-field">
+    <mat-form-field>
         <mat-label>Buscar</mat-label>
         <input matInput placeholder="Buscar..." />
         <button mat-icon-button matSuffix>
@@ -11,7 +12,7 @@
 <div>
     <mat-list>
         <!-- Aquí se cargarán los registros de catálogos -->
-        <!-- <mat-list-item *ngFor="let catalog of catalogs">{{ catalog.name }}</mat-list-item> -->
+        <mat-list-item *ngFor="let catalog of catalogs">{{ catalog }}</mat-list-item>
     </mat-list>
 </div>
 <p>catalogs works!</p>
