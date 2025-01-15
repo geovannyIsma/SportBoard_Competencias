@@ -6,7 +6,7 @@ import { Inject } from '@angular/core';
     selector: 'app-flash-message',
     standalone: false,
     templateUrl: './flash-message.component.html',
-    styleUrls: ['./flash-message.component.css'],
+    styleUrls: ['./flash-message.component.scss'],
 })
 export class FlashMessageComponent implements OnInit {
     @Input() message: string = '';

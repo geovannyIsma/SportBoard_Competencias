@@ -61,7 +61,7 @@ export class GroupsComponent implements OnInit {
                             this.loadGroups();
                             this.showFlashMessage(
                                 'Grupo actualizado con éxito',
-                                'success'
+                                'info'
                             );
                         });
                 } else {
@@ -95,7 +95,7 @@ export class GroupsComponent implements OnInit {
                     this.loadGroups();
                     this.showFlashMessage(
                         'Grupo eliminado con éxito',
-                        'success'
+                        'warning'
                     );
                 });
             }
