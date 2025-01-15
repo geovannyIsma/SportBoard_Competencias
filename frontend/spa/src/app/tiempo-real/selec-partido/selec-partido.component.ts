@@ -13,11 +13,10 @@ import { CommonModule } from '@angular/common';
 import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
-  selector: 'app-selec-partido',
-  standalone: true,
-  imports: [CommonModule, MatDividerModule, MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatCardModule, MatIconModule, MatTableModule],
-  templateUrl: './selec-partido.component.html',
-  styleUrl: './selec-partido.component.scss'
+    selector: 'app-selec-partido',
+    imports: [CommonModule, MatDividerModule, MatFormFieldModule, MatSelectModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatCardModule, MatIconModule, MatTableModule],
+    templateUrl: './selec-partido.component.html',
+    styleUrl: './selec-partido.component.scss'
 })
 export class SelecPartidoComponent {
   currentDate = new Date();

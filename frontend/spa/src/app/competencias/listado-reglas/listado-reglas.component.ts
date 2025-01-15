@@ -4,8 +4,7 @@ import {MatIcon} from "@angular/material/icon";
 import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-listado-reglas',
-  standalone: true,
+    selector: 'app-listado-reglas',
     imports: [
         MatCard,
         MatCardContent,
@@ -13,8 +12,8 @@ import {Router} from '@angular/router';
         MatCardTitle,
         MatIcon
     ],
-  templateUrl: './listado-reglas.component.html',
-  styleUrl: './listado-reglas.component.scss'
+    templateUrl: './listado-reglas.component.html',
+    styleUrl: './listado-reglas.component.scss'
 })
 export class ListadoReglasComponent {
 reglas = [

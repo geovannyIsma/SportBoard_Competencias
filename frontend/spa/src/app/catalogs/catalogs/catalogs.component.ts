@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
     selector: 'app-catalogs',
     templateUrl: './catalogs.component.html',
     styleUrl: './catalogs.component.scss',
+    standalone: false
 })
 export class CatalogsComponent {}

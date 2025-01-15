@@ -8,6 +8,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
     selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
     standalone: true,
     imports: [
         FooterComponent,
@@ -16,14 +18,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
         RouterOutlet,
         SharedModule,
         SidebarComponent
-    ],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.scss',
+    ]
 })
-
-
 export class AppComponent {
-    title = 'frontend';
+    title = 'my-app';
     isSidebarOpen = true;
     isMobile = false;
 

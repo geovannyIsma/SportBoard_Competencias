@@ -4,12 +4,12 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
 
 @Component({
-  selector: 'app-perfil-equipo',
-  standalone: true,
-  imports: [
-    RouterModule,MatCard,SharedModule],
-  templateUrl: './perfil-equipo.component.html',
-  styleUrl: './perfil-equipo.component.scss'
+    selector: 'app-perfil-equipo',
+    imports: [
+        RouterModule, MatCard, SharedModule
+    ],
+    templateUrl: './perfil-equipo.component.html',
+    styleUrl: './perfil-equipo.component.scss'
 })
 export class PerfilEquipoComponent {
   modoEdicion = false; // Esta variable se usa para validar si estamos en modo editar o no

@@ -1,0 +1,16 @@
+_format_version: "2.1"
+_transform: true
+
+services:
+  - name: groups-service
+    url: http://catalogs:5241/api/groups
+    routes:
+      - name: groups-route
+        paths:
+          - /catalog/groups
+  - name: catalogs-service
+    url: http://catalogs:5241/api/catalogs
+    routes:
+      - name: catalogs-route
+        paths:
+          - /catalog/catalogs

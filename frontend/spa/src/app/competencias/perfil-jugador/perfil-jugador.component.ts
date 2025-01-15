@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-perfil-jugador',
-  standalone: true,
-  imports: [
-    MatIconModule
-  ],
-  templateUrl: './perfil-jugador.component.html',
-  styleUrl: './perfil-jugador.component.scss'
+    selector: 'app-perfil-jugador',
+    imports: [
+        MatIconModule
+    ],
+    templateUrl: './perfil-jugador.component.html',
+    styleUrl: './perfil-jugador.component.scss'
 })
 
 export class PerfilJugadorComponent {

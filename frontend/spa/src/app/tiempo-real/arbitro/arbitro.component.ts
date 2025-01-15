@@ -13,12 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
-  selector: 'app-arbitro',
-  standalone: true,
-  imports: [MatGridListModule, MatIconModule, MatTabsModule, MatCardModule, MatTableModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule],
-  templateUrl: './arbitro.component.html',
-  styleUrl: './arbitro.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-arbitro',
+    imports: [MatGridListModule, MatIconModule, MatTabsModule, MatCardModule, MatTableModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatSelectModule],
+    templateUrl: './arbitro.component.html',
+    styleUrl: './arbitro.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 

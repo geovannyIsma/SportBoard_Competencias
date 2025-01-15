@@ -8,11 +8,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-cronologia',
-  standalone: true,
-  imports: [MatCardModule, MatIconModule, MatTabsModule, MatButtonModule,TrEstadisticaComponent],
-  templateUrl: './cronologia.component.html',
-  styleUrl: './cronologia.component.scss'
+    selector: 'app-cronologia',
+    imports: [MatCardModule, MatIconModule, MatTabsModule, MatButtonModule, TrEstadisticaComponent],
+    templateUrl: './cronologia.component.html',
+    styleUrl: './cronologia.component.scss'
 })
 export class CronologiaComponent {
   dialog = inject(MatDialog);
@@ -42,10 +41,9 @@ export class CronologiaComponent {
 }
 
 @Component({
-  selector: '',
-  templateUrl: 'ejemploEquipo.html',
-  standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+    selector: '',
+    templateUrl: 'ejemploEquipo.html',
+    imports: [MatCardModule, MatButtonModule]
 })
 export class ejem {
 }

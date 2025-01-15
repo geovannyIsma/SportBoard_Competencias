@@ -15,25 +15,24 @@ import { AgregarEquipoDialogoComponent } from './agregar-equipo-dialogo/agregar-
 import { AgregarTorneosDialogoComponent } from './agregar-torneos-dialogo/agregar-torneos-dialogo.component';
 
 @Component({
-  selector: 'app-gestion-equipo',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatCardModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-  ],
-  templateUrl: './gestion-equipo.component.html',
-  styleUrls: ['./gestion-equipo.component.scss'], // Cambiar a styleUrls
+    selector: 'app-gestion-equipo',
+    imports: [
+        CommonModule,
+        MatCardModule,
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+    ],
+    templateUrl: './gestion-equipo.component.html',
+    styleUrls: ['./gestion-equipo.component.scss']
 })
 export class GestionEquipoComponent {
   equipos: { 

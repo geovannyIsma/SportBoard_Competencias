@@ -4,9 +4,10 @@ import { mockPlayerStats } from '../data';
 type PlayerStat = 'goals' | 'assists' | 'yellowCards' | 'redCards';
 
 @Component({
-  selector: 'app-jugadores-estadistica',
-  templateUrl: './jugadores-estadistica.component.html',
-  styleUrls: ['./jugadores-estadistica.component.scss']
+    selector: 'app-jugadores-estadistica',
+    templateUrl: './jugadores-estadistica.component.html',
+    styleUrls: ['./jugadores-estadistica.component.scss'],
+    standalone: false
 })
 export class JugadoresEstadisticaComponent {
   playerStats = mockPlayerStats;
