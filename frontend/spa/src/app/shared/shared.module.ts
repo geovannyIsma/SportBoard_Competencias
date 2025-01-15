@@ -21,11 +21,14 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlashMessageComponent } from './flash-message/flash-message.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
         ConfirmationDialogComponent,
-        FlashMessageComponent
+        FlashMessageComponent,
+        BreadcrumbComponent
     ],
     imports: [
         CommonModule,
@@ -49,7 +52,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatInputModule,
         MatSelectModule,
         MatSnackBarModule,
-        MatIconModule // Asegúrate de importar MatIconModule
+        MatIconModule,
+        RouterModule
     ],
     exports: [
         FormsModule,
@@ -72,7 +76,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatInputModule,
         MatSelectModule,
         ConfirmationDialogComponent, // Exporta el componente de confirmación
-        FlashMessageComponent
+        FlashMessageComponent,
+        BreadcrumbComponent,
+        RouterModule
     ]
 })
 export class SharedModule {}

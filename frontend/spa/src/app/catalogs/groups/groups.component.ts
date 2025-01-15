@@ -14,6 +14,11 @@ import { FlashMessageComponent } from '../../shared/flash-message/flash-message.
     standalone: false,
 })
 export class GroupsComponent implements OnInit {
+    breadcrumbs = [
+        { label: 'Home', url: '/' },
+        { label: 'Catalogs', url: '/catalogos' },
+        { label: 'Groups', url: '/catalogos/groups' }
+    ];
     groups: Group[] = [];
     dataSource = new MatTableDataSource<Group>();
     displayedColumns: string[] = ['code', 'name', 'parentCode', 'actions'];
