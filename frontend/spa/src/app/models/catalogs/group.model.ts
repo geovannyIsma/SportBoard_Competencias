@@ -1,5 +1,6 @@
+import { Validators } from '@angular/forms';
+
 export interface Group {
-    // id: number; // Eliminado porque code es la llave principal
     name: string;
     code: string;
     parentCode?: string;
@@ -7,9 +8,16 @@ export interface Group {
     children?: Group[];
     catalogList?: Catalog[];
     description?: string;
-    isActive?: boolean;
-    version?: number;
+    isActive: boolean;
+    version: number;
 }
+
+export const GroupValidators = {
+    name: [Validators.required],
+    code: [Validators.required],
+    isActive: [Validators.required],
+    version: [Validators.required, Validators.min(0)]
+};
 
 export interface Catalog {
     // Definir las propiedades de Catalog según sea necesario
