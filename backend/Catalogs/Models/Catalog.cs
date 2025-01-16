@@ -32,7 +32,7 @@ public class Catalog : Component
     /// <summary>
     /// Gets or sets the name of the catalog.
     /// </summary>
-    public Group group { get; set; }
+    public Group Group { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Catalog"/> class.
@@ -41,7 +41,7 @@ public class Catalog : Component
     {
         this.Children = new List<Catalog>();
         this.GroupCode = string.Empty;
-        this.group = new Group();
+        this.Group = new Group();
     }
 
     /// <summary>
@@ -52,7 +52,7 @@ public class Catalog : Component
     public Catalog(string name, Group group) : this()
     {
         this.Name = name;
-        this.group = group;
+        this.Group = group;
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public class Catalog : Component
     /// <param name="group"></param>
     public void AddGroup(Group group)
     {
-        this.group = group;
+        this.Group = group;
         group.AddCatalog(this);
     }
 

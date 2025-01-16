@@ -66,7 +66,7 @@ public class Group : Component
     public void AddCatalog(Catalog catalog)
     {
         this.CatalogList.Add(catalog);
-        catalog.group = this;
+        catalog.Group = this;
     }
 
 
