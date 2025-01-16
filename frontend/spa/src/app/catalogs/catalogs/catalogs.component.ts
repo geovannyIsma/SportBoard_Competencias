@@ -5,6 +5,9 @@ import { Catalog } from '../../models/catalogs/catalog.model';
 import { MatTableDataSource } from '@angular/material/table'; // Importar MatTableDataSource
 import { MatPaginator } from '@angular/material/paginator'; // Importar MatPaginator
 import { MatSort } from '@angular/material/sort'; // Importar MatSort
+import { MatDialog } from '@angular/material/dialog'; // Importar MatDialog
+import { CatalogDialogComponent } from './catalog-dialog/catalog-dialog.component';
+import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component'; // Importar ConfirmationDialogComponent
 
 @Component({
     selector: 'app-catalogs',
@@ -18,13 +21,13 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
         { label: 'Catalogs', url: '/catalogos' },
         { label: 'Catálogos', url: '/catalogos/catalogs/' }
     ];
-    displayedColumns: string[] = ['name', 'group', 'description', 'version', 'isActive'];
+    displayedColumns: string[] = ['name', 'group', 'description', 'version', 'isActive', 'actions'];
     dataSource = new MatTableDataSource<Catalog>();
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
 
-    constructor(private catalogService: CatalogService) {}
+    constructor(private catalogService: CatalogService, public dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.loadCatalogs();
@@ -44,5 +47,48 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
     applyFilter(event: Event): void {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
+    }
+
+    openCatalogDialog(catalog?: Catalog): void {
+        const dialogRef = this.dialog.open(CatalogDialogComponent, {
+            width: '350px',
+            data: catalog ? { ...catalog } : { name: '', group: '', description: '', version: 0, isActive: true }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                if (catalog && catalog.id) {
+                    this.catalogService.updateCatalog(catalog.id, result).subscribe(() => {
+                        console.log(result);
+                        this.loadCatalogs();
+                    });
+                } else {
+                    this.catalogService.createCatalog(result).subscribe(() => {
+                        this.loadCatalogs();
+                    });
+                }
+            }
+        });
+    }
+
+    editCatalog(catalog: Catalog): void {
+        this.openCatalogDialog(catalog);
+    }
+
+    deleteCatalog(catalog: Catalog): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '250px',
+            data: {
+                message: '¿Estás seguro de que deseas eliminar este catálogo?',
+            },
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if (result) {
+                this.catalogService.deleteCatalog(catalog.id).subscribe(() => {
+                    this.loadCatalogs();
+                });
+            }
+        });
     }
 }
