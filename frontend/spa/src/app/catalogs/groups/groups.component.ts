@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Group } from '../../models/catalogs/group.model';
 import { GroupService } from '../../services/catalogs/group.service';
 import { GroupDialogComponent } from './group-dialog/group-dialog.component';
@@ -13,7 +15,7 @@ import { FlashMessageComponent } from '../../shared/flash-message/flash-message.
     styleUrls: ['./groups.component.scss'],
     standalone: false,
 })
-export class GroupsComponent implements OnInit {
+export class GroupsComponent implements OnInit, AfterViewInit {
     breadcrumbs = [
         { label: 'Home', url: '/' },
         { label: 'Catalogs', url: '/catalogos' },
@@ -23,11 +25,18 @@ export class GroupsComponent implements OnInit {
     dataSource = new MatTableDataSource<Group>();
     displayedColumns: string[] = ['code', 'name', 'parentCode', 'actions'];
     @ViewChild('addButton') addButton!: ElementRef<HTMLButtonElement>;
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild(MatSort) sort!: MatSort;
 
     constructor(private groupService: GroupService, public dialog: MatDialog) {}
 
     ngOnInit(): void {
         this.loadGroups();
+    }
+
+    ngAfterViewInit(): void {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     }
 
     loadGroups(): void {
