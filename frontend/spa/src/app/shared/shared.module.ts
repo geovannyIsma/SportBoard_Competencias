@@ -23,6 +23,9 @@ import { FlashMessageComponent } from './flash-message/flash-message.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { RouterModule } from '@angular/router';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [
@@ -33,52 +36,58 @@ import { RouterModule } from '@angular/router';
     imports: [
         CommonModule,
         FormsModule,
-        ReactiveFormsModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
         MatDatepickerModule,
         MatDialogModule,
+        MatDividerModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
+        MatIconModule,
+        MatInputModule,
         MatListModule,
+        MatMenuModule,
+        MatPaginatorModule,
         MatProgressBarModule,
+        MatSelectModule,
         MatSidenavModule,
+        MatSnackBarModule,
+        MatSortModule,
         MatTableModule,
         MatTabsModule,
         MatToolbarModule,
-        MatExpansionModule,
-        MatMenuModule,
-        MatInputModule,
-        MatSelectModule,
-        MatSnackBarModule,
-        MatIconModule,
+        ReactiveFormsModule,
         RouterModule
     ],
     exports: [
+        BreadcrumbComponent,
+        ConfirmationDialogComponent, // Exporta el componente de confirmación
+        FlashMessageComponent,
         FormsModule,
-        ReactiveFormsModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
         MatDatepickerModule,
         MatDialogModule,
+        MatDividerModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
+        MatInputModule,
         MatListModule,
+        MatMenuModule,
+        MatPaginatorModule,
         MatProgressBarModule,
+        MatSelectModule,
         MatSidenavModule,
+        MatSortModule,
         MatTableModule,
         MatTabsModule,
         MatToolbarModule,
-        MatExpansionModule,
-        MatMenuModule,
-        MatInputModule,
-        MatSelectModule,
-        ConfirmationDialogComponent, // Exporta el componente de confirmación
-        FlashMessageComponent,
-        BreadcrumbComponent,
-        RouterModule
+        ReactiveFormsModule,
+        RouterModule,
     ]
 })
 export class SharedModule {}
