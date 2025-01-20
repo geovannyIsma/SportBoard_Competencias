@@ -33,6 +33,7 @@ namespace Catalogs.Controllers
         public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs()
         {
             return await _context.Catalogs
+            .Include(c => c.Group) // Incluir los valores del grupo
             .Select(c => new Catalog
             {
                 Id = c.Id,
@@ -41,6 +42,7 @@ namespace Catalogs.Controllers
                 GroupCode = c.GroupCode,
                 IdCatalog = c.IdCatalog,
                 IsActive = c.IsActive,
+                Group = c.Group // Incluir el grupo en la respuesta
             })
             .ToListAsync();
         }

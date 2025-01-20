@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
-    standalone: true,
     imports: [SharedModule],
     templateUrl: './header.component.html',
     styleUrl: './header.component.scss',
+    standalone: true
 })
 export class HeaderComponent {
     @Output() toggleSidebar = new EventEmitter<void>();

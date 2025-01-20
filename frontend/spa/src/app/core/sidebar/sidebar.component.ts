@@ -6,10 +6,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
     selector: 'app-sidebar',
-    standalone: true,
+    standalone: true, // Marca el componente como independiente
     imports: [RouterModule, SharedModule, MatMenuModule, MatExpansionModule],
     templateUrl: './sidebar.component.html',
-    styleUrl: './sidebar.component.scss',
+    styleUrls: ['./sidebar.component.scss'] // Corrige el nombre de la propiedad a 'styleUrls'
 })
 
 export class SidebarComponent {
@@ -26,9 +26,5 @@ export class SidebarComponent {
 
     toggleSidebar(sidenav: any) {
         sidenav.toggle();
-    }
-
-    navigateToGestionUsuario() {
-        this.router.navigate(['/usuarios/gestion-usuario']);
     }
 }

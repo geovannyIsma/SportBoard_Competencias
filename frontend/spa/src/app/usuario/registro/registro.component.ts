@@ -7,17 +7,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-registro',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule
-  ],
-  templateUrl: './registro.component.html',
-  styleUrls: ['./registro.component.scss']
+    selector: 'app-registro',
+    imports: [
+        CommonModule,
+        MatInputModule,
+        MatCardModule,
+        MatButtonModule,
+        MatIconModule
+    ],
+    templateUrl: './registro.component.html',
+    styleUrls: ['./registro.component.scss']
 })
 export class RegistroComponent {
   hide = true;  // Variable para controlar la visibilidad de la contraseña

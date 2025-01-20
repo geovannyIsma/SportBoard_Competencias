@@ -24,10 +24,9 @@ interface Partido {
 
 @Component({
     selector: 'app-matchtable',
-    standalone: true,
-    imports: [RouterModule, SharedModule, CommonModule, CoreModule ,MatExpansionModule],
+    imports: [RouterModule, SharedModule, CommonModule, CoreModule, MatExpansionModule],
     templateUrl: './matchtable.component.html',
-    styleUrl: './matchtable.component.scss',
+    styleUrl: './matchtable.component.scss'
 })
 export class MatchtableComponent {
     displayedColumns: string[] = [

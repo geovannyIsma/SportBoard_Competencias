@@ -5,11 +5,10 @@ import { MatTableModule } from '@angular/material/table';
 
 
 @Component({
-  selector: 'app-tr-estadistica',
-  standalone: true,
-  imports: [MatCardModule, MatTabsModule, MatTableModule],
-  templateUrl: './tr-estadistica.component.html',
-  styleUrl: './tr-estadistica.component.scss'
+    selector: 'app-tr-estadistica',
+    imports: [MatCardModule, MatTabsModule, MatTableModule],
+    templateUrl: './tr-estadistica.component.html',
+    styleUrl: './tr-estadistica.component.scss'
 })
 export class TrEstadisticaComponent {
 

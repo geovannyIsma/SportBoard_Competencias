@@ -12,11 +12,10 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-crear-usuario',
-  standalone: true,
-  imports: [SharedModule],
-  templateUrl: './crear-usuario.component.html',
-  styleUrl: './crear-usuario.component.scss'
+    selector: 'app-crear-usuario',
+    imports: [SharedModule],
+    templateUrl: './crear-usuario.component.html',
+    styleUrl: './crear-usuario.component.scss'
 })
 
 export class CrearUsuarioComponent {

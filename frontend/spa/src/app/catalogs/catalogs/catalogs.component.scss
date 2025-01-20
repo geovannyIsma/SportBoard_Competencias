@@ -1,3 +1,19 @@
 .search-field {
-  width: 100%;
+    width: 100%;
+}
+
+.catalog-container {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.catalog-card {
+    display: table-row;
+}
+
+.catalog-card > div {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
 }
