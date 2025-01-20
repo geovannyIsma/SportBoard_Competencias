@@ -10,14 +10,14 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         builder =>
         {
-            builder.WithOrigins("http://localhost:3000")
+            builder.WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowAnyMethod();
         });
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,9 +42,8 @@ using (var scope = app.Services.CreateScope())
     DataInitializer.SeedFromCsv(context);
 }
 
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Docker")
 {
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -54,4 +53,4 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.Run();
+app.Run("http://*:5241");

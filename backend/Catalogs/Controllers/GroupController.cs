@@ -101,5 +101,37 @@ namespace Catalogs.Controllers
 
             return NoContent();
         }
+
+        /// <summary>
+        /// Obtiene todos los catálogos asociados a un grupo específico.
+        /// </summary>
+        /// <param name="groupCode">El código del grupo.</param>
+        /// <returns>Una lista de catálogos asociados al grupo.</returns>
+        // GET: api/groups/{groupCode}/catalogs
+        [HttpGet("{code}/catalogs")]
+        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogsByGroup(string code)
+        {
+            var group = await _context.Groups.FindAsync(code);
+
+            if (group == null)
+            {
+                return NotFound();
+            }
+
+            var catalogs = await _context.Catalogs
+                .Where(c => c.GroupCode == code)
+                .Select(c => new Catalog
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Code = c.Code,
+                    GroupCode = c.GroupCode,
+                    IdCatalog = c.IdCatalog,
+                    IsActive = c.IsActive,
+                })
+                .ToListAsync();
+
+            return Ok(catalogs);
+        }
     }
 }

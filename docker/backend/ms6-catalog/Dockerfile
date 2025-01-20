@@ -1,24 +1,30 @@
-# Usar una imagen base oficial
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+# Etapa 1: Construcción del proyecto
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /source
+
+# Copiar archivo de solución y dependencias
+COPY *.csproj ./Catalogs/
+RUN dotnet restore ./Catalogs/*.csproj
+
+# Copiar el código fuente y compilar
+COPY ./ ./Catalogs/
+WORKDIR /source/Catalogs
+RUN dotnet publish -c Release -o /app
+
+# Copiar archivos de datos
+COPY ./SeedData/backup_groups.csv /app/SeedData/
+COPY ./SeedData/backup_catalogs.csv /app/SeedData/
+
+# Etapa 2: Ejecutar el proyecto
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
-EXPOSE 80
-EXPOSE 443
 
-# Imagen de construcción
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
-WORKDIR /src
-COPY ["backend/Backend.csproj", "backend/"]
-RUN dotnet restore "backend/Backend.csproj"
-COPY . .
-WORKDIR "/src/backend"
-RUN dotnet build "Backend.csproj" -c Release -o /app/build
+# Copiar archivos desde la etapa de construcción
+COPY --from=build /app .
 
-# Imagen de publicación
-FROM build AS publish
-RUN dotnet publish "Backend.csproj" -c Release -o /app/publish
+# Exponer el puerto por defecto
+EXPOSE 5241
+ENV ASPNETCORE_URLS=http://localhost:5241
 
-# Imagen final
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Backend.dll"]
+# Comando de inicio
+ENTRYPOINT ["dotnet", "Catalogs.dll"]

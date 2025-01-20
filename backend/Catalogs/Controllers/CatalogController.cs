@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Catalogs.Controllers
 {
+    /// <summary>
+    /// Controlador de catálogos.
+    /// </summary>
     [Route("api/catalogs")]
     [ApiController]
     public class CatalogController : ControllerBase
@@ -12,6 +15,10 @@ namespace Catalogs.Controllers
 
         private readonly ApplicationDbContext _context;
 
+        /// <summary>
+        /// Constructor de la clase CatalogController.
+        /// </summary>
+        /// <param name="context"></param>
         public CatalogController(ApplicationDbContext context)
         {
             _context = context;
@@ -25,7 +32,19 @@ namespace Catalogs.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogs()
         {
-            return await _context.Catalogs.ToListAsync();
+            return await _context.Catalogs
+            .Include(c => c.Group) // Incluir los valores del grupo
+            .Select(c => new Catalog
+            {
+                Id = c.Id,
+                Name = c.Name,
+                Code = c.Code,
+                GroupCode = c.GroupCode,
+                IdCatalog = c.IdCatalog,
+                IsActive = c.IsActive,
+                Group = c.Group // Incluir el grupo en la respuesta
+            })
+            .ToListAsync();
         }
 
         // GET: api/catalogs/id
@@ -47,25 +66,7 @@ namespace Catalogs.Controllers
             return catalog;
         }
 
-        /// <summary>
-        /// Obtiene los catálogos por el código del grupo.
-        /// </summary>
-        /// <param name="groupCode">Código del grupo.</param>
-        /// <returns>Una lista de catálogos.</returns>
-        [HttpGet("group/")]
-        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogsByGroupCode(string groupCode)
-        {
-            var catalogs = await _context.Catalogs
-                .Where(c => c.GroupCode == groupCode)
-                .ToListAsync();
-
-            if (catalogs == null || !catalogs.Any())
-            {
-                return NotFound();
-            }
-
-            return catalogs;
-        }
+        
 
         // POST: api/catalogs
         /// <summary>
@@ -143,5 +144,40 @@ namespace Catalogs.Controllers
         {
             return _context.Catalogs.Any(e => e.Id == id);
         }
+
+        /// <summary>
+        /// Obtiene los catálogos hijos de un catálogo específico.
+        /// </summary>
+        /// <param name="id">ID del catálogo padre.</param>
+        /// <returns>Una lista de catálogos hijos.</returns>
+        // GET: api/catalogs/{id}/children
+        [HttpGet("{id}/children")]
+        public async Task<ActionResult<IEnumerable<Catalog>>> GetCatalogChildren(int id)
+        {
+            var parentCatalog = await _context.Catalogs.FindAsync(id);
+
+            if (parentCatalog == null)
+            {
+                return NotFound();
+            }
+
+            var children = await _context.Catalogs
+                .Where(c => c.IdCatalog == id)
+                .Select(c => new Catalog
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Code = c.Code,
+                    GroupCode = c.GroupCode,
+                    IdCatalog = c.IdCatalog,
+                    IsActive = c.IsActive,
+                })
+                .ToListAsync();
+
+            return Ok(children);
+        }
+        
+
+
     }
 }
