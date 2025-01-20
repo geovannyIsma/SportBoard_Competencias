@@ -37,7 +37,7 @@ namespace Catalogs.Data
             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Catalog>()
-            .HasOne(c => c.group)
+            .HasOne(c => c.Group)
             .WithMany(g => g.CatalogList)
             .HasForeignKey(c => c.GroupCode)
             .OnDelete(DeleteBehavior.Restrict);

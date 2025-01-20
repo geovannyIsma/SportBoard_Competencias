@@ -98,7 +98,7 @@ namespace SeedData
                         IsActive = catalog.IsActive,
                         Version = catalog.Version,
                         GroupCode = catalog.GroupCode.ToString(),
-                        group = group
+                        Group = group
                     };
                     if (catalog.IdCatalog != null)
                     {
