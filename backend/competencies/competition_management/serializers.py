@@ -81,16 +81,6 @@ class DisciplineCatalogSerializer(serializers.ModelSerializer):
         model = DisciplineCatalog
         fields = '__all__'
 
-class LogoCatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LogoCatalog
-        fields = '__all__'
-
-class LogoItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LogoItem
-        fields = '__all__'
-
 class CountryCatalogSerializer(serializers.ModelSerializer):
     class Meta:
         model = CountryCatalog

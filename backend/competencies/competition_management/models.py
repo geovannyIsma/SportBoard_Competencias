@@ -226,23 +226,8 @@ class Stage(models.Model):
 class Competence(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    logo = models.ForeignKey('LogoCatalog', on_delete=models.CASCADE)
+    logo = models.ImageField(upload_to="logos/")  # Change to a normal image field
     competence_format = models.ForeignKey('FormatCatalog', on_delete=models.CASCADE)
-
-
-class LogoCatalog(models.Model):
-    name = models.CharField(max_length=255)
-
-    def add_item(self, image):
-        return LogoItem.objects.create(logo=image, logo_catalog=self)
-
-    def remove_item(self, item_id):
-        LogoItem.objects.filter(id=item_id, logo_catalog=self).delete()
-
-
-class LogoItem(models.Model):
-    logo = models.ImageField(upload_to="logos/")
-    logo_catalog = models.ForeignKey(LogoCatalog, on_delete=models.CASCADE)
 
 
 class CountryCatalog(models.Model):

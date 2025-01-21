@@ -1,42 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // Add this import
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CompetenciasRoutingModule } from './competencias-routing.module';
-import { PerfilesComponent } from './perfiles/perfiles.component';
-import { PerfilJugadorComponent } from './perfil-jugador/perfil-jugador.component';
-import { GestionCompetenciaComponent } from './GestionCompetencia/gestion-competencia.component';
-import { PerfilEquipoComponent } from './perfil-equipo/perfil-equipo.component';
-import { GestionEquipoComponent } from './gestion-equipo/gestion-equipo.component';
-import { PerfilReglasComponent } from './perfil-reglas/perfil-reglas.component';
+import { SharedModule } from '../shared/shared.module';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { ApiService } from './services/api.service';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientModule } from '@angular/common/http';
-import { TestApiComponent } from './test-api/test-api.component';
-import { AppComponent } from '../app.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSelectModule } from '@angular/material/select';
+import { CompetenceService } from '../services/competencies/competence.service';
+import { TitleCasePipe } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
-  declarations: [
-    TestApiComponent,
-
-  ],
   imports: [
     CommonModule,
-    FormsModule, // Add this line
-    PerfilesComponent,
-    PerfilEquipoComponent,
-    PerfilReglasComponent,
+    FormsModule,
+    ReactiveFormsModule,
     CompetenciasRoutingModule,
-    PerfilJugadorComponent,
-    CompetenciasRoutingModule,
-    GestionCompetenciaComponent,
-    GestionEquipoComponent,
+    SharedModule,
+    MatTableModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
-    HttpClientModule,
+    MatDialogModule,
+    MatSelectModule,
+    DragDropModule,
   ],
-  providers: [
-    ApiService
-  ],
+  providers: [CompetenceService, TitleCasePipe],
 })
 export class CompetenciasModule { }

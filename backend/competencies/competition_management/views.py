@@ -66,14 +66,6 @@ class DisciplineCatalogViewSet(viewsets.ModelViewSet):
     queryset = DisciplineCatalog.objects.all()
     serializer_class = DisciplineCatalogSerializer
 
-class LogoCatalogViewSet(viewsets.ModelViewSet):
-    queryset = LogoCatalog.objects.all()
-    serializer_class = LogoCatalogSerializer
-
-class LogoItemViewSet(viewsets.ModelViewSet):
-    queryset = LogoItem.objects.all()
-    serializer_class = LogoItemSerializer
-
 class CountryCatalogViewSet(viewsets.ModelViewSet):
     queryset = CountryCatalog.objects.all()
     serializer_class = CountryCatalogSerializer
