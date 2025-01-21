@@ -63,6 +63,7 @@ import { MatSortModule } from '@angular/material/sort';
     ],
     exports: [
         BreadcrumbComponent,
+        CommonModule,
         ConfirmationDialogComponent, // Exporta el componente de confirmación
         FlashMessageComponent,
         FormsModule,

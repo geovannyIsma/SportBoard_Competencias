@@ -12,6 +12,8 @@ services:
             POSTGRES_PASSWORD: competencies_password
         ports:
             - "5433:5432"
+        networks:
+            - sportboard-network
 
     ms2-competencies:
         build:
@@ -26,3 +28,9 @@ services:
             - "8003:8003"
         depends_on:
             - postgres-competencies
+        networks:
+            - sportboard-network
+
+networks:
+    sportboard-network:
+        external: true
