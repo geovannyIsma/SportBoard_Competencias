@@ -67,3 +67,6 @@ artifacts/
 # Windows-specific files
 Thumbs.db
 desktop.ini
+
+# Avoid including .idea directories and their contents
+.idea/
