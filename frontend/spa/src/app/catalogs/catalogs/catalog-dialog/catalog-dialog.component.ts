@@ -21,6 +21,7 @@ export class CatalogDialogComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: Catalog
     ) {
         this.catalogForm = this.fb.group({
+            id: [null], // Campo oculto para el ID
             name: ['', CatalogFormValidators.name],
             group: ['', CatalogFormValidators.group],
             description: [''],
@@ -36,8 +37,10 @@ export class CatalogDialogComponent implements OnInit {
             this.allGroups = groups;
             if (this.data) {
                 this.catalogForm.patchValue(this.data);
+                this.catalogForm.get('id')?.setValue(this.data.id); // Cargar el valor del ID
                 this.catalogForm.get('group')?.setValue(this.data.group?.code); // Cargar el valor del grupo
                 this.catalogForm.get('groupCode')?.setValue(this.data.groupCode); // Cargar el valor del groupCode
+                this.catalogForm.get('version')?.setValue(this.data.version); // Cargar el valor de la versión
             }
         });
     }

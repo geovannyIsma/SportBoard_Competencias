@@ -22,6 +22,7 @@ export class CatalogService {
     }
 
     createCatalog(catalog: Catalog): Observable<Catalog> {
+        // Asegúrate de que el objeto catalog tenga todos los campos necesarios
         return this.http.post<Catalog>(this.apiUrl, catalog);
     }
 

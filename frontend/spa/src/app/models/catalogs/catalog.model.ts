@@ -3,16 +3,16 @@ import { Validators } from '@angular/forms';
 
 export interface Catalog {
     id: number;
-    name: string;
-    description: string;
-    isActive: boolean;
-    version: number;
-    idCatalog: number;
-    parent: string;
     children: string[];
-    group: Group;
     code: string; // Nuevo campo agregado
+    description: string;
+    group: Group;
     groupCode: string; // Nuevo campo agregado
+    idCatalog: number;
+    isActive: boolean;
+    name: string;
+    parent: string;
+    version: number;
 }
 
 // Validadores para el formulario de Catalog
