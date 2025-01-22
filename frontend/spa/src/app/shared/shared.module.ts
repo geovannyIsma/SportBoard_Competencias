@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     declarations: [
@@ -59,7 +60,8 @@ import { MatSortModule } from '@angular/material/sort';
         MatTabsModule,
         MatToolbarModule,
         ReactiveFormsModule,
-        RouterModule
+        RouterModule,
+        ScrollingModule
     ],
     exports: [
         BreadcrumbComponent,
@@ -88,6 +90,7 @@ import { MatSortModule } from '@angular/material/sort';
         MatToolbarModule,
         ReactiveFormsModule,
         RouterModule,
+        ScrollingModule
     ]
 })
 export class SharedModule {}
