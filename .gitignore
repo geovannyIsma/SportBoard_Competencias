@@ -60,7 +60,7 @@ artifacts/
 *.sln.iml
 
 # Mac/Linux temporary files
-.DS_Store
+**/.DS_Store
 *.swp
 *.swo
 

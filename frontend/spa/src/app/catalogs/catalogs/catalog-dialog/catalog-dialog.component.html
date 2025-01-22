@@ -1,5 +1,6 @@
 <h1 mat-dialog-title>{{ data.name ? 'Editar Catálogo' : 'Nuevo Catálogo' }}</h1>
 <div mat-dialog-content [formGroup]="catalogForm" class="form-field-container">
+    <input type="hidden" formControlName="id"> <!-- Campo oculto para el ID -->
     <mat-form-field>
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="name">

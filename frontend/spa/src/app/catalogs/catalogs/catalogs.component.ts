@@ -11,9 +11,10 @@ import { Catalog } from '../../models/catalogs/catalog.model';
 import { MatTableDataSource } from '@angular/material/table'; // Importar MatTableDataSource
 import { MatPaginator } from '@angular/material/paginator'; // Importar MatPaginator
 import { MatSort } from '@angular/material/sort'; // Importar MatSort
-import { MatDialog } from '@angular/material/dialog'; // Importar MatDialog
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog'; // Importar MatDialog y MatDialogConfig
 import { CatalogDialogComponent } from './catalog-dialog/catalog-dialog.component';
 import { ConfirmationDialogComponent } from '../../shared/confirmation-dialog/confirmation-dialog.component'; // Importar ConfirmationDialogComponent
+import { FlashMessageComponent } from '../../shared/flash-message/flash-message.component'; // Importa el componente
 import { CdkScrollable } from '@angular/cdk/scrolling';
 
 @Component({
@@ -83,19 +84,24 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
         dialogRef.afterClosed().subscribe((result) => {
             if (result) {
                 if (catalog && catalog.id) {
-                    this.catalogService
-                        .updateCatalog(catalog.id, result)
-                        .subscribe(() => {
-                            console.log(result);
-                            this.loadCatalogs();
-                        });
+                    this.catalogService.updateCatalog(catalog.id, result).subscribe(() => {
+                        this.loadCatalogs();
+                        this.showFlashMessage(
+                            'Catálogo actualizado con éxito',
+                            'info'
+                        );
+                    });
                 } else {
                     this.catalogService.createCatalog(result).subscribe(() => {
                         this.loadCatalogs();
+                        this.showFlashMessage(
+                            'Catálogo creado con éxito',
+                            'success'
+                        );
                     });
                 }
             }
-        });
+        })
     }
 
     editCatalog(catalog: Catalog): void {
@@ -114,6 +120,10 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
             if (result) {
                 this.catalogService.deleteCatalog(catalog.id).subscribe(() => {
                     this.loadCatalogs();
+                    this.showFlashMessage(
+                        'Catálogo eliminado con éxito',
+                        'warning'
+                    );
                 });
             }
         });
@@ -132,5 +142,33 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
     loadMoreCatalogs(): void {
         // Implementa la lógica para cargar más catálogos aquí
         console.log('Cargar más catálogos...');
+    }
+
+    showFlashMessage(
+        message: string,
+        type: 'success' | 'error' | 'info' | 'warning',
+        position: 'top-right' | 'middle-right' | 'bottom-right' = 'top-right',
+        duration: number = 3000
+    ): void {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = {
+            message,
+            type,
+            position,
+            maxWidth: '90%',
+            minWidth: '400px',
+            duration,
+        };
+        dialogConfig.panelClass = 'flash-message-dialog';
+        dialogConfig.hasBackdrop = false;
+
+        const flashMessageRef = this.dialog.open(
+            FlashMessageComponent,
+            dialogConfig
+        );
+
+        setTimeout(() => {
+            flashMessageRef.close();
+        }, duration);
     }
 }
