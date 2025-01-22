@@ -35,6 +35,7 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
         'description',
         'version',
         'isActive',
+        'idCatalog',
         'actions',
     ];
     dataSource = new MatTableDataSource<Catalog>();
@@ -58,7 +59,10 @@ export class CatalogsComponent implements OnInit, AfterViewInit {
 
     loadCatalogs(): void {
         this.catalogService.getCatalogs().subscribe((data: Catalog[]) => {
-            this.dataSource.data = data;
+            this.dataSource.data = data.map(catalog => ({
+                ...catalog,
+                parentCatalog: data.find(parent => parent.id === catalog.idCatalog)
+            }));
         });
     }
 
