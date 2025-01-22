@@ -7,9 +7,10 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>Grupo</mat-label>
-        <input matInput formControlName="group">
-        <mat-error *ngIf="catalogForm.get('group')?.hasError('required')">El grupo es obligatorio</mat-error>
-    </mat-form-field>
+        <mat-select formControlName="group">
+            <mat-option *ngFor="let group of allGroups" [value]="group.code">{{ group.code }}</mat-option>
+        </mat-select>
+    </mat-form-field> <!-- Esta etiqueta de cierre estaba faltando -->
     <mat-form-field>
         <mat-label>Descripción</mat-label>
         <textarea matInput formControlName="description"></textarea>
@@ -22,8 +23,16 @@
     </mat-form-field>
     <mat-checkbox formControlName="isActive">Activo</mat-checkbox>
     <mat-error *ngIf="catalogForm.get('isActive')?.hasError('required')">El estado es obligatorio</mat-error>
+    <mat-form-field>
+        <mat-label>Code</mat-label>
+        <input matInput formControlName="code" name="code">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Group Code</mat-label>
+        <input matInput formControlName="groupCode">
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button [mat-dialog-close]="catalogForm.value" [disabled]="catalogForm.invalid">Guardar</button>
+    <button mat-button (click)="onSaveClick()" [disabled]="catalogForm.invalid">Guardar</button>
 </div>

@@ -26,10 +26,15 @@ export class CatalogService {
     }
 
     updateCatalog(id: number, catalog: Catalog): Observable<Catalog> {
+        console.log('catalog', catalog);
         return this.http.put<Catalog>(`${this.apiUrl}/${id}`, catalog);
     }
 
     deleteCatalog(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    }
+
+    updateCatalogWithGroup(id: number, catalog: any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/${id}`, catalog);
     }
 }
