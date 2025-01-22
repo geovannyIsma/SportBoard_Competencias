@@ -32,8 +32,16 @@
         <mat-label>Group Code</mat-label>
         <input matInput formControlName="groupCode">
     </mat-form-field>
+    <mat-form-field>
+        <mat-label>Catálogo Padre</mat-label>
+        <mat-select formControlName="idCatalog">
+            <mat-option [value]="null">Ninguno</mat-option>
+            <mat-option *ngFor="let catalog of allCatalogs" [value]="catalog.id">{{ catalog.name }} ({{
+                catalog.groupCode }})</mat-option>
+        </mat-select>
+    </mat-form-field>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancelar</button>
-    <button mat-button (click)="onSaveClick()" [disabled]="catalogForm.invalid">Guardar</button>
+    <button mat-raised-button (click)="onNoClick()">Cancelar</button>
+    <button mat-flat-button (click)="onSaveClick()" [disabled]="catalogForm.invalid">Guardar</button>
 </div>

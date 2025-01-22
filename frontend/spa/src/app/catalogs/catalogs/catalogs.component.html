@@ -44,6 +44,11 @@
             <td mat-cell *matCellDef="let catalog"> {{ catalog.isActive ? 'Sí' : 'No' }} </td>
         </ng-container>
 
+        <ng-container matColumnDef="idCatalog">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Catálogo Padre </th>
+            <td mat-cell *matCellDef="let catalog"> {{ catalog.parentCatalog?.name }} </td>
+        </ng-container>
+
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let catalog">
