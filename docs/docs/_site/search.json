@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Documentación técnica de SportBoard",
+    "section": "",
+    "text": "Bienvenido a la documentación técnica de SportBoard. Aquí encontrarás información detallada sobre la arquitectura, el frontend, el backend, los microservicios, la infraestructura y el desarrollo del proyecto.\n\n\n\nIntroducción\nArquitectura\nFrontend\nBackend\nMicroservicios\nInfraestructura\nDesarrollo"
+  },
+  {
+    "objectID": "index.html#quarto",
+    "href": "index.html#quarto",
+    "title": "Documentación técnica de SportBoard",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "index.html#dquarto",
+    "href": "index.html#dquarto",
+    "title": "Documentación técnica de SportBoard",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "index.html#documentación-técnica",
+    "href": "index.html#documentación-técnica",
+    "title": "Documentación técnica de SportBoard",
+    "section": "",
+    "text": "Bienvenido a la documentación técnica de SportBoard. Aquí encontrarás información detallada sobre la arquitectura, el frontend, el backend, los microservicios, la infraestructura y el desarrollo del proyecto.\n\n\n\nIntroducción\nArquitectura\nFrontend\nBackend\nMicroservicios\nInfraestructura\nDesarrollo"
+  },
+  {
+    "objectID": "introduction.html",
+    "href": "introduction.html",
+    "title": "Introducción a SportBoard",
+    "section": "",
+    "text": "SportBoard es una plataforma innovadora diseñada para gestionar y visualizar datos deportivos en tiempo real. Esta documentación técnica proporciona una visión detallada de los componentes y la arquitectura del sistema, así como guías para el desarrollo y la implementación.\n\n\n\nProveer una interfaz intuitiva para la gestión de datos deportivos.\nFacilitar la integración con diversas fuentes de datos en tiempo real.\nOfrecer herramientas avanzadas de análisis y visualización.\n\n\n\n\nEsta documentación está dirigida a desarrolladores, arquitectos de software y otros profesionales técnicos interesados en comprender y contribuir al desarrollo de SportBoard.\n\n\n\nLa documentación está organizada en las siguientes secciones:\n\nArquitectura\nFrontend\nBackend\nMicroservicios\nInfraestructura\nDesarrollo\n\n```python def suma(a, b): return a + b"
+  },
+  {
+    "objectID": "introduction.html#introducción",
+    "href": "introduction.html#introducción",
+    "title": "Introducción a SportBoard",
+    "section": "",
+    "text": "SportBoard es una plataforma innovadora diseñada para gestionar y visualizar datos deportivos en tiempo real. Esta documentación técnica proporciona una visión detallada de los componentes y la arquitectura del sistema, así como guías para el desarrollo y la implementación.\n\n\n\nProveer una interfaz intuitiva para la gestión de datos deportivos.\nFacilitar la integración con diversas fuentes de datos en tiempo real.\nOfrecer herramientas avanzadas de análisis y visualización.\n\n\n\n\nEsta documentación está dirigida a desarrolladores, arquitectos de software y otros profesionales técnicos interesados en comprender y contribuir al desarrollo de SportBoard.\n\n\n\nLa documentación está organizada en las siguientes secciones:\n\nArquitectura\nFrontend\nBackend\nMicroservicios\nInfraestructura\nDesarrollo\n\n```python def suma(a, b): return a + b"
+  }
+]
