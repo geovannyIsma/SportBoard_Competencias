@@ -19,6 +19,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             // Navegar a la pantalla de configuración
           },
         ),
+        IconButton(
+          icon: const Icon(Icons.more_vert),
+          onPressed: () {
+            // Acción de más opciones
+            // Mostrar un menú desplegable o realizar otra acción
+          },
+        ),
       ],
     );
   }
