@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../providers/group_provider.dart';
 import 'widgets/custom_drawer.dart';
 import 'widgets/custom_bottom_navigation_bar.dart';
 import 'widgets/custom_app_bar.dart';
@@ -22,7 +24,10 @@ class _SportBoardInterfaceState extends State<SportBoardInterface> {
   static final List<Widget> _widgetOptions = <Widget>[
     HomeScreen(),
     SearchScreen(),
-    CalendarioScreen(),
+    ChangeNotifierProvider(
+      create: (_) => GroupProvider(),
+      child: CalendarioScreen(),
+    ),
     TiempoRealScreen(),
     NotificacionesScreen(),
     MensajesScreen(),

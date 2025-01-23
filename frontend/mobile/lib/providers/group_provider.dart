@@ -8,7 +8,12 @@ class GroupProvider with ChangeNotifier {
   List<Group> get groups => _groups;
 
   Future<void> fetchGroups() async {
-    _groups = await GroupService.getGroups();
-    notifyListeners();
+    try {
+      _groups = await GroupService.getGroups();
+      notifyListeners();
+    } catch (e) {
+      print('Error in fetchGroups: $e');
+      rethrow;
+    }
   }
 }
