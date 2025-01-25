@@ -1,4 +1,7 @@
 from rest_framework import viewsets
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.response import Response
+from rest_framework import status
 from .models import *
 from .serializers import *
 
@@ -33,6 +36,21 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 class CompetenceViewSet(viewsets.ModelViewSet):
     queryset = Competence.objects.all()
     serializer_class = CompetenceSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def perform_create(self, serializer):
+        competence = serializer.save()
+        rules_data = self.request.data.get('rule_list', [])
+        for rule_data in rules_data:
+            RuleCompetition.objects.create(competence=competence, **rule_data)
+
+    def perform_update(self, serializer):
+        competence = serializer.save()
+        competence.rule_list.clear()
+        rules_data = self.request.data.get('rule_list', [])
+        for rule_data in rules_data:
+            RuleCompetition.objects.create(competence=competence, **rule_data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 class RuleCompetenceViewSet(viewsets.ModelViewSet):
     queryset = RuleCompetition.objects.all()
@@ -81,3 +99,7 @@ class FormatCatalogViewSet(viewsets.ModelViewSet):
 class FormatItemViewSet(viewsets.ModelViewSet):
     queryset = FormatItem.objects.all()
     serializer_class = FormatItemSerializer
+
+class StageCompetitionViewSet(viewsets.ModelViewSet):
+    queryset = StageCompetition.objects.all()
+    serializer_class = StageCompetitionSerializer

@@ -1,5 +1,4 @@
 export interface Planning {
-    id: number;
-    start_date: string;
-    end_date: string;
+    start_date: string; // ISO Date string
+    end_date: string; // ISO Date string
 }

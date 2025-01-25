@@ -1,0 +1,24 @@
+<div class="crud-table">
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Define columns here -->
+    <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectItem(row)"></tr>
+  </table>
+
+  <div class="crud-actions">
+    <button mat-icon-button (click)="openCreateDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button (click)="openEditDialog()" [disabled]="!selectedItem">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-icon-button (click)="openDeleteDialog()" [disabled]="!selectedItem">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+</div>

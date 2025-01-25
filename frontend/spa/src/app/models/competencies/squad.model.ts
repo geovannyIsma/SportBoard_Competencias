@@ -4,7 +4,6 @@ import { Registration } from './registration.model';
 import { Team } from './team.model';
 
 export interface Squad {
-    id: number;
     season: Planning;
     team: Team;
     players: User[];

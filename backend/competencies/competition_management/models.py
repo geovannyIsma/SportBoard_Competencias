@@ -140,7 +140,7 @@ class Planning(models.Model):
 class Rule(models.Model):
     numeration = models.PositiveIntegerField()
     rule_description = models.TextField()
-    actor = models.ForeignKey('User', on_delete=models.CASCADE)
+    actor = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
     type_rule = models.CharField(max_length=255)
 
@@ -186,6 +186,8 @@ class DisciplineCatalog(models.Model):
 
 
 class RuleCompetition(Rule):
+    competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
+
     def __str__(self):
         return self.rule_description
 
@@ -202,13 +204,11 @@ class CompetitionEdition(models.Model):
     planning = models.ForeignKey('Planning', on_delete=models.CASCADE)
     inscription_list = models.ManyToManyField('Registration')
     subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions')
-    stage = models.ForeignKey('Stage', on_delete=models.CASCADE)
-    rule_list = models.ManyToManyField('RuleCompetition')
-    rule_discipline_list = models.ManyToManyField('RuleDiscipline')
+    stage_list = models.ManyToManyField('Stage', through='StageCompetition', related_name='competitions')
     competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.stage.time.start_date} - {self.stage.time.end_date}"
+        return f"{self.planning.start_date} - {self.planning.end_date}"
 
 
 class Stage(models.Model):
@@ -223,11 +223,21 @@ class Stage(models.Model):
         self.time.save()
 
 
+class StageCompetition(models.Model):
+    competition = models.ForeignKey(CompetitionEdition, on_delete=models.CASCADE)
+    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
+
+
 class Competence(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     logo = models.ImageField(upload_to="logos/")  # Change to a normal image field
     competence_format = models.ForeignKey('FormatCatalog', on_delete=models.CASCADE)
+    rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences')
+    rule_list = models.ManyToManyField('RuleCompetition', related_name='competences')
+    
+    def __str__(self):
+        return self.name + " - " + self.description
 
 
 class CountryCatalog(models.Model):

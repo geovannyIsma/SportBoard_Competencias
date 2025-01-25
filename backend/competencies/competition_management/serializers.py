@@ -36,21 +36,28 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = Registration
         fields = '__all__'
 
-class CompetenceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Competence
-        fields = '__all__'
-
 class RuleCompetenceSerializer(serializers.ModelSerializer):
     class Meta:
         model = RuleCompetition
         fields = '__all__'
+
+
 
 class RuleDisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = RuleDiscipline
         fields = '__all__'
 
+class CompetenceSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(required=False)
+    rule_list = RuleCompetenceSerializer(many=True, required=False)
+    rule_discipline_list = RuleDisciplineSerializer(many=True, required=False)
+    competence_format = serializers.PrimaryKeyRelatedField(queryset=FormatCatalog.objects.all())
+
+    class Meta:
+        model = Competence
+        fields = '__all__'
+        
 class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discipline
@@ -99,4 +106,9 @@ class FormatCatalogSerializer(serializers.ModelSerializer):
 class FormatItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormatItem
+        fields = '__all__'
+
+class StageCompetitionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StageCompetition
         fields = '__all__'

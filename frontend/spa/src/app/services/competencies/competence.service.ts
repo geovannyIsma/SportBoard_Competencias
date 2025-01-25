@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Competence } from '../../models/competencies/competence.model';
@@ -8,7 +8,7 @@ import { Competence } from '../../models/competencies/competence.model';
     providedIn: 'root'
 })
 export class CompetenceService {
-    private apiUrl = environment.services.competencies.endpoints.competences;
+    private apiUrl = `${environment.services.competencies.endpoints.competences}`;
 
     constructor(private http: HttpClient) {}
 
@@ -20,11 +20,11 @@ export class CompetenceService {
         return this.http.get<Competence>(`${this.apiUrl}/${id}`);
     }
 
-    createCompetence(competence: Competence): Observable<Competence> {
+    createCompetence(competence: FormData): Observable<Competence> {
         return this.http.post<Competence>(this.apiUrl, competence);
     }
 
-    updateCompetence(id: number, competence: Competence): Observable<Competence> {
+    updateCompetence(id: number, competence: FormData): Observable<Competence> {
         return this.http.put<Competence>(`${this.apiUrl}/${id}`, competence);
     }
 

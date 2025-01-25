@@ -1,10 +1,9 @@
 import { User } from './user.model';
 
 export interface Rule {
-    id: number;
     numeration: number;
     rule_description: string;
-    actor: User;
+    actor: string;
     action: string;
     type_rule: string;
 }

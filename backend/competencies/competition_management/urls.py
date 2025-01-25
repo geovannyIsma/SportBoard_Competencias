@@ -20,12 +20,11 @@ router.register(r'stages', StageViewSet)
 router.register(r'teams', TeamViewSet)
 router.register(r'localities', LocalityViewSet)
 router.register(r'discipline-catalogs', DisciplineCatalogViewSet)
-# router.register(r'logo-catalogs', LogoCatalogViewSet)
-# router.register(r'logo-items', LogoItemViewSet)
 router.register(r'country-catalogs', CountryCatalogViewSet)
 router.register(r'country-items', CountryItemViewSet)
 router.register(r'format-catalogs', FormatCatalogViewSet)
 router.register(r'format-items', FormatItemViewSet)
+router.register(r'stage-competitions', StageCompetitionViewSet)
 
 urlpatterns = router.urls
 

@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>{{ mode === 'create' ? 'Crear' : mode === 'edit' ? 'Editar' : 'Eliminar' }} Competencia</h1>
+<div mat-dialog-content *ngIf="mode !== 'delete'">
+  <form [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description">
+    </mat-form-field>
+    <div>
+      <label for="logo">Logo</label>
+      <input id="logo" type="file" (change)="onFileChange($event)">
+    </div>
+    <mat-form-field>
+      <mat-label>Formato</mat-label>
+      <mat-select formControlName="competence_format">
+        <mat-option *ngFor="let format of formats" [value]="format">{{ format.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div formArrayName="rule_discipline_list">
+      <h3>Reglas de Disciplina</h3>
+      <button mat-button type="button" (click)="addRuleDiscipline()">+ Agregar Regla de Disciplina</button>
+      <div *ngFor="let rule of ruleDisciplineList.controls; let i = index" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>Descripción de la Regla</mat-label>
+          <input matInput formControlName="rule_description">
+        </mat-form-field>
+        <button mat-button type="button" (click)="removeRuleDiscipline(i)">Eliminar</button>
+      </div>
+    </div>
+    <div formArrayName="rule_list">
+      <h3>Reglas</h3>
+      <button mat-button type="button" (click)="addRule()">+ Agregar Regla</button>
+      <div *ngFor="let rule of ruleList.controls; let i = index" [formGroupName]="i">
+        <mat-form-field>
+          <mat-label>Descripción de la Regla</mat-label>
+          <input matInput formControlName="rule_description">
+        </mat-form-field>
+        <button mat-button type="button" (click)="removeRule(i)">Eliminar</button>
+      </div>
+    </div>
+  </form>
+</div>
+<div mat-dialog-content *ngIf="mode === 'delete'">
+  <p>¿Estás seguro de que deseas eliminar esta competencia?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-button (click)="save()" cdkFocusInitial>{{ mode === 'delete' ? 'Eliminar' : 'Guardar' }}</button>
+</div>

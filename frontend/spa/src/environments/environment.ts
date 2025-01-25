@@ -26,9 +26,9 @@ export const environment = {
                 plannings: '/plannings',
                 squads: '/squads',
                 registrations: '/registrations',
-                competences: '/competences',
+                competences: 'http://localhost:8000/api/competences',
                 ruleCompetences: '/rule-competences',
-                ruleDisciplines: '/rule-disciplines',
+                ruleDisciplines: 'http://localhost:8000/api/rule-disciplines',
                 disciplines: '/disciplines',
                 competenceEditions: '/competence-editions',
                 stages: '/stages',
@@ -64,9 +64,9 @@ environment.services.competencies.endpoints.matches = `${environment.services.co
 environment.services.competencies.endpoints.plannings = `${environment.services.competencies.base}${environment.services.competencies.endpoints.plannings}`;
 environment.services.competencies.endpoints.squads = `${environment.services.competencies.base}${environment.services.competencies.endpoints.squads}`;
 environment.services.competencies.endpoints.registrations = `${environment.services.competencies.base}${environment.services.competencies.endpoints.registrations}`;
-environment.services.competencies.endpoints.competences = `${environment.services.competencies.base}${environment.services.competencies.endpoints.competences}`;
+environment.services.competencies.endpoints.competences = 'http://localhost:8000/api/competences/';
 environment.services.competencies.endpoints.ruleCompetences = `${environment.services.competencies.base}${environment.services.competencies.endpoints.ruleCompetences}`;
-environment.services.competencies.endpoints.ruleDisciplines = `${environment.services.competencies.base}${environment.services.competencies.endpoints.ruleDisciplines}`;
+environment.services.competencies.endpoints.ruleDisciplines = 'http://localhost:8000/api/rule-disciplines/';
 environment.services.competencies.endpoints.disciplines = `${environment.services.competencies.base}${environment.services.competencies.endpoints.disciplines}`;
 environment.services.competencies.endpoints.competenceEditions = `${environment.services.competencies.base}${environment.services.competencies.endpoints.competenceEditions}`;
 environment.services.competencies.endpoints.stages = `${environment.services.competencies.base}${environment.services.competencies.endpoints.stages}`;

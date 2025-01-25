@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { FormatCatalog } from '../../models/competencies/format-catalog.model';
@@ -10,7 +10,7 @@ import { FormatCatalog } from '../../models/competencies/format-catalog.model';
 export class FormatCatalogService {
     private apiUrl = environment.services.competencies.endpoints.formatCatalogs;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     getFormatCatalogs(): Observable<FormatCatalog[]> {
         return this.http.get<FormatCatalog[]>(this.apiUrl);
@@ -23,6 +23,7 @@ export class FormatCatalogService {
     createFormatCatalog(formatCatalog: FormatCatalog): Observable<FormatCatalog> {
         return this.http.post<FormatCatalog>(this.apiUrl, formatCatalog);
     }
+
 
     updateFormatCatalog(id: number, formatCatalog: FormatCatalog): Observable<FormatCatalog> {
         return this.http.put<FormatCatalog>(`${this.apiUrl}/${id}`, formatCatalog);
