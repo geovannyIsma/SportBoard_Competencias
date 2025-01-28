@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import {MatDividerModule} from '@angular/material/divider';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'app-selec-partido',
@@ -18,14 +19,26 @@ import {MatDividerModule} from '@angular/material/divider';
     templateUrl: './selec-partido.component.html',
     styleUrl: './selec-partido.component.scss'
 })
-export class SelecPartidoComponent {
+export class SelecPartidoComponent implements OnInit {
   currentDate = new Date();
   esArbitro = true;
+  partidos: any[] = [];
 
-  constructor(private router: Router) { 
+  constructor(private router: Router, private http: HttpClient) { 
   }
-  navigateToCronologia() {
-    this.router.navigate(['/tiempo-real/cronologia']); 
+
+  ngOnInit() {
+    this.getPartidos();
+  }
+
+  getPartidos() {
+    this.http.get('/api/partidos').subscribe((data: any) => {
+      this.partidos = data.data; // Asignar los datos de los partidos
+    });
+  }
+
+  navigateToCronologia(partidoId: number) {
+    this.router.navigate(['/tiempo-real/cronologia', partidoId]); 
   }
 
   navigateToArbitro() {
@@ -33,7 +46,7 @@ export class SelecPartidoComponent {
   }
   
 
-    displayedColumns: string[] = ['equipos', 'marcador', 'tiempo', 'estado', 'accion'];
+    displayedColumns: string[] = ['equipos', 'fecha', 'accion'];
     dataSource = [
       { equipos: 'Quinto - Sexto', marcador: '0 - 1', tiempo: 1, estado: 'En juego' },
       { equipos: 'Equipo B', marcador: '0 - 0', tiempo: 2, estado: 'Suspendido' },
