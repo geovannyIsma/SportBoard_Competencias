@@ -36,8 +36,8 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Notificaciones',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.message),
-          label: 'Mensajes',
+          icon: Icon(Icons.account_circle_sharp),
+          label: 'Perfil',
         ),
       ],
       currentIndex: currentIndex,

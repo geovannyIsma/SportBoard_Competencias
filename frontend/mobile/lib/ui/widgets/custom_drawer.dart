@@ -9,22 +9,40 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: <Widget>[
+        children: const <Widget>[
           DrawerHeader(
             decoration: BoxDecoration(
               color: AppColors.primaryColor,
             ),
-            child: const Text(
-              'Drawer Header',
-              style: TextStyle(
-                color: AppColors.onPrimaryColor,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  radius: 30,
+                  backgroundImage: NetworkImage('https://example.com/user_profile_image.png'),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Nombre de Usuario',
+                  style: TextStyle(
+                    color: AppColors.onPrimaryColor,
+                    fontSize: 18,
+                  ),
+                ),
+                Text(
+                  'usuario@example.com',
+                  style: TextStyle(
+                    color: AppColors.onPrimaryColor,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
           ),
-          const ListTile(
+          ListTile(
             title: Text('Item 1'),
           ),
-          const ListTile(
+          ListTile(
             title: Text('Item 2'),
           ),
         ],
