@@ -27,6 +27,19 @@ services:
             file: ./backend/ms6-catalog/docker-compose.override.yml
             service: catalogs
 
+# Microservicio de competencias
+    ms2-competencies:
+        extends:
+            file: ./backend/ms2-competencies/docker-compose.override.yml
+            service: ms2-competencies
+        networks:
+            - sportboard-network
+
+    postgres-competencies:
+        extends:
+            file: ./backend/ms2-competencies/docker-compose.override.yml
+            service: postgres-competencies
+
 networks:
     sportboard-network:
         name: sportboard-network
