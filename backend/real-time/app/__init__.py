@@ -1,14 +1,21 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_cors import CORS
+from .config import Config
 
-def create_app():
+db = SQLAlchemy()
+migrate = Migrate()
+
+def create_app(config_class=Config):
     app = Flask(__name__)
+    CORS(app)  # Habilitar CORS en la aplicación
+    app.config.from_object(config_class)
     
-    # Configuración
-    app.config['DEBUG'] = True  # Cambia a False en producción
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'oracle://user:password@host:port/sid'
-    
-    # Importa las rutas
-    from .routes import api
-    app.register_blueprint(api)
+    db.init_app(app)
+    migrate.init_app(app, db)  # Inicializa Flask-Migrate con la base de datos
+
+    from .routes import api  # Importar el Blueprint
+    app.register_blueprint(api)  # Registrar el Blueprint
 
     return app

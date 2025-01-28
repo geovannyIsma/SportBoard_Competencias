@@ -1,2 +1,6 @@
 flask
-cx_Oracle
+flask_sqlalchemy
+flask_migrate
+flask_cors
+pymysql
+
