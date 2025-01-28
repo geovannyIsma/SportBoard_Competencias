@@ -48,7 +48,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
-        MatIconModule,
         MatInputModule,
         MatListModule,
         MatMenuModule,
@@ -97,4 +96,4 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         ScrollingModule,
     ],
 })
-export class SharedModule {}
+export class SharedModule { }

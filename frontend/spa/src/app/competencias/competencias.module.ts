@@ -12,12 +12,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { CompetenceService } from '../services/competencies/competence.service';
-import { FormatCatalogService } from '../services/competencies/format-catalog.service';
-import { FormatItemService } from '../services/competencies/format-item.service';
 import { TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { CrudTableComponent } from './crud-table/crud-table.component';
-import { CompetenceDialogComponent } from './dialogs/competence-dialog/competence-dialog.component';
+import { HomeCompetenciesComponent } from './home-competencies/home-competencies.component';
 
 @NgModule({
   imports: [
@@ -35,9 +32,8 @@ import { CompetenceDialogComponent } from './dialogs/competence-dialog/competenc
     MatSelectModule,
     MatCardModule,
     DragDropModule,
-    CrudTableComponent,
-    CompetenceDialogComponent,
+    HomeCompetenciesComponent,
   ],
-  providers: [CompetenceService, FormatCatalogService, FormatItemService, TitleCasePipe],
+  providers: [CompetenceService, TitleCasePipe],
 })
 export class CompetenciasModule { }

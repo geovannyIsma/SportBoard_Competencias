@@ -7,7 +7,7 @@ export interface Match {
     away_squad: Squad;
     home_goals: number;
     away_goals: number;
-    time: string; // ISO Date string
+    time: Date;
     stadium: Locality;
     stage: Stage;
 }

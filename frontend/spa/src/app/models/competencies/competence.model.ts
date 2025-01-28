@@ -1,12 +1,12 @@
-import { FormatCatalog } from './format-catalog.model';
 import { RuleCompetition } from './rule-competence.model';
 import { RuleDiscipline } from './rule-discipline.model';
+import { Format } from './format.model';
 
 export interface Competence {
     name: string;
     description: string;
-    logo: File; // Change to File for file upload
-    competence_format: FormatCatalog;
+    logo: string;
+    competence_format: Format;
     rule_discipline_list: RuleDiscipline[];
     rule_list: RuleCompetition[];
 }
