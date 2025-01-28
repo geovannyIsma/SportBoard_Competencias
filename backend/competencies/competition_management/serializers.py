@@ -82,32 +82,18 @@ class LocalitySerializer(serializers.ModelSerializer):
         model = Locality
         fields = '__all__'
 
-class DisciplineCatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = DisciplineCatalog
-        fields = '__all__'
-
-class CountryCatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CountryCatalog
-        fields = '__all__'
-
-class CountryItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = CountryItem
-        fields = '__all__'
-
-class FormatCatalogSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FormatCatalog
-        fields = '__all__'
-
-class FormatItemSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = FormatItem
-        fields = '__all__'
-
 class StageCompetitionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StageCompetition
+        fields = '__all__'
+        
+
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
+
+class FormatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Format
         fields = '__all__'

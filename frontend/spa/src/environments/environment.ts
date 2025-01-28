@@ -26,21 +26,16 @@ export const environment = {
                 plannings: '/plannings',
                 squads: '/squads',
                 registrations: '/registrations',
-                competences: 'http://localhost:8000/api/competences',
+                competences: '/competences',
                 ruleCompetences: '/rule-competences',
-                ruleDisciplines: 'http://localhost:8000/api/rule-disciplines',
+                ruleDisciplines: '/rule-disciplines',
                 disciplines: '/disciplines',
                 competenceEditions: '/competence-editions',
                 stages: '/stages',
                 teams: '/teams',
                 localities: '/localities',
-                disciplineCatalogs: '/discipline-catalogs',
-                logoCatalogs: '/logo-catalogs',
-                logoItems: '/logo-items',
-                countryCatalogs: '/country-catalogs',
-                countryItems: '/country-items',
-                formatCatalogs: '/format-catalogs',
-                formatItems: '/format-items',
+                countries: '/countries',
+                formats: '/formats',
             },
         },
     },
@@ -57,25 +52,20 @@ environment.services.catalog.endpoints.catalogs = `${environment.services.catalo
 environment.services.competencies.base = `${environment.apiUrl}${environment.services.competencies.base}`;
 environment.services.competencies.endpoints.root = `${environment.services.competencies.base}${environment.services.competencies.endpoints.root}`;
 environment.services.competencies.endpoints.staticFiles = `${environment.services.competencies.base}${environment.services.competencies.endpoints.staticFiles}`;
-environment.services.competencies.endpoints.users = `${environment.services.competencies.base}${environment.services.competencies.endpoints.users}`;
-environment.services.competencies.endpoints.playerAssignments = `${environment.services.competencies.base}${environment.services.competencies.endpoints.playerAssignments}`;
-environment.services.competencies.endpoints.coachAssignments = `${environment.services.competencies.base}${environment.services.competencies.endpoints.coachAssignments}`;
-environment.services.competencies.endpoints.matches = `${environment.services.competencies.base}${environment.services.competencies.endpoints.matches}`;
-environment.services.competencies.endpoints.plannings = `${environment.services.competencies.base}${environment.services.competencies.endpoints.plannings}`;
-environment.services.competencies.endpoints.squads = `${environment.services.competencies.base}${environment.services.competencies.endpoints.squads}`;
-environment.services.competencies.endpoints.registrations = `${environment.services.competencies.base}${environment.services.competencies.endpoints.registrations}`;
-environment.services.competencies.endpoints.competences = 'http://localhost:8000/api/competences/';
-environment.services.competencies.endpoints.ruleCompetences = `${environment.services.competencies.base}${environment.services.competencies.endpoints.ruleCompetences}`;
-environment.services.competencies.endpoints.ruleDisciplines = 'http://localhost:8000/api/rule-disciplines/';
-environment.services.competencies.endpoints.disciplines = `${environment.services.competencies.base}${environment.services.competencies.endpoints.disciplines}`;
-environment.services.competencies.endpoints.competenceEditions = `${environment.services.competencies.base}${environment.services.competencies.endpoints.competenceEditions}`;
-environment.services.competencies.endpoints.stages = `${environment.services.competencies.base}${environment.services.competencies.endpoints.stages}`;
-environment.services.competencies.endpoints.teams = `${environment.services.competencies.base}${environment.services.competencies.endpoints.teams}`;
-environment.services.competencies.endpoints.localities = `${environment.services.competencies.base}${environment.services.competencies.endpoints.localities}`;
-environment.services.competencies.endpoints.disciplineCatalogs = `${environment.services.competencies.base}${environment.services.competencies.endpoints.disciplineCatalogs}`;
-environment.services.competencies.endpoints.logoCatalogs = `${environment.services.competencies.base}${environment.services.competencies.endpoints.logoCatalogs}`;
-environment.services.competencies.endpoints.logoItems = `${environment.services.competencies.base}${environment.services.competencies.endpoints.logoItems}`;
-environment.services.competencies.endpoints.countryCatalogs = `${environment.services.competencies.base}${environment.services.competencies.endpoints.countryCatalogs}`;
-environment.services.competencies.endpoints.countryItems = `${environment.services.competencies.base}${environment.services.competencies.endpoints.countryItems}`;
-environment.services.competencies.endpoints.formatCatalogs = `${environment.services.competencies.base}${environment.services.competencies.endpoints.formatCatalogs}`;
-environment.services.competencies.endpoints.formatItems = `${environment.services.competencies.base}${environment.services.competencies.endpoints.formatItems}`;
+environment.services.competencies.endpoints.users = `${environment.services.competencies.base}/users/`;
+environment.services.competencies.endpoints.playerAssignments = `${environment.services.competencies.base}/player-assignments/`;
+environment.services.competencies.endpoints.coachAssignments = `${environment.services.competencies.base}/coach-assignments/`;
+environment.services.competencies.endpoints.matches = `${environment.services.competencies.base}/matches/`;
+environment.services.competencies.endpoints.plannings = `${environment.services.competencies.base}/plannings/`;
+environment.services.competencies.endpoints.squads = `${environment.services.competencies.base}/squads/`;
+environment.services.competencies.endpoints.registrations = `${environment.services.competencies.base}/registrations/`;
+environment.services.competencies.endpoints.competences = `${environment.services.competencies.base}/competences/`;
+environment.services.competencies.endpoints.ruleCompetences = `${environment.services.competencies.base}/rule-competences/`;
+environment.services.competencies.endpoints.ruleDisciplines = `${environment.services.competencies.base}/rule-disciplines/`;
+environment.services.competencies.endpoints.disciplines = `${environment.services.competencies.base}/disciplines/`;
+environment.services.competencies.endpoints.competenceEditions = `${environment.services.competencies.base}/competence-editions/`;
+environment.services.competencies.endpoints.stages = `${environment.services.competencies.base}/stages/`;
+environment.services.competencies.endpoints.teams = `${environment.services.competencies.base}/teams/`;
+environment.services.competencies.endpoints.localities = `${environment.services.competencies.base}/localities/`;
+environment.services.competencies.endpoints.countries = `${environment.services.competencies.base}/countries/`;
+environment.services.competencies.endpoints.formats = `${environment.services.competencies.base}/formats/`;
