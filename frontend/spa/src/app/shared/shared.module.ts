@@ -48,7 +48,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
-        MatIconModule,
         MatInputModule,
         MatListModule,
         MatMenuModule,
@@ -67,6 +66,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     ],
     exports: [
         BreadcrumbComponent,
+        CommonModule,
         ConfirmationDialogComponent, // Exporta el componente de confirmación
         FlashMessageComponent,
         FormsModule,
@@ -96,4 +96,4 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
         ScrollingModule,
     ],
 })
-export class SharedModule {}
+export class SharedModule { }
