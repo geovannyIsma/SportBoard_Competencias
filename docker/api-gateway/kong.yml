@@ -14,6 +14,16 @@ services:
       - name: catalogs-route
         paths:
           - /catalog/catalogs
+  - name: real-time-service
+    url: http://ms3-real-time:5000/api  
+    routes:
+      - name: matches-route
+        paths:
+          - /api/partidos
+      - name: events-route
+        paths:
+          - /api/eventos
+
   - name: ms2-competencies
     url: http://ms2-competencies:8003
     routes:

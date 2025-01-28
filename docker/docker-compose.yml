@@ -27,6 +27,16 @@ services:
             file: ./backend/ms6-catalog/docker-compose.override.yml
             service: catalogs
 
+# Microservicio Tiempo Real
+    ms3-real-time:
+        extends:
+            file: ./backend/ms3-real-time/docker-compose.override.yml
+            service: ms3-real-time
+
+    mariadb-real-time:
+        extends:
+            file: ./backend/ms3-real-time/docker-compose.override.yml
+            service: mariadb-real-time
 # Microservicio de competencias
     ms2-competencies:
         extends:
@@ -44,3 +54,7 @@ networks:
     sportboard-network:
         name: sportboard-network
         driver: bridge
+
+volumes:
+    mariadb_data:
+    static_volume:
