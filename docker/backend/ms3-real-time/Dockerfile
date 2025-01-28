@@ -17,7 +17,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY ./ /source/
 
 # Exponer el puerto en el que Flask corre
-EXPOSE 5000
+EXPOSE 5001
 
 # Comando para iniciar Flask
 #CMD ["flask", "run", "--host=0.0.0.0"]

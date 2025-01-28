@@ -15,7 +15,7 @@ services:
         paths:
           - /catalog/catalogs
   - name: real-time-service
-    url: http://ms3-real-time:5000/api  
+    url: http://ms3-real-time:5001/api  
     routes:
       - name: matches-route
         paths:
