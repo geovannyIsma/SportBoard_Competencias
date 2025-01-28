@@ -52,6 +52,7 @@ class CompetenceSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(required=False)
     rule_list = RuleCompetenceSerializer(many=True, required=False)
     rule_discipline_list = RuleDisciplineSerializer(many=True, required=False)
+    competence_format = serializers.PrimaryKeyRelatedField(queryset=Format.objects.all(), required=False)
 
     class Meta:
         model = Competence

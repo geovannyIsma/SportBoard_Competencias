@@ -32,6 +32,8 @@ services:
         extends:
             file: ./backend/ms2-competencies/docker-compose.override.yml
             service: ms2-competencies
+        networks:
+            - sportboard-network
 
     postgres-competencies:
         extends:

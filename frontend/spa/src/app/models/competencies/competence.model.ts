@@ -6,7 +6,7 @@ export interface Competence {
     name: string;
     description: string;
     logo: string;
-    competence_format: Format;
-    rule_discipline_list: RuleDiscipline[];
-    rule_list: RuleCompetition[];
+    competence_format?: Format;
+    rule_discipline_list?: RuleDiscipline[];
+    rule_list?: RuleCompetition[];
 }

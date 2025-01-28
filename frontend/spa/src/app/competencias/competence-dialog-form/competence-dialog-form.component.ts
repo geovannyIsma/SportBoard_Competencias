@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CompetenceService } from '../../services/competencies/competence.service';
+import { FormatService } from '../../services/competencies/format.service';
+import { RuleDisciplineService } from '../../services/competencies/rule-discipline.service';
+import { RuleCompetenceService } from '../../services/competencies/rule-competence.service';
 import { Format } from '../../models/competencies/format.model';
 import { RuleDiscipline } from '../../models/competencies/rule-discipline.model';
 import { RuleCompetition } from '../../models/competencies/rule-competence.model';
 import { SharedModule } from '../../shared/shared.module';
-import { FormatService } from '../../services/competencies/format.service';
-import { RuleDisciplineService } from '../../services/competencies/rule-discipline.service';
-import { RuleCompetenceService } from '../../services/competencies/rule-competence.service';
 
 @Component({
   selector: 'app-competence-dialog-form',
@@ -26,6 +26,7 @@ export class CompetenceDialogFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CompetenceDialogFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private competenceService: CompetenceService,
     private formatService: FormatService,
     private ruleDisciplineService: RuleDisciplineService,
@@ -35,10 +36,14 @@ export class CompetenceDialogFormComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
       logo: [null, Validators.required],
-      competence_format: ['', Validators.required],
-      rule_discipline_list: [[], Validators.required],
-      rule_list: [[], Validators.required]
+      competence_format: [''],
+      rule_discipline_list: [[]],
+      rule_list: [[]]
     });
+
+    if (data && data.competence) {
+      this.competenceForm.patchValue(data.competence);
+    }
   }
 
   ngOnInit(): void {
@@ -60,13 +65,24 @@ export class CompetenceDialogFormComponent implements OnInit {
       Object.keys(this.competenceForm.controls).forEach(key => {
         formData.append(key, this.competenceForm.get(key)?.value);
       });
-      this.competenceService.createCompetence(formData).subscribe(() => {
-        this.dialogRef.close(true);
-      });
+
+      if (this.data.action === 'create') {
+        this.competenceService.createCompetence(formData).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      } else if (this.data.action === 'edit') {
+        this.competenceService.updateCompetence(this.data.competence.id, formData).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      } else if (this.data.action === 'delete') {
+        this.competenceService.deleteCompetence(this.data.competence.id).subscribe(() => {
+          this.dialogRef.close(true);
+        });
+      }
     }
   }
 
   close(): void {
     this.dialogRef.close();
   }
-};
+}

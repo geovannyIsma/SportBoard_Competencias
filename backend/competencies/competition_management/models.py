@@ -216,9 +216,9 @@ class Competence(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     logo = models.ImageField(upload_to="logos/")
-    competence_format = models.ForeignKey('Format', on_delete=models.CASCADE)
-    rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences')
-    rule_list = models.ManyToManyField('RuleCompetition', related_name='competences')
+    competence_format = models.ForeignKey('Format', on_delete=models.CASCADE, blank=True, null=True)
+    rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences', blank=True)
+    rule_list = models.ManyToManyField('RuleCompetition', related_name='competences', blank=True)
     
     def __str__(self):
         return self.name + " - " + self.description

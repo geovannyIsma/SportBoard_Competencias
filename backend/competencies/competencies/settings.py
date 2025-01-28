@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'ms2-competencies',
-    'localhost',    
+    'localhost',
 ]
 
 MEDIA_URL = '/media/'

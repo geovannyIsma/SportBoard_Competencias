@@ -1,41 +1,22 @@
-<h1>Crear Competencia</h1>
+<h1>{{ data.action === 'create' ? 'Crear Competencia' : data.action === 'edit' ? 'Editar Competencia' : 'Eliminar Competencia' }}</h1>
 <form [formGroup]="competenceForm" (ngSubmit)="submit()">
-  <mat-form-field>
+  <mat-form-field *ngIf="data.action !== 'delete'">
     <mat-label>Nombre</mat-label>
     <input matInput formControlName="name" required>
   </mat-form-field>
 
-  <mat-form-field>
+  <mat-form-field *ngIf="data.action !== 'delete'">
     <mat-label>Descripción</mat-label>
     <textarea matInput formControlName="description" required></textarea>
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Logo</mat-label>
-    <input type="file" (change)="onFileChange($event)" required>
-  </mat-form-field>
+  <div *ngIf="data.action !== 'delete'">
+    <label for="logo">Logo</label>
+    <input id="logo" type="file" (change)="onFileChange($event)" required>
+  </div>
 
-  <mat-form-field>
-    <mat-label>Formato de Competencia</mat-label>
-    <mat-select formControlName="competence_format" required>
-      <mat-option *ngFor="let format of formats" [value]="format">{{ format.description }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Lista de Reglas de Disciplina</mat-label>
-    <mat-select formControlName="rule_discipline_list" multiple required>
-      <mat-option *ngFor="let rule of ruleDisciplines" [value]="rule">{{ rule.rule_description }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Lista de Reglas de Competencia</mat-label>
-    <mat-select formControlName="rule_list" multiple required>
-      <mat-option *ngFor="let rule of ruleCompetitions" [value]="rule">{{ rule.rule_description }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <button mat-raised-button type="submit" [disabled]="!competenceForm.valid">Crear</button>
+  <button mat-raised-button type="submit" [disabled]="!competenceForm.valid && data.action !== 'delete'">
+    {{ data.action === 'create' ? 'Crear' : data.action === 'edit' ? 'Guardar' : 'Eliminar' }}
+  </button>
   <button mat-button type="button" (click)="close()">Cancelar</button>
 </form>
