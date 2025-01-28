@@ -1,0 +1,22 @@
+version: "3.8"
+name: SportBoard-container
+
+services:
+    ms1-usermanagement:
+        build:
+            context: ../../../
+            dockerfile: docker/backend/ms1-usermanagement/Dockerfile
+        container_name: ms1-usermanagement
+        restart: always
+        environment:
+            - DJANGO_SETTINGS_MODULE=users.settings
+        ports:
+            - "8003:8003"
+        depends_on:
+            - postgres
+        networks:
+            - sportboard-network
+
+networks:
+    sportboard-network:
+        external: true
