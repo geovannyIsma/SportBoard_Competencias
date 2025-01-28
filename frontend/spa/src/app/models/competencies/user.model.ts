@@ -1,6 +1,6 @@
 export interface User {
     username: string;
     email: string;
-    role: string;
-    created_at: string;
+    role: 'Coach' | 'Player';
+    created_at: Date;
 }

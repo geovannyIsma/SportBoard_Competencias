@@ -1,4 +1,3 @@
-
 export interface Locality {
     stadium_name: string;
     street_one: string;

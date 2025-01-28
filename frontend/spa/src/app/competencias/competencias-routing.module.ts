@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FormatCatalogService } from '../services/competencies/format-catalog.service';
-import { FormatItemService } from '../services/competencies/format-item.service';
-import { HomeCompetenciasComponent } from './home-competencias/home-competencias.component';
-import { AdministracionCompetencesComponent } from './administracion-competences/administracion-competences.component';
+import { HomeCompetenciesComponent } from './home-competencies/home-competencies.component';
+import { CompetenceDialogFormComponent } from './competence-dialog-form/competence-dialog-form.component';
+import { AdminCompetenciasComponent } from './admin-competencias/admin-competencias.component';
 
 const routes: Routes = [
-  { path: '', component: HomeCompetenciasComponent },
-  { path: 'administracion', component: AdministracionCompetencesComponent },
+  { path: '', component: HomeCompetenciesComponent },
+  { path: 'admin-competence', component: AdminCompetenciasComponent },
+  { path: 'competence-dialog-form', component: CompetenceDialogFormComponent },
 ];
 
 @NgModule({

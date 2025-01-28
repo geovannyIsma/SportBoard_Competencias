@@ -80,25 +80,13 @@ class LocalityViewSet(viewsets.ModelViewSet):
     queryset = Locality.objects.all()
     serializer_class = LocalitySerializer
 
-class DisciplineCatalogViewSet(viewsets.ModelViewSet):
-    queryset = DisciplineCatalog.objects.all()
-    serializer_class = DisciplineCatalogSerializer
+class CountryViewSet(viewsets.ModelViewSet):
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
 
-class CountryCatalogViewSet(viewsets.ModelViewSet):
-    queryset = CountryCatalog.objects.all()
-    serializer_class = CountryCatalogSerializer
-
-class CountryItemViewSet(viewsets.ModelViewSet):
-    queryset = CountryItem.objects.all()
-    serializer_class = CountryItemSerializer
-
-class FormatCatalogViewSet(viewsets.ModelViewSet):
-    queryset = FormatCatalog.objects.all()
-    serializer_class = FormatCatalogSerializer
-
-class FormatItemViewSet(viewsets.ModelViewSet):
-    queryset = FormatItem.objects.all()
-    serializer_class = FormatItemSerializer
+class FormatViewSet(viewsets.ModelViewSet):
+    queryset = Format.objects.all()
+    serializer_class = FormatSerializer
 
 class StageCompetitionViewSet(viewsets.ModelViewSet):
     queryset = StageCompetition.objects.all()

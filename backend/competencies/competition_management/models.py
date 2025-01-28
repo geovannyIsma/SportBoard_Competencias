@@ -20,7 +20,7 @@ class User(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    country = models.ForeignKey('CountryCatalog', on_delete=models.CASCADE)
+    country = models.ForeignKey('Country', on_delete=models.CASCADE)
     logo = models.ImageField(upload_to="logos/")
     squads = models.ManyToManyField('Squad', related_name='teams')
 
@@ -169,22 +169,6 @@ class Discipline(models.Model):
     def __str__(self):
         return self.name
 
-
-class DisciplineCatalog(models.Model):
-    discipline_list = models.ManyToManyField(Discipline)
-
-    def add_discipline_item(self, discipline):
-        self.discipline_list.add(discipline)
-        self.save()
-
-    def remove_discipline_item(self, discipline):
-        self.discipline_list.remove(discipline)
-        self.save()
-
-    def __str__(self):
-        return ", ".join([d.name for d in self.discipline_list.all()])
-
-
 class RuleCompetition(Rule):
     competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
 
@@ -231,40 +215,25 @@ class StageCompetition(models.Model):
 class Competence(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
-    logo = models.ImageField(upload_to="logos/")  # Change to a normal image field
-    competence_format = models.ForeignKey('FormatCatalog', on_delete=models.CASCADE)
-    rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences')
-    rule_list = models.ManyToManyField('RuleCompetition', related_name='competences')
+    logo = models.ImageField(upload_to="logos/")
+    competence_format = models.ForeignKey('Format', on_delete=models.CASCADE, blank=True, null=True)
+    rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences', blank=True)
+    rule_list = models.ManyToManyField('RuleCompetition', related_name='competences', blank=True)
     
     def __str__(self):
         return self.name + " - " + self.description
 
 
-class CountryCatalog(models.Model):
+class Country(models.Model):
     name = models.CharField(max_length=255)
+    description = models.TextField()
+    
+    def __str__(self):
+        return self.name + " - " + self.description
 
-    def add_item(self, country_name):
-        return CountryItem.objects.create(country_name=country_name, catalog=self)
-
-    def remove_item(self, item_id):
-        CountryItem.objects.filter(id=item_id, catalog=self).delete()
-
-
-class CountryItem(models.Model):
-    country_name = models.CharField(max_length=255)
-    catalog = models.ForeignKey(CountryCatalog, on_delete=models.CASCADE)
-
-
-class FormatCatalog(models.Model):
+class Format(models.Model):
     name = models.CharField(max_length=255)
-
-    def add_item(self, format_name):
-        return FormatItem.objects.create(format_name=format_name, catalog=self)
-
-    def remove_item(self, item_id):
-        FormatItem.objects.filter(id=item_id, catalog=self).delete()
-
-
-class FormatItem(models.Model):
-    format_name = models.CharField(max_length=255)
-    catalog = models.ForeignKey(FormatCatalog, on_delete=models.CASCADE)
+    description = models.TextField()
+    
+    def __str__(self):
+        return self.name + " - " + self.description

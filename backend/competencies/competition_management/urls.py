@@ -19,14 +19,12 @@ router.register(r'competence-editions', CompetenceEditionViewSet)
 router.register(r'stages', StageViewSet)
 router.register(r'teams', TeamViewSet)
 router.register(r'localities', LocalityViewSet)
-router.register(r'discipline-catalogs', DisciplineCatalogViewSet)
-router.register(r'country-catalogs', CountryCatalogViewSet)
-router.register(r'country-items', CountryItemViewSet)
-router.register(r'format-catalogs', FormatCatalogViewSet)
-router.register(r'format-items', FormatItemViewSet)
 router.register(r'stage-competitions', StageCompetitionViewSet)
+router.register(r'countries', CountryViewSet)
+router.register(r'formats', FormatViewSet)
 
 urlpatterns = router.urls
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

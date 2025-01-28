@@ -28,3 +28,10 @@ services:
         paths:
           - /static/
         strip_path: false
+  - name: media-files
+    url: http://ms2-competencies:8003
+    routes:
+      - name: media-files-route
+        paths:
+          - /media/
+        strip_path: false
