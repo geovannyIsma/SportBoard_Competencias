@@ -73,4 +73,3 @@ node_modules/
 # Avoid including .idea directories and their contents
 .idea/
 
-env/Lib/
