@@ -16,8 +16,8 @@ public class Controller {
 		return "Hola";
 	}
 
-	@GetMapping("/prueba")
-	public String getPrueba() {
-		return "Prueba";
+	@GetMapping("/abel")
+	public String getAbel() {
+		return "Abel es un pendejo";
 	}
 }
