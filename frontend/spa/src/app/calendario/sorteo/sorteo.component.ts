@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './sorteo.component.html',
   styleUrls: ['./sorteo.component.scss'],
   imports: [CommonModule],
+
 })
 export class SorteoComponent {
   // Grupos iniciales con equipos predefinidos

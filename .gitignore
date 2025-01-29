@@ -68,5 +68,8 @@ artifacts/
 Thumbs.db
 desktop.ini
 
+node_modules/
+
 # Avoid including .idea directories and their contents
 .idea/
+
