@@ -50,6 +50,13 @@ services:
             file: ./backend/ms2-competencies/docker-compose.override.yml
             service: postgres-competencies
 
+#Microservicio de gestion de usuarios
+    ms1-usermanagement:
+        extends:
+            file: ./backend/ms1-usermanagement/docker-compose.override.yml
+            service: ms1-usermanagement
+        networks:
+            - sportboard-network
 networks:
     sportboard-network:
         name: sportboard-network
