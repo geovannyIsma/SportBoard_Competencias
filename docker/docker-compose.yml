@@ -50,6 +50,23 @@ services:
             file: ./backend/ms2-competencies/docker-compose.override.yml
             service: postgres-competencies
 
+# Microservicio de estadísticas
+    mongodb-estadisticas:
+        extends:
+            file: ./backend/ms4-estadisticas/docker-compose.override.yml
+            service: mongodb-estadisticas
+
+    ms4-estadisticas:
+        extends:
+            file: ./backend/ms4-estadisticas/docker-compose.override.yml
+            service: ms4-estadisticas
+
+    kong-estadisticas:
+        extends:
+            file: ./backend/ms4-estadisticas/docker-compose.override.yml
+            service: kong
+
+
 networks:
     sportboard-network:
         name: sportboard-network
@@ -58,3 +75,4 @@ networks:
 volumes:
     mariadb_data:
     static_volume:
+    mongodb_estadisticas_data:
