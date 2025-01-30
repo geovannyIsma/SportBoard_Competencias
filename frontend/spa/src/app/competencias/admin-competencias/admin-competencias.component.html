@@ -40,20 +40,11 @@
     <div class="form-section">
       <div class="form-container">
         <div class="actions">
-          <button mat-fab-extended (click)="refresh()" aria-label="Refrescar lista de competencias">
-            <mat-icon>refresh</mat-icon>
-            Refrescar
-          </button>
           <button mat-fab-extended (click)="create()" aria-label="Crear nueva competencia">
             <mat-icon>add</mat-icon>
             Crear
           </button>
-          <button mat-fab-extended (click)="selectedCompetence && edit(selectedCompetence)" [disabled]="!selectedCompetence"
-            aria-label="Editar competencia seleccionada">
-            <mat-icon>edit</mat-icon>
-            Editar
-          </button>
-          <button mat-fab-extended (click)="selectedCompetence && delete(selectedCompetence)" [disabled]="!selectedCompetence"
+          <button mat-fab-extended (click)="selectedCompetence && delete()" [disabled]="!selectedCompetence"
             aria-label="Borrar competencia seleccionada">
             <mat-icon>delete</mat-icon>
             Borrar
@@ -63,43 +54,56 @@
           <mat-form-field appearance="outline">
             <mat-label>Name</mat-label>
             <mat-icon matPrefix>person</mat-icon>
-            <input matInput formControlName="name">
+            <input matInput formControlName="name" [disabled]="isDeleteMode">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
             <mat-icon matPrefix>description</mat-icon>
-            <input matInput formControlName="description">
+            <input matInput formControlName="description" [disabled]="isDeleteMode">
           </mat-form-field>
 
           <mat-divider></mat-divider>
 
-          <div class="file-drop-area" (dragover)="onDragOver($event)" (drop)="onFileDrop($event)"
-            (click)="fileInput.click()">
-            <input type="file" (change)="onFileChange($event)" hidden #fileInput>
-            <img src="assets/img/cloud_upload_150dp_E8EAED_FILL0_wght400_GRAD0_opsz48.svg" alt="Upload Icon"
-              class="upload-icon">
-            <ng-container *ngIf="!fileName">
-              <p>Drag and drop a file here or click to select a file</p>
-            </ng-container>
-            <ng-container *ngIf="fileName">
-              <div class="file-preview">
-                <mat-icon>{{ fileIcon }}</mat-icon>
-                <span>{{ fileName }}</span>
-                <button mat-icon-button (click)="removeFile($event)">
-                  <img src="assets/img/close_30dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Cerrar"
-                    class="close-icon-img">
-                </button>
-              </div>
-            </ng-container>
+          <div *ngIf="!isDeleteMode">
+            <div class="file-drop-area" (dragover)="onDragOver($event)" (drop)="onFileDrop($event)"
+              (click)="fileInput.click()" *ngIf="!fileName || isEditMode">
+              <input type="file" (change)="onFileChange($event)" hidden #fileInput>
+              <img src="assets/img/cloud_upload_150dp_E8EAED_FILL0_wght400_GRAD0_opsz48.svg" alt="Upload Icon"
+                class="upload-icon">
+              <ng-container *ngIf="!fileName">
+                <p>Drag and drop a file here or click to select a file</p>
+              </ng-container>
+              <ng-container *ngIf="fileName">
+                <div class="file-preview">
+                  <mat-icon>{{ fileIcon }}</mat-icon>
+                  <span>{{ fileName }}</span>
+                  <button mat-icon-button (click)="removeFile($event)">
+                    <img src="assets/img/close_30dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Cerrar"
+                      class="close-icon-img">
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <div *ngIf="fileName && !isEditMode">
+              <img [src]="filePreview" alt="Vista previa" width="100" height="100">
+              <button mat-button (click)="enableEditMode()">Modificar</button>
+            </div>
+          </div>
+
+          <div *ngIf="isDeleteMode" class="delete-warning">
+            <p>¿Está seguro de que desea eliminar esta competencia?</p>
           </div>
 
           <mat-dialog-actions align="end">
             <button mat-button (click)="onCancel()">
               <mat-icon class="cancel-icon">cancel</mat-icon> Cancel
             </button>
-            <button mat-raised-button color="primary" (click)="onSubmit()">
-              <mat-icon class="save-icon">save</mat-icon> Save
+            <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isDeleteMode">
+              <mat-icon class="save-icon">save</mat-icon> {{ selectedCompetence ? 'Modificar' : 'Crear' }}
+            </button>
+            <button mat-raised-button color="warn" (click)="confirmDelete()" *ngIf="isDeleteMode">
+              <mat-icon class="save-icon">delete</mat-icon> Sí, estoy seguro
             </button>
           </mat-dialog-actions>
         </form>

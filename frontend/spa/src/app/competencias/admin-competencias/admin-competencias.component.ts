@@ -24,6 +24,9 @@ export class AdminCompetenciasComponent implements OnInit {
   form: FormGroup;
   fileName: string | null = null;
   fileIcon: string = 'insert_drive_file';
+  isEditMode: boolean = false;
+  isDeleteMode: boolean = false;
+  filePreview: string | null = null;
 
   constructor(private competenceService: CompetenceService, private dialog: MatDialog, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -64,15 +67,31 @@ export class AdminCompetenciasComponent implements OnInit {
   }
 
   create(): void {
-    this.openDialog('create');
+    this.selectedCompetence = null;
+    this.form.reset();
+    this.fileName = null;
+    this.fileIcon = 'insert_drive_file';
+    this.filePreview = null;
+    this.isEditMode = false;
+    this.isDeleteMode = false;
   }
 
   edit(competence: Competence): void {
     this.openDialog('edit', competence);
   }
 
-  delete(competence: Competence): void {
-    this.openDialog('delete', competence);
+  delete(): void {
+    this.isDeleteMode = true;
+    this.isEditMode = false;
+  }
+
+  confirmDelete(): void {
+    if (this.selectedCompetence) {
+      this.competenceService.deleteCompetence(this.selectedCompetence.id).subscribe(() => {
+        this.loadCompetences();
+        this.onCancel();
+      });
+    }
   }
 
   onSelect(competence: Competence): void {
@@ -83,13 +102,34 @@ export class AdminCompetenciasComponent implements OnInit {
       logo: competence.logo,
       // Otros campos
     });
+    this.fileName = competence.logo;
+    this.filePreview = competence.logo;
+    this.isEditMode = false;
+    this.isDeleteMode = false;
   }
 
   onSubmit(): void {
+    const formData = new FormData();
+    formData.append('name', this.form.get('name')?.value);
+    formData.append('description', this.form.get('description')?.value);
+
+    const logoFile = this.form.get('logo')?.value;
+    if (logoFile instanceof File) {
+      formData.append('logo', logoFile);
+    }
+
     if (this.selectedCompetence) {
       // Lógica para actualizar la competencia
+      this.competenceService.updateCompetence(this.selectedCompetence.id, formData).subscribe(() => {
+        this.loadCompetences();
+        this.onCancel();
+      });
     } else {
       // Lógica para crear una nueva competencia
+      this.competenceService.createCompetence(formData).subscribe(() => {
+        this.loadCompetences();
+        this.onCancel();
+      });
     }
   }
 
@@ -99,6 +139,7 @@ export class AdminCompetenciasComponent implements OnInit {
       this.form.patchValue({ logo: file });
       this.fileName = file.name;
       this.fileIcon = this.getFileIcon(file.type);
+      this.filePreview = URL.createObjectURL(file);
     }
   }
 
@@ -113,6 +154,7 @@ export class AdminCompetenciasComponent implements OnInit {
       this.form.patchValue({ logo: file });
       this.fileName = file.name;
       this.fileIcon = this.getFileIcon(file.type);
+      this.filePreview = URL.createObjectURL(file);
     }
   }
 
@@ -133,10 +175,20 @@ export class AdminCompetenciasComponent implements OnInit {
     this.form.patchValue({ logo: null });
     this.fileName = null;
     this.fileIcon = 'insert_drive_file';
+    this.filePreview = null;
+  }
+
+  enableEditMode(): void {
+    this.isEditMode = true;
   }
 
   onCancel(): void {
     this.form.reset();
     this.selectedCompetence = null;
+    this.fileName = null;
+    this.fileIcon = 'insert_drive_file';
+    this.filePreview = null;
+    this.isEditMode = false;
+    this.isDeleteMode = false;
   }
 }

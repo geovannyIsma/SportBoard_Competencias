@@ -24,10 +24,10 @@ export class CompetenceService {
     }
 
     updateCompetence(id: number, competence: FormData): Observable<Competence> {
-        return this.http.put<Competence>(`${this.apiUrl}/${id}`, competence);
+        return this.http.put<Competence>(`${this.apiUrl}${id}/`, competence);
     }
 
     deleteCompetence(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+        return this.http.delete<void>(`${this.apiUrl}${id}/`);
     }
 }
