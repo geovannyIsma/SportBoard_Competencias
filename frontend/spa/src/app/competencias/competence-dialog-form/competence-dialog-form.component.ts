@@ -86,7 +86,8 @@ export class CompetenceDialogFormComponent implements OnInit {
     }
   }
 
-  removeFile(): void {
+  removeFile(event: MouseEvent): void {
+    event.stopPropagation();
     this.form.patchValue({ logo: null });
     this.fileName = null;
     this.fileIcon = 'insert_drive_file';

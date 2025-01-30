@@ -18,7 +18,8 @@
 
     <div class="file-drop-area" (dragover)="onDragOver($event)" (drop)="onFileDrop($event)" (click)="fileInput.click()">
       <input type="file" (change)="onFileChange($event)" hidden #fileInput>
-      <img src="assets/img/cloud_upload_150dp_E8EAED_FILL0_wght400_GRAD0_opsz48.svg" alt="Upload Icon" class="upload-icon">
+      <img src="assets/img/cloud_upload_150dp_E8EAED_FILL0_wght400_GRAD0_opsz48.svg" alt="Upload Icon"
+        class="upload-icon">
       <ng-container *ngIf="!fileName">
         <p>Drag and drop a file here or click to select a file</p>
       </ng-container>
@@ -26,8 +27,8 @@
         <div class="file-preview">
           <mat-icon>{{ fileIcon }}</mat-icon>
           <span>{{ fileName }}</span>
-          <button mat-icon-button (click)="removeFile()">
-            <mat-icon>close</mat-icon>
+          <button mat-icon-button (click)="removeFile($event)">
+            <img src="assets/img/close_30dp_000000_FILL0_wght400_GRAD0_opsz24.svg" alt="Cerrar" class="close-icon-img">
           </button>
         </div>
       </ng-container>

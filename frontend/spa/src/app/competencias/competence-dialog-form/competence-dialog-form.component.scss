@@ -36,19 +36,38 @@
 .file-preview {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin-top: 10px;
   color: #b9ff66; // Cambiar color del texto
+
+  button {
+    margin-left: 10px; // Ajustar el margen para mejor alineación
+    color: #ffffff; // Cambiar color del texto del botón
+    width: 30px; // Ajustar el tamaño del botón
+    height: 30px; // Ajustar el tamaño del botón
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; // Hacer el botón circular
+    background-color: #b2ff4d; // Cambiar el fondo del botón
+    border: none;
+    transition: background-color 0.3s;
+    overflow: hidden; // Asegurar que el contenido no se corte
+
+    .close-icon-img {
+      width: 16px; // Ajusta el tamaño de la imagen
+      height: 16px; // Ajusta el tamaño de la imagen
+    }
+  }
+
+  button:hover {
+    background-color: #ff1a1a; // Cambiar color al pasar el ratón
+  }
 }
 
 .file-preview mat-icon {
   margin-right: 10px;
   color: #b9ff66; // Cambiar color del icono
-}
-
-.file-preview button {
-  margin-left: auto;
-  color: #b9ff66; // Cambiar color del botón
 }
 
 mat-dialog-content {
@@ -83,11 +102,20 @@ button:hover {
   transform: translateY(-2px);
 }
 
- mat-form-field {
+:host {
+  @include mat.form-field-overrides((outlined-focus-outline-color: #b9ff66, // Color del borde cuando el campo está en foco
+      outlined-focus-label-text-color: #b9ff66, // Color del texto de la etiqueta cuando el campo está en foco
+      outlined-caret-color: #b9ff66, // Color del cursor de texto
+      outlined-input-text-color: #b9ff66, // Color del texto de entrada
+      outlined-hover-outline-color: #4d623a, // Color del borde al pasar el ratón
+      outlined-error-focus-outline-color: #ff0000, // Color del borde en foco cuando hay un error
+    ));
+}
+
+mat-form-field {
   width: 100%;
   margin-bottom: 20px;
 }
-
 
 mat-label {
   color: #b9ff66 !important;
@@ -108,17 +136,4 @@ input {
 
 .save-icon {
   color: #000000 !important;
-}
-
-
-
-:root {
-  @include mat.form-field-overrides((
-    outlined-focus-outline-color: #b9ff66, // Color del borde cuando el campo está en foco
-    outlined-focus-label-text-color: #b9ff66, // Color del texto de la etiqueta cuando el campo está en foco
-    outlined-caret-color: #b9ff66, // Color del cursor de texto
-    outlined-input-text-color: #b9ff66, // Color del texto de entrada
-    outlined-hover-outline-color: #4d623a, // Color del borde al pasar el ratón
-    outlined-error-focus-outline-color: #ff0000, // Color del borde en foco cuando hay un error
-  ));
 }
