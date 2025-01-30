@@ -1,93 +1,84 @@
-.full-width {
-    width: 100%;
-  }
-  
-  .file-drop-area {
-    border: 2px dashed #898989;
-    padding: 50px;
-    text-align: center;
-    cursor: pointer;
-    margin: 20px 0;
-    position: relative;
-    transition: border-color 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 250px;
-    background-color: #f3f3f3;
-    border-radius: 8px;
-  }
-  
-  .file-drop-area:hover {
-    border-color: #4d623a;
-  }
-  
-  .upload-icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 10px;
-  }
-  
-  .file-preview {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  
-  .file-preview mat-icon {
-    margin-right: 10px;
-  }
-  
-  .file-preview button {
-    margin-left: auto;
-  }
-  
-  mat-dialog-content {
-    background-color: #bbfa63;
-    border: 1px solid #5e6c4d;
-    border-bottom: 4px solid #202229;
-    border-radius: 8px;
-    padding: 20px;
-  }
+.file-drop-area {
+  border: 2px dashed #b9ff66; // Cambiar color del borde
+  padding: 20px; // Reducir el padding
+  text-align: center;
+  cursor: pointer;
+  margin: 20px 0;
+  position: relative;
+  transition: border-color 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px; // Reducir la altura mínima
+  background-color: #202229; // Cambiar color de fondo
+  border-radius: 8px;
+}
 
+.file-drop-area:hover {
+  border-color: #4d623a;
+}
 
-  mat-dialog-container {
-    background-color: #bbfa63;
-    border: 1px solid #5e6c4d;
-    border-bottom: 4px solid #202229;
-    border-radius: 8px;
-    padding: 20px;
-  }
-  
-  
-  mat-dialog-actions {
-    padding: 16px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  mat-form-field {
-    color: #202229;
-    width: 100%;
-  }
-  
-  mat-label, input {
-    color: #202229;
-  }
-  
-  button {
-    color: #202229;
-    background-color: #b9ff66;
-    border: none;
-    border-bottom: 4px solid #4d623a;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  button:hover {
-    background-color: #a8eb5f;
-  }
-  
+.file-drop-area p {
+  color: #b9ff66; // Cambiar color del texto del drag and drop
+}
+
+.upload-icon {
+  width: 48px; // Reducir el tamaño del icono
+  height: 48px; // Reducir el tamaño del icono
+  margin-bottom: 10px;
+}
+
+.file-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  color: #b9ff66; // Cambiar color del texto
+}
+
+.file-preview mat-icon {
+  margin-right: 10px;
+  color: #b9ff66; // Cambiar color del icono
+}
+
+.file-preview button {
+  margin-left: auto;
+  color: #b9ff66; // Cambiar color del botón
+}
+
+mat-dialog-content {
+  background-color: #202229; // Cambiar color de fondo
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: auto; 
+}
+
+.titulo {
+  color: #b9ff66; // Cambiar color del título
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  color: #b9ff66; // Cambiar color del texto
+  width: 100%;
+}
+
+mat-label, input {
+  color: #b9ff66; // Cambiar color del texto
+}
+
+button {
+  color: #202229; // Cambiar color del texto del botón
+  background-color: #b9ff66; // Cambiar color de fondo del botón
+  border: none;
+  border-bottom: 4px solid #4d623a;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+button:hover {
+  background-color: #a8eb5f;
+}

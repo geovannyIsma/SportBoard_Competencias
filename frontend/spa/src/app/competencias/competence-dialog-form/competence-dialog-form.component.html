@@ -1,13 +1,14 @@
-<h2 mat-dialog-title>{{ data.action === 'create' ? 'Create Competence' : 'Edit Competence' }}</h2>
 <mat-dialog-content>
+  <h2 mat-dialog-title class="titulo">{{ data.action === 'create' ? 'Create Competence' : 'Edit Competence' }}</h2>
+
   <form [formGroup]="form">
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="fill">
       <mat-label>Name</mat-label>
       <mat-icon matPrefix>person</mat-icon>
       <input matInput formControlName="name">
     </mat-form-field>
 
-    <mat-form-field appearance="fill" class="full-width">
+    <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
       <mat-icon matPrefix>description</mat-icon>
       <input matInput formControlName="description">
@@ -32,12 +33,13 @@
       </ng-container>
     </div>
   </form>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">
+      <mat-icon>cancel</mat-icon> Cancel
+    </button>
+    <button mat-raised-button color="primary" (click)="onSubmit()">
+      <mat-icon>save</mat-icon> Save
+    </button>
+  </mat-dialog-actions>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button (click)="onCancel()">
-    <mat-icon>cancel</mat-icon> Cancel
-  </button>
-  <button mat-raised-button color="primary" (click)="onSubmit()">
-    <mat-icon>save</mat-icon> Save
-  </button>
-</mat-dialog-actions>
