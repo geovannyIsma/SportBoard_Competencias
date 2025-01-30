@@ -10,13 +10,16 @@ import { RuleDiscipline } from '../../models/competencies/rule-discipline.model'
 import { RuleCompetition } from '../../models/competencies/rule-competence.model';
 import { SharedModule } from '../../shared/shared.module';
 import { Competence } from '../../models/competencies/competence.model';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-competence-dialog-form',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, MatDialogModule, MatIconModule, MatButtonModule],
   templateUrl: './competence-dialog-form.component.html',
-  styleUrls: ['./competence-dialog-form.component.scss']
+  styleUrl: './competence-dialog-form.component.scss'
 })
 export class CompetenceDialogFormComponent implements OnInit {
   form: FormGroup;

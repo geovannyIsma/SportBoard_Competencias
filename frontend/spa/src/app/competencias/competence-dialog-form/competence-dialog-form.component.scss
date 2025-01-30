@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .file-drop-area {
   border: 2px dashed #b9ff66; // Cambiar color del borde
   padding: 20px; // Reducir el padding
@@ -5,7 +7,7 @@
   cursor: pointer;
   margin: 20px 0;
   position: relative;
-  transition: border-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -13,10 +15,12 @@
   min-height: 150px; // Reducir la altura mínima
   background-color: #202229; // Cambiar color de fondo
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .file-drop-area:hover {
   border-color: #4d623a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
 .file-drop-area p {
@@ -51,17 +55,15 @@ mat-dialog-content {
   background-color: #202229; // Cambiar color de fondo
   padding: 20px;
   max-height: 80vh;
-  overflow-y: auto; 
+  overflow-y: auto;
 }
 
 .titulo {
   color: #b9ff66; // Cambiar color del título
   font-size: 24px;
   margin-bottom: 20px;
-}
-
-mat-label, input {
-  color: #b9ff66; // Cambiar color del texto
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 button {
@@ -72,8 +74,51 @@ button {
   display: flex;
   align-items: center;
   gap: 5px;
+  transition: background-color 0.3s, transform 0.3s;
+  font-family: 'Space Grotesk', sans-serif; // Aplicar la misma fuente
 }
 
 button:hover {
   background-color: #a8eb5f;
+  transform: translateY(-2px);
+}
+
+ mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+mat-label {
+  color: #b9ff66 !important;
+}
+
+mat-icon {
+  color: #b9ff66 !important;
+}
+
+//texto de los inputs
+input {
+  color: #b9ff66 !important;
+}
+
+.cancel-icon {
+  color: #000000 !important;
+}
+
+.save-icon {
+  color: #000000 !important;
+}
+
+
+
+:root {
+  @include mat.form-field-overrides((
+    outlined-focus-outline-color: #b9ff66, // Color del borde cuando el campo está en foco
+    outlined-focus-label-text-color: #b9ff66, // Color del texto de la etiqueta cuando el campo está en foco
+    outlined-caret-color: #b9ff66, // Color del cursor de texto
+    outlined-input-text-color: #b9ff66, // Color del texto de entrada
+    outlined-hover-outline-color: #4d623a, // Color del borde al pasar el ratón
+    outlined-error-focus-outline-color: #ff0000, // Color del borde en foco cuando hay un error
+  ));
 }

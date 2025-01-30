@@ -1,19 +1,21 @@
 <div class="admin-competencias">
   <h1>Administrar Competencias</h1>
   <div class="actions">
-    <button mat-fab-extended (click)="refresh()">
+    <button mat-fab-extended (click)="refresh()" aria-label="Refrescar lista de competencias">
       <mat-icon>refresh</mat-icon>
       Refrescar
     </button>
-    <button mat-fab-extended (click)="create()">
+    <button mat-fab-extended (click)="create()" aria-label="Crear nueva competencia">
       <mat-icon>add</mat-icon>
       Crear
     </button>
-    <button mat-fab-extended (click)="selectedCompetence && edit(selectedCompetence)" [disabled]="!selectedCompetence">
+    <button mat-fab-extended (click)="selectedCompetence && edit(selectedCompetence)" [disabled]="!selectedCompetence"
+      aria-label="Editar competencia seleccionada">
       <mat-icon>edit</mat-icon>
       Editar
     </button>
-    <button mat-fab-extended (click)="selectedCompetence && delete(selectedCompetence)" [disabled]="!selectedCompetence">
+    <button mat-fab-extended (click)="selectedCompetence && delete(selectedCompetence)" [disabled]="!selectedCompetence"
+      aria-label="Borrar competencia seleccionada">
       <mat-icon>delete</mat-icon>
       Borrar
     </button>

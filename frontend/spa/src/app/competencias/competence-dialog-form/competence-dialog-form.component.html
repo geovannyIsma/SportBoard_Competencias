@@ -2,13 +2,13 @@
   <h2 mat-dialog-title class="titulo">{{ data.action === 'create' ? 'Create Competence' : 'Edit Competence' }}</h2>
 
   <form [formGroup]="form">
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
       <mat-icon matPrefix>person</mat-icon>
       <input matInput formControlName="name">
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label>Description</mat-label>
       <mat-icon matPrefix>description</mat-icon>
       <input matInput formControlName="description">
@@ -36,10 +36,10 @@
 
   <mat-dialog-actions align="end">
     <button mat-button (click)="onCancel()">
-      <mat-icon>cancel</mat-icon> Cancel
+      <mat-icon class="cancel-icon">cancel</mat-icon> Cancel
     </button>
     <button mat-raised-button color="primary" (click)="onSubmit()">
-      <mat-icon>save</mat-icon> Save
+      <mat-icon class="save-icon">save</mat-icon> Save
     </button>
   </mat-dialog-actions>
 </mat-dialog-content>
