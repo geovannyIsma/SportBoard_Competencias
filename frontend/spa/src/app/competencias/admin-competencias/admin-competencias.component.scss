@@ -1,6 +1,10 @@
 .admin-competencias {
+  font-family: 'Space Grotesk', sans-serif;
+  color: #202229;
+
   h1 {
     text-align: left;
+    color: #4d623a;
   }
 
   .actions {
@@ -8,10 +12,35 @@
     justify-content: flex-start;
     gap: 10px;
     margin-bottom: 20px;
+
+    button {
+      color: #202229;
+      background-color: #b9ff66; /* Color actualizado */
+      border: none;
+      border-bottom: 4px solid #4d623a;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    button:hover {
+      background-color: #a8eb5f; /* Color de hover */
+    }
+
+    mat-icon {
+      font-size: 20px;
+    }
   }
 
   table {
     width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  th, td {
+    color: #202229;
+    border-bottom: 1px solid #898989;
   }
 
   img {

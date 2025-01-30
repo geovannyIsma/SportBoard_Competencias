@@ -3,6 +3,7 @@ import { RuleDiscipline } from './rule-discipline.model';
 import { Format } from './format.model';
 
 export interface Competence {
+    id: number;
     name: string;
     description: string;
     logo: string;

@@ -3,7 +3,7 @@ export const environment = {
     production: false,
     protocol: 'http',
     baseUrl: 'localhost',
-    port: 8000,
+    port: 8003,
     suffix: '', // '/api',
     apiUrl: '',
     services: {

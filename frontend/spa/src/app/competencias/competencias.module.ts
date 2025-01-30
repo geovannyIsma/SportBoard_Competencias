@@ -37,7 +37,7 @@ import { MatTableDataSource } from '@angular/material/table';
     DragDropModule,
     HomeCompetenciesComponent,
     CompetenceDialogFormComponent,
-    AdminCompetenciasComponent
+    AdminCompetenciasComponent,
   ],
   providers: [CompetenceService, TitleCasePipe],
 })

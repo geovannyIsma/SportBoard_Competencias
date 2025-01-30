@@ -1,0 +1,93 @@
+.full-width {
+    width: 100%;
+  }
+  
+  .file-drop-area {
+    border: 2px dashed #898989;
+    padding: 50px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px 0;
+    position: relative;
+    transition: border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 250px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+  }
+  
+  .file-drop-area:hover {
+    border-color: #4d623a;
+  }
+  
+  .upload-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 10px;
+  }
+  
+  .file-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .file-preview mat-icon {
+    margin-right: 10px;
+  }
+  
+  .file-preview button {
+    margin-left: auto;
+  }
+  
+  mat-dialog-content {
+    background-color: #bbfa63;
+    border: 1px solid #5e6c4d;
+    border-bottom: 4px solid #202229;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+
+  mat-dialog-container {
+    background-color: #bbfa63;
+    border: 1px solid #5e6c4d;
+    border-bottom: 4px solid #202229;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  
+  mat-dialog-actions {
+    padding: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  mat-form-field {
+    color: #202229;
+    width: 100%;
+  }
+  
+  mat-label, input {
+    color: #202229;
+  }
+  
+  button {
+    color: #202229;
+    background-color: #b9ff66;
+    border: none;
+    border-bottom: 4px solid #4d623a;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  button:hover {
+    background-color: #a8eb5f;
+  }
+  

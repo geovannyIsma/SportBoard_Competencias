@@ -5,11 +5,14 @@ import { Competence } from '../../models/competencies/competence.model';
 import { CompetenceDialogFormComponent } from '../competence-dialog-form/competence-dialog-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-admin-competencias',
   standalone: true,
-  imports: [SharedModule, MatDialogModule],
+  imports: [SharedModule, MatDialogModule, MatIconModule, MatButtonModule],
   templateUrl: './admin-competencias.component.html',
   styleUrls: ['./admin-competencias.component.scss']
 })
@@ -32,8 +35,10 @@ export class AdminCompetenciasComponent implements OnInit {
 
   openDialog(action: string, competence?: Competence): void {
     const dialogRef = this.dialog.open(CompetenceDialogFormComponent, {
-      width: '400px',
-      data: { action, competence }
+      width: '600px',
+      height: '600px',
+      data: { action, competence },
+      panelClass: 'custom-dialog-container'
     });
 
     dialogRef.afterClosed().subscribe(result => {
