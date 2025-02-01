@@ -1,11 +1,21 @@
 @use '@angular/material' as mat;
 
+// Variables para colores y tamaños
+$primary-color: #bbfa63;
+$secondary-color: #6f9645;
+$text-color: #202229;
+$background-color: #f9f9f9;
+$border-color: #e0e0e0;
+$hover-color: #f8f9fa;
+$danger-color: #54545c;
+$warning-color: #ff0000;
+
 .admin-competencias {
   font-family: 'Space Grotesk', sans-serif;
-  color: #202229; // Texto principal
+  color: $text-color;
   height: 100vh;
   padding: 16px 24px;
-  background-color: #f9f9f9;
+  background-color: $background-color;
   overflow: hidden; // Evita el scroll de la página principal
   display: flex;
   flex-direction: column;
@@ -25,12 +35,12 @@
 
   h1 {
     text-align: left;
-    color: #202229; // Título
+    color: $text-color; // Título
     margin-bottom: 24px; // Reducido de 32px a 24px
     font-size: 2rem;
     font-weight: 600;
     padding-left: 16px;
-    border-left: 4px solid #bbfa63;
+    border-left: 4px solid $primary-color;
   }
 
   .search-container {
@@ -69,10 +79,10 @@
     margin-bottom: 32px;
 
     button {
-      color: #202229; // Texto del botón
-      background-color: #bbfa63; // Fondo del botón
+      color: $text-color; // Texto del botón
+      background-color: $primary-color; // Fondo del botón
       border: none;
-      border-bottom: 4px solid #6f9645;
+      border-bottom: 4px solid $secondary-color;
       display: flex;
       align-items: center;
       gap: 5px;
@@ -94,29 +104,29 @@
       }
 
       &[color="primary"] {
-        background-color: #bbfa63;
-        color: #202229;
-        border-bottom-color: #547c34;
+        background-color: $primary-color;
+        color: $text-color;
+        border-bottom-color: $secondary-color;
 
         &:hover {
-          background-color: #6f9645;
+          background-color: $secondary-color;
           color: #f3f3f3;
         }
       }
 
       &[color="warn"] {
-        background-color: #54545c;
+        background-color: $danger-color;
         color: #f3f3f3;
-        border-bottom-color: #464943;
+        border-bottom-color: darken($danger-color, 10%);
 
         &:hover {
-          background-color: #464943;
+          background-color: darken($danger-color, 10%);
         }
 
         &:disabled {
           background-color: #898989;
-          color: #54545c;
-          border-bottom-color: #464943;
+          color: $danger-color;
+          border-bottom-color: darken($danger-color, 10%);
           opacity: 0.7;
           cursor: not-allowed;
 
@@ -128,12 +138,12 @@
 
       &[color="basic"] {
         background-color: #f3f3f3;
-        color: #202229;
+        color: $text-color;
         border-bottom-color: #898989;
 
         &:hover {
           background-color: #e0e0e0;
-          color: #202229;
+          color: $text-color;
         }
 
         mat-icon {
@@ -147,7 +157,7 @@
     }
 
     button:hover {
-      background-color: #6f9645;
+      background-color: $secondary-color;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
       transform: translateY(-2px);
     }
@@ -251,7 +261,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #ffffff; // Fondo blanco para contraste
-    border-right: 1px solid #e0e0e0; // Línea divisoria
+    border-right: 1px solid $border-color; // Línea divisoria
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     height: calc(100vh - 300px); // Ajustado para considerar el header y paddings
@@ -324,7 +334,7 @@
 
             tr {
               &:hover td {
-                background-color: #f8f9fa;
+                background-color: $hover-color;
               }
 
               &.selected {
@@ -337,7 +347,7 @@
               &:hover {
                 background-color: #f3f3f3;
                 td {
-                  color: #202229;
+                  color: $text-color;
                 }
               }
             }
@@ -355,11 +365,11 @@
           }
 
           &::-webkit-scrollbar-thumb {
-            background: #bbfa63;
+            background: $primary-color;
             border-radius: 3px;
 
             &:hover {
-              background: #6f9645;
+              background: $secondary-color;
             }
           }
         }
@@ -383,7 +393,7 @@
         }
 
         tr:hover {
-          background-color: #f8f9fa;
+          background-color: $hover-color;
         }
 
         img {
@@ -435,7 +445,7 @@
       }
 
       &.delete-mode {
-        border: 2px dashed #54545c;
+        border: 2px dashed $danger-color;
         padding: 16px;
         
         .form-section {
@@ -449,7 +459,7 @@
           }
           
           input, textarea {
-            color: #54545c;
+            color: $danger-color;
           }
           
           .mat-form-field-label {
@@ -471,7 +481,7 @@
 
           .preview-actions {
             .file-name {
-              color: #54545c;
+              color: $danger-color;
             }
           }
         }
@@ -481,7 +491,7 @@
 
   th,
   td {
-    color: #202229;
+    color: $text-color;
     border-bottom: 1px solid #898989;
   }
 
@@ -491,7 +501,7 @@
   }
 
   .file-drop-area {
-    border: 2px dashed #bbfa63;
+    border: 2px dashed $primary-color;
     padding: 20px;
     text-align: center;
     cursor: pointer;
@@ -508,8 +518,8 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
     &:hover {
-      border-color: #6f9645;
-      background-color: #f8f9fa;
+      border-color: $secondary-color;
+      background-color: $hover-color;
     }
 
     .upload-icon {
@@ -527,12 +537,12 @@
   .image-preview-container {
     margin: 16px 0;
     padding: 16px;
-    background-color: #f8f9fa;
+    background-color: $hover-color;
     border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 16px;
-    border: 1px solid #e0e0e0;
+    border: 1px solid $border-color;
     
     img {
       width: 150px; // Aumentado de 100px
@@ -568,12 +578,12 @@
 
       button {
         align-self: flex-start;
-        background-color: #547c34;
+        background-color: $secondary-color;
         color: #f3f3f3;
 
         &:hover {
           background-color: #4d623a;
-          color: #bbfa63;
+          color: $primary-color;
         }
 
         mat-icon {
@@ -595,28 +605,28 @@
       padding: 8px 24px;
 
       &[color="primary"] {
-        background-color: #bbfa63;
-        color: #202229;
+        background-color: $primary-color;
+        color: $text-color;
 
         &:hover {
-          background-color: #6f9645;
+          background-color: $secondary-color;
           color: #f3f3f3;
         }
       }
 
       &[color="warn"] {
-        background-color: #54545c;
+        background-color: $danger-color;
         color: #f3f3f3;
 
         &:hover {
-          background-color: #464943;
+          background-color: darken($danger-color, 10%);
         }
       }
 
       // Botón cancelar
       &:not([color]) {
         background-color: #f3f3f3;
-        color: #54545c;
+        color: $danger-color;
 
         &:hover {
           background-color: #898989;
@@ -628,12 +638,12 @@
 
   // Estilo para el mensaje de eliminación
   .delete-warning {
-    background-color: #54545c;
+    background-color: $danger-color;
     color: #f3f3f3;
     padding: 16px;
     border-radius: 8px;
     margin: 16px 0;
-    border-left: 4px solid #464943;
+    border-left: 4px solid darken($danger-color, 10%);
   }
 
   .mat-card-header,
@@ -659,7 +669,7 @@
     padding: 20px;
     box-sizing: border-box;
     background-color: #ffffff; // Fondo blanco para contraste
-    border-right: 1px solid #e0e0e0; // Línea divisoria
+    border-right: 1px solid $border-color; // Línea divisoria
 
     mat-card {
       height: 100%; // Altura completa de la tarjeta
@@ -676,7 +686,7 @@
   .form-section {
     flex: 1;
     padding: 20px;
-    background-color: #f9f9f9; // Fondo gris claro para contraste
+    background-color: $background-color; // Fondo gris claro para contraste
     height: 100%;
     box-sizing: border-box;
     overflow-y: auto; // Permitir desplazamiento solo en la sección del formulario
@@ -697,7 +707,7 @@
 
 .file-drop-area {
   & {
-    border: 2px dashed #bbfa63;
+    border: 2px dashed $primary-color;
     padding: 20px;
     text-align: center;
     cursor: pointer;
@@ -715,12 +725,12 @@
   }
 
   &:hover {
-    border-color: #6f9645;
+    border-color: $secondary-color;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
 
   p {
-    color: #202229;
+    color: $text-color;
   }
 
   .upload-icon {
@@ -732,27 +742,27 @@
 
 .cancel-icon,
 .save-icon {
-  color: #202229 !important;
+  color: $text-color !important;
 }
 
 // Estilos para los botones primarios
 button.mat-raised-button.mat-primary {
-  background-color: #bbfa63;
-  color: #202229;
+  background-color: $primary-color;
+  color: $text-color;
 
   &:hover {
-    background-color: #6f9645;
+    background-color: $secondary-color;
     color: #ffffff;
   }
 }
 
 :host {
-  @include mat.form-field-overrides((outlined-focus-outline-color: #bbfa63,
+  @include mat.form-field-overrides((outlined-focus-outline-color: $primary-color,
       outlined-focus-label-text-color: #000000,
-      outlined-caret-color: #bbfa63,
-      outlined-input-text-color: #202229,
-      outlined-hover-outline-color: #6f9645,
-      outlined-error-focus-outline-color: #ff0000,
+      outlined-caret-color: $primary-color,
+      outlined-input-text-color: $text-color,
+      outlined-hover-outline-color: $secondary-color,
+      outlined-error-focus-outline-color: $warning-color,
     ));
   display: block;
   height: 100%;
