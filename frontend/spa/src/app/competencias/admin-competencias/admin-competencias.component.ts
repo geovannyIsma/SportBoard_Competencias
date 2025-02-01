@@ -19,7 +19,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class AdminCompetenciasComponent implements OnInit {
   competences: Competence[] = [];
-  displayedColumns: string[] = ['name', 'description', 'logo', 'competence_format', 'rule_discipline_list', 'rule_list'];
+  displayedColumns: string[] = ['logo', 'name', 'description']; // Modificado para mostrar solo estas columnas
   selectedCompetence: Competence | null = null;
   form: FormGroup;
   fileName: string | null = null;
@@ -133,13 +133,22 @@ export class AdminCompetenciasComponent implements OnInit {
     }
   }
 
+  private formatFileName(name: string): string {
+    if (name.length > 25) {
+      const extension = name.split('.').pop();
+      return name.substring(0, 20) + '...' + (extension ? '.' + extension : '');
+    }
+    return name;
+  }
+
   onFileChange(event: any): void {
     if (event.target.files.length > 0) {
       const file = event.target.files[0];
       this.form.patchValue({ logo: file });
-      this.fileName = file.name;
+      this.fileName = this.formatFileName(file.name);
       this.fileIcon = this.getFileIcon(file.type);
       this.filePreview = URL.createObjectURL(file);
+      this.isEditMode = false; // Desactivar modo edición después de subir nueva imagen
     }
   }
 
@@ -152,9 +161,10 @@ export class AdminCompetenciasComponent implements OnInit {
     if (event.dataTransfer?.files.length) {
       const file = event.dataTransfer.files[0];
       this.form.patchValue({ logo: file });
-      this.fileName = file.name;
+      this.fileName = this.formatFileName(file.name);
       this.fileIcon = this.getFileIcon(file.type);
       this.filePreview = URL.createObjectURL(file);
+      this.isEditMode = false; // Desactivar modo edición después de subir nueva imagen
     }
   }
 
@@ -180,6 +190,7 @@ export class AdminCompetenciasComponent implements OnInit {
 
   enableEditMode(): void {
     this.isEditMode = true;
+    // No limpiar el filePreview ni fileName aquí
   }
 
   onCancel(): void {

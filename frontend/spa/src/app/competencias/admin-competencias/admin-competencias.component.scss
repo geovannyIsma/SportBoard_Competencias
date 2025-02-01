@@ -50,6 +50,27 @@
       &.mat-fab-extended {
         height: 48px;
       }
+
+      &[color="primary"] {
+        background-color: #bbfa63;
+        color: #202229;
+        border-bottom-color: #547c34;
+
+        &:hover {
+          background-color: #6f9645;
+          color: #f3f3f3;
+        }
+      }
+
+      &[color="warn"] {
+        background-color: #54545c;
+        color: #f3f3f3;
+        border-bottom-color: #464943;
+
+        &:hover {
+          background-color: #464943;
+        }
+      }
     }
 
     button:hover {
@@ -82,6 +103,7 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       height: calc(100vh - 300px); // Ajustado para considerar el header y paddings
+      margin-top: 20px; // Añadido margen superior igual al del formulario
 
       mat-card {
         height: 100%; // Cambiado para usar todo el espacio disponible
@@ -152,6 +174,20 @@
                 &:hover td {
                   background-color: #f8f9fa;
                 }
+
+                &.selected {
+                  background-color: #5e6c4d !important;
+                  td {
+                    color: #7dd707;
+                  }
+                }
+
+                &:hover {
+                  background-color: #f3f3f3;
+                  td {
+                    color: #202229;
+                  }
+                }
               }
             }
 
@@ -214,9 +250,17 @@
 
     .form-container-fixed {
       position: fixed;
-      top: 90px; // Ajustado para mejor posición
-      right: 48px;  // Aumentado el espacio desde la derecha
-      width: 28%;  // Reducido ligeramente el ancho
+      top: 182px; // Ajustado para alinear con la tabla
+      right: 48px;
+      width: 28%;
+      margin-top: 20px; // Añadido margen superior para alinear con la tabla
+
+      // Si necesitas ajustar la posición en pantallas más pequeñas
+      @media (max-width: 1200px) {
+        top: 140px;
+        height: calc(100vh - 170px);
+      }
+
       max-height: calc(100vh - 130px); // Ajustado para evitar overflow
       overflow-y: auto;
       background: white;
@@ -253,6 +297,16 @@
             mat-form-field {
               width: 100%;
               font-size: 0.9rem;  // Reducimos ligeramente el tamaño de la fuente
+
+              .mat-form-field-label {
+                color: #54545c;
+              }
+
+              &.mat-focused {
+                .mat-form-field-label {
+                  color: #6f9645;
+                }
+              }
             }
 
             textarea {
@@ -317,45 +371,63 @@
     }
   }
 
-  .file-preview {
+  .image-preview-container {
+    margin: 16px 0;
+    padding: 16px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 16px;
-    color: #202229;
-    background-color: #f8f9fa;
-    padding: 12px;
-    border-radius: 8px;
-
+    gap: 16px;
+    border: 1px solid #e0e0e0;
+    
     img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    button {
-      margin-left: 10px;
-      color: #202229;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background-color: #bbfa63;
-      border: none;
-      transition: background-color 0.3s;
-      overflow: hidden;
-      min-width: 36px;
-      height: 36px;
-
-      .close-icon-img {
-        width: 16px;
-        height: 16px;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
       }
     }
 
-    button:hover {
-      background-color: #6f9645;
+    .preview-actions {
+      flex: 1;
+      min-width: 0; // Importante para que el texto se corte correctamente
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .file-name {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%; // Asegura que no se desborde
+        display: block; // Necesario para text-overflow
+      }
+
+      button {
+        align-self: flex-start;
+        background-color: #547c34;
+        color: #f3f3f3;
+
+        &:hover {
+          background-color: #4d623a;
+          color: #bbfa63;
+        }
+
+        mat-icon {
+          font-size: 18px;
+          margin-right: 4px;
+          color: inherit;
+        }
+      }
     }
   }
 
@@ -367,7 +439,47 @@
     button {
       min-width: 120px;
       padding: 8px 24px;
+
+      &[color="primary"] {
+        background-color: #bbfa63;
+        color: #202229;
+
+        &:hover {
+          background-color: #6f9645;
+          color: #f3f3f3;
+        }
+      }
+
+      &[color="warn"] {
+        background-color: #54545c;
+        color: #f3f3f3;
+
+        &:hover {
+          background-color: #464943;
+        }
+      }
+
+      // Botón cancelar
+      &:not([color]) {
+        background-color: #f3f3f3;
+        color: #54545c;
+
+        &:hover {
+          background-color: #898989;
+          color: #f3f3f3;
+        }
+      }
     }
+  }
+
+  // Estilo para el mensaje de eliminación
+  .delete-warning {
+    background-color: #54545c;
+    color: #f3f3f3;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border-left: 4px solid #464943;
   }
 }
 
@@ -460,43 +572,6 @@
   width: 64px;
   height: 64px;
   margin-bottom: 16px;
-}
-
-.file-preview {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  color: #202229;
-  background-color: #f8f9fa;
-  padding: 12px;
-  border-radius: 8px;
-
-  button {
-    margin-left: 10px;
-    color: #202229;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #bbfa63;
-    border: none;
-    transition: background-color 0.3s;
-    overflow: hidden;
-    min-width: 36px;
-    height: 36px;
-
-    .close-icon-img {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  button:hover {
-    background-color: #6f9645;
-  }
 }
 
 .cancel-icon,
