@@ -46,3 +46,11 @@ services:
           - /media
         strip_path: false
         preserve_host: false
+
+  - name: ms1-usermanagement
+    url: http://ms1-usermanagement:8004
+    routes:
+      - name: ms1-usermanagement-route
+        paths:
+          - /ms1/
+        strip_path: false
