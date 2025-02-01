@@ -1,23 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CompetenceService } from '../../services/competencies/competence.service';
 import { Competence } from '../../models/competencies/competence.model';
-import { CompetenceDialogFormComponent } from '../competence-dialog-form/competence-dialog-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FlashMessageComponent } from '../../shared/flash-message/flash-message.component';
+import { Sort, MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-admin-competencias',
   standalone: true,
-  imports: [SharedModule, MatDialogModule, MatIconModule, MatButtonModule],
+  imports: [
+    SharedModule, 
+    MatDialogModule, 
+    MatIconModule, 
+    MatButtonModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './admin-competencias.component.html',
   styleUrls: ['./admin-competencias.component.scss']
 })
 export class AdminCompetenciasComponent implements OnInit {
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource!: MatTableDataSource<Competence>;
+  searchText: string = '';
   competences: Competence[] = [];
   displayedColumns: string[] = ['logo', 'name', 'description']; // Modificado para mostrar solo estas columnas
   selectedCompetence: Competence | null = null;
@@ -27,13 +38,28 @@ export class AdminCompetenciasComponent implements OnInit {
   isEditMode: boolean = false;
   isDeleteMode: boolean = false;
   filePreview: string | null = null;
+  isLoading: boolean = false;
+  allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  maxFileSize = 5 * 1024 * 1024; // 5MB
 
   constructor(private competenceService: CompetenceService, private dialog: MatDialog, private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: [''],
-      description: [''],
-      logo: [null],
-      // Otros campos del formulario
+      name: ['', [
+        Validators.required, 
+        Validators.minLength(3),
+        Validators.maxLength(50),
+        Validators.pattern(/^[a-zA-Z0-9\s\-_]+$/)
+      ]],
+      description: ['', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(500)
+      ]],
+      logo: [null, [
+        Validators.required,
+        this.fileTypeValidator(),
+        this.fileSizeValidator()
+      ]],
     });
   }
 
@@ -42,27 +68,26 @@ export class AdminCompetenciasComponent implements OnInit {
   }
 
   loadCompetences(): void {
-    this.competenceService.getCompetences().subscribe(data => {
-      this.competences = data;
-    });
-  }
-
-  openDialog(action: string, competence?: Competence): void {
-    const dialogRef = this.dialog.open(CompetenceDialogFormComponent, {
-      width: '600px',
-      height: '600px',
-      data: { action, competence },
-      panelClass: 'custom-dialog-container'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadCompetences();
-      }
+    this.isLoading = true;
+    this.competenceService.getCompetences().subscribe({
+      next: (data) => {
+        this.competences = data;
+        this.dataSource = new MatTableDataSource(this.competences);
+        this.dataSource.sort = this.sort;
+        this.dataSource.filterPredicate = (data: Competence, filter: string) => {
+          return data.name.toLowerCase().includes(filter.toLowerCase());
+        };
+      },
+      error: (error) => this.handleError(error),
+      complete: () => this.isLoading = false
     });
   }
 
   refresh(): void {
+    this.searchText = '';
+    if (this.dataSource) {
+      this.dataSource.filter = '';
+    }
     this.loadCompetences();
   }
 
@@ -76,10 +101,6 @@ export class AdminCompetenciasComponent implements OnInit {
     this.isDeleteMode = false;
   }
 
-  edit(competence: Competence): void {
-    this.openDialog('edit', competence);
-  }
-
   delete(): void {
     this.isDeleteMode = true;
     this.isEditMode = false;
@@ -87,9 +108,15 @@ export class AdminCompetenciasComponent implements OnInit {
 
   confirmDelete(): void {
     if (this.selectedCompetence) {
-      this.competenceService.deleteCompetence(this.selectedCompetence.id).subscribe(() => {
-        this.loadCompetences();
-        this.onCancel();
+      this.competenceService.deleteCompetence(this.selectedCompetence.id).subscribe({
+        next: () => {
+          this.openFlashMessage('Competencia eliminada exitosamente', 'success');
+          this.loadCompetences();
+          this.onCancel();
+        },
+        error: (error) => {
+          this.handleError(error);
+        }
       });
     }
   }
@@ -109,27 +136,42 @@ export class AdminCompetenciasComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const formData = new FormData();
-    formData.append('name', this.form.get('name')?.value);
-    formData.append('description', this.form.get('description')?.value);
+    if (this.form.valid) {
+      const formData = new FormData();
+      formData.append('name', this.form.get('name')?.value);
+      formData.append('description', this.form.get('description')?.value);
 
-    const logoFile = this.form.get('logo')?.value;
-    if (logoFile instanceof File) {
-      formData.append('logo', logoFile);
-    }
+      const logoFile = this.form.get('logo')?.value;
+      if (logoFile instanceof File) {
+        formData.append('logo', logoFile);
+      }
 
-    if (this.selectedCompetence) {
-      // Lógica para actualizar la competencia
-      this.competenceService.updateCompetence(this.selectedCompetence.id, formData).subscribe(() => {
-        this.loadCompetences();
-        this.onCancel();
-      });
+      if (this.selectedCompetence) {
+        this.competenceService.updateCompetence(this.selectedCompetence.id, formData).subscribe({
+          next: () => {
+            this.openFlashMessage('Competencia actualizada exitosamente', 'success');
+            this.loadCompetences();
+            this.onCancel();
+          },
+          error: (error) => {
+            this.handleError(error);
+          }
+        });
+      } else {
+        this.competenceService.createCompetence(formData).subscribe({
+          next: () => {
+            this.openFlashMessage('Competencia creada exitosamente', 'success');
+            this.loadCompetences();
+            this.onCancel();
+          },
+          error: (error) => {
+            this.handleError(error);
+          }
+        });
+      }
     } else {
-      // Lógica para crear una nueva competencia
-      this.competenceService.createCompetence(formData).subscribe(() => {
-        this.loadCompetences();
-        this.onCancel();
-      });
+      this.markFormGroupTouched(this.form);
+      this.openFlashMessage('Por favor, complete todos los campos requeridos correctamente', 'warning');
     }
   }
 
@@ -201,5 +243,118 @@ export class AdminCompetenciasComponent implements OnInit {
     this.filePreview = null;
     this.isEditMode = false;
     this.isDeleteMode = false;
+  }
+
+  private openFlashMessage(message: string, type: 'success' | 'error' | 'info' | 'warning'): void {
+    const dialogRef = this.dialog.open(FlashMessageComponent, {
+      width: '400px',
+      data: {
+        message,
+        type,
+        duration: 3000,
+        position: 'top-right'
+      }
+    });
+
+    setTimeout(() => {
+      dialogRef.close();
+    }, 3000);
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
+  getErrorMessage(controlName: string): string {
+    const control = this.form.get(controlName);
+    if (control?.errors && control.touched) {
+      if (control.errors['required']) {
+        return 'Este campo es requerido';
+      }
+      if (control.errors['minlength']) {
+        return `Mínimo ${control.errors['minlength'].requiredLength} caracteres`;
+      }
+      if (control.errors['maxlength']) {
+        return `Máximo ${control.errors['maxlength'].requiredLength} caracteres`;
+      }
+      if (control.errors['pattern']) {
+        return 'Solo se permiten letras, números, espacios y guiones';
+      }
+      if (control.errors['invalidFileType']) {
+        return 'Solo se permiten archivos de imagen (JPEG, PNG, GIF)';
+      }
+      if (control.errors['exceedsMaxSize']) {
+        return 'El archivo no debe exceder 5MB';
+      }
+    }
+    return '';
+  }
+
+  private fileTypeValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const file = control.value;
+      if (file && file instanceof File) {
+        if (!this.allowedFileTypes.includes(file.type)) {
+          return { invalidFileType: true };
+        }
+      }
+      return null;
+    };
+  }
+
+  private fileSizeValidator() {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const file = control.value;
+      if (file && file instanceof File) {
+        if (file.size > this.maxFileSize) {
+          return { exceedsMaxSize: true };
+        }
+      }
+      return null;
+    };
+  }
+
+  sortData(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      return;
+    }
+
+    this.dataSource.data = this.dataSource.data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'name':
+          return this.compare(a.name, b.name, isAsc);
+        case 'description':
+          return this.compare(a.description, b.description, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  private compare(a: string | number, b: string | number, isAsc: boolean): number {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  private handleError(error: any): void {
+    let errorMessage = 'Ha ocurrido un error';
+    if (error.error?.message) {
+      errorMessage = error.error.message;
+    } else if (error.status === 404) {
+      errorMessage = 'Recurso no encontrado';
+    } else if (error.status === 403) {
+      errorMessage = 'No tiene permisos para realizar esta acción';
+    }
+    this.openFlashMessage(errorMessage, 'error');
   }
 }

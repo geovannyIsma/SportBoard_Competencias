@@ -162,22 +162,22 @@ class Rule(models.Model):
 
 class Discipline(models.Model):
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to="disciplines/")
     surface = models.CharField(max_length=255)
     federation = models.CharField(max_length=255)
-    rule_list = models.ManyToManyField('RuleDiscipline', related_name='disciplines')
+    description = models.TextField()
 
     def __str__(self):
         return self.name
 
 class RuleCompetition(Rule):
-    competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
+    competence = models.ForeignKey('Competence', on_delete=models.CASCADE, related_name='rules')
 
     def __str__(self):
-        return self.rule_description
-
+        return f"{self.competence.name} - {self.rule_description}"
 
 class RuleDiscipline(Rule):
-    discipline = models.ForeignKey('Discipline', on_delete=models.CASCADE, related_name='rule_discipline_set')
+    discipline = models.ForeignKey('Discipline', on_delete=models.CASCADE, related_name='rules')
 
     def __str__(self):
         return f"{self.discipline.name} - {self.rule_description}"

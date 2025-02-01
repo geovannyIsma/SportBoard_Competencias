@@ -15,7 +15,6 @@ import { CompetenceService } from '../services/competencies/competence.service';
 import { TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HomeCompetenciesComponent } from './home-competencies/home-competencies.component';
-import { CompetenceDialogFormComponent } from './competence-dialog-form/competence-dialog-form.component';
 import { AdminCompetenciasComponent } from './admin-competencias/admin-competencias.component';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -36,7 +35,6 @@ import { MatTableDataSource } from '@angular/material/table';
     MatCardModule,
     DragDropModule,
     HomeCompetenciesComponent,
-    CompetenceDialogFormComponent,
     AdminCompetenciasComponent,
   ],
   providers: [CompetenceService, TitleCasePipe],

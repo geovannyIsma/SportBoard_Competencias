@@ -65,6 +65,15 @@ class CompetenceSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class DisciplineSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(required=False, allow_null=True)
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation['image']:
+            # Solo reemplazar la URL si existe la imagen
+            representation['image'] = representation['image'].replace('http://ms2-competencies:8003', 'http://localhost:8000')
+        return representation
+    
     class Meta:
         model = Discipline
         fields = '__all__'

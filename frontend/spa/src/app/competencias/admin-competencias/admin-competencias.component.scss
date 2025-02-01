@@ -10,6 +10,19 @@
   display: flex;
   flex-direction: column;
 
+  .loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
   h1 {
     text-align: left;
     color: #202229; // Título
@@ -18,6 +31,35 @@
     font-weight: 600;
     padding-left: 16px;
     border-left: 4px solid #bbfa63;
+  }
+
+  .search-container {
+    margin-bottom: 16px;
+    
+    .search-field {
+      width: 300px;
+      
+      ::ng-deep .mat-form-field-wrapper {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .table-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 0 16px;
+
+    .search-field {
+      width: 300px;
+      margin: 0;
+      
+      ::ng-deep .mat-form-field-wrapper {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .actions {
@@ -70,6 +112,37 @@
         &:hover {
           background-color: #464943;
         }
+
+        &:disabled {
+          background-color: #898989;
+          color: #54545c;
+          border-bottom-color: #464943;
+          opacity: 0.7;
+          cursor: not-allowed;
+
+          mat-icon {
+            opacity: 0.5;
+          }
+        }
+      }
+
+      &[color="basic"] {
+        background-color: #f3f3f3;
+        color: #202229;
+        border-bottom-color: #898989;
+
+        &:hover {
+          background-color: #e0e0e0;
+          color: #202229;
+        }
+
+        mat-icon {
+          transition: transform 0.3s ease;
+        }
+
+        &:hover mat-icon {
+          transform: rotate(180deg);
+        }
       }
     }
 
@@ -85,130 +158,208 @@
   }
 
   .split-layout {
-    flex: 1;
-    min-height: 0; // Importante para evitar overflow
-    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 24px;
+    height: calc(100vh - 180px); // Ajustado para dar más espacio
 
-    .table-section {
-      width: 62%;  // Ajustado
-      margin-right: 35%;  // Aumentado el margen
-      padding-right: 48px;  // Aumentado el padding derecho
+    .table-section,
+    .form-container-fixed {
+      height: calc(100vh - 380px); // Reducido para evitar cortes
+      margin-top: 0;
       overflow-y: auto;
-      padding-right: 24px;
-      flex: 1;
-      padding: 20px;
-      box-sizing: border-box;
-      background-color: #ffffff; // Fondo blanco para contraste
-      border-right: 1px solid #e0e0e0; // Línea divisoria
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      height: calc(100vh - 300px); // Ajustado para considerar el header y paddings
-      margin-top: 20px; // Añadido margen superior igual al del formulario
+      align-self: start; // Asegura alineación superior
+      position: relative;
+      top: 0;
+    }
 
-      mat-card {
-        height: 100%; // Cambiado para usar todo el espacio disponible
-        display: flex;
-        flex-direction: column;
-        border-radius: 12px;
-        margin: 0;
+    .form-container-fixed {
+      height: calc(100vh - 380px);
+      
+      .form-section {
+        padding: 16px;
+        height: 100%;
 
-        mat-card-content {
+        .form-container {
           height: 100%;
-          overflow-y: auto; // Hacer que el contenido sea desplazable
-          padding: 0; // Quitamos el padding para mejor control
 
-          .table-container {
+          form {
             height: 100%;
-            overflow: auto;
-            position: relative; // Para el sticky header
-            max-height: calc(100% - 16px); // Ajuste para evitar overflow
+            display: flex;
+            flex-direction: column;
 
-            table {
-              width: 100%;
-              border-collapse: collapse;
-
-              thead {
-                position: sticky;
-                top: 0;
-                z-index: 2;
-                background-color: #f5f5f5;
-              }
-
-              th {
-                background: #f5f5f5;
-                position: sticky;
-                top: 0;
-                z-index: 2;
-                border-bottom: 2px solid #ddd;
-                padding: 8px 16px; // Reducimos el padding del header
-                font-size: 0.95rem; // Ajustamos el tamaño de la fuente del header
-                font-weight: 600;
-                white-space: nowrap;
-                text-align: left;
-
-                &:after {
-                  content: '';
-                  position: absolute;
-                  left: 0;
-                  right: 0;
-                  bottom: 0;
-                  height: 2px;
-                  background-color: #ddd;
-                }
-              }
-
-              td {
-                background: white; // Para asegurar que las celdas tengan fondo
-                padding: 6px 16px; // Reducimos el padding vertical de las celdas
-                font-size: 0.9rem; // Reducimos ligeramente el tamaño de la fuente
-                line-height: 1.2; // Reducimos el espaciado entre líneas
-                border-bottom: 1px solid #eee;
-
-                img {
-                  width: 40px; // Reducimos el tamaño de las imágenes
-                  height: 40px;
-                }
-              }
-
-              tr {
-                &:hover td {
-                  background-color: #f8f9fa;
-                }
-
-                &.selected {
-                  background-color: #5e6c4d !important;
-                  td {
-                    color: #7dd707;
-                  }
-                }
-
-                &:hover {
-                  background-color: #f3f3f3;
-                  td {
-                    color: #202229;
-                  }
+            // Ajustar tamaños de elementos del formulario
+            mat-form-field {
+              &:nth-child(2) { // El textarea de descripción
+                textarea {
+                  max-height: 80px; // Reducir altura del textarea
                 }
               }
             }
 
-            // Personalización del scrollbar
-            &::-webkit-scrollbar {
-              width: 6px;
-              height: 6px; // Para scroll horizontal
+            // Contenedor de imagen con altura máxima
+            .image-preview-container {
+              margin: 8px 0;
+              padding: 12px;
+              
+              img {
+                width: 120px;  // Reducido de 150px
+                height: 120px; // Reducido de 150px
+              }
             }
 
-            &::-webkit-scrollbar-track {
-              background: #f1f1f1;
-              border-radius: 4px;
+            // Reducir el espacio del área de drop
+            .file-drop-area {
+              min-height: 150px; // Reducido de 200px
+              margin: 8px 0;
             }
 
-            &::-webkit-scrollbar-thumb {
-              background: #bbfa63;
-              border-radius: 3px;
+            // Ajustar espaciado general
+            & > *:not(:last-child) {
+              margin-bottom: 12px; // Reducido de 16px
+            }
+
+            // Los botones al final siempre
+            mat-dialog-actions {
+              margin-top: auto;
+              padding-top: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Para asegurar que el padding y márgenes sean consistentes
+  .table-section {
+    padding: 16px !important; // Sobrescribe otros paddings
+    margin: 0 !important; // Sobrescribe otros márgenes
+  }
+
+  .form-container-fixed {
+    padding: 16px !important;
+    margin: 0 !important;
+  }
+
+  .table-section {
+    width: 100%; // Cambiado de 62% a 100%
+    margin-right: 0; // Eliminado el margen
+    padding-right: 48px;  // Aumentado el padding derecho
+    overflow-y: auto;
+    padding-right: 24px;
+    flex: 1;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff; // Fondo blanco para contraste
+    border-right: 1px solid #e0e0e0; // Línea divisoria
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    height: calc(100vh - 300px); // Ajustado para considerar el header y paddings
+    margin-top: 20px; // Añadido margen superior igual al del formulario
+
+    mat-card {
+      height: 100%; // Cambiado para usar todo el espacio disponible
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      margin: 0;
+
+      mat-card-content {
+        height: 100%;
+        overflow-y: auto; // Hacer que el contenido sea desplazable
+        padding: 0; // Quitamos el padding para mejor control
+
+        .table-container {
+          height: 100%;
+          overflow: auto;
+          position: relative; // Para el sticky header
+          max-height: calc(100% - 16px); // Ajuste para evitar overflow
+
+          table {
+            width: 100%;
+            border-collapse: collapse;
+
+            thead {
+              position: sticky;
+              top: 0;
+              z-index: 2;
+              background-color: #f5f5f5;
+            }
+
+            th {
+              background: #f5f5f5;
+              position: sticky;
+              top: 0;
+              z-index: 2;
+              border-bottom: 2px solid #ddd;
+              padding: 8px 16px; // Reducimos el padding del header
+              font-size: 0.95rem; // Ajustamos el tamaño de la fuente del header
+              font-weight: 600;
+              white-space: nowrap;
+              text-align: left;
+
+              &:after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 2px;
+                background-color: #ddd;
+              }
+            }
+
+            td {
+              background: white; // Para asegurar que las celdas tengan fondo
+              padding: 6px 16px; // Reducimos el padding vertical de las celdas
+              font-size: 0.9rem; // Reducimos ligeramente el tamaño de la fuente
+              line-height: 1.2; // Reducimos el espaciado entre líneas
+              border-bottom: 1px solid #eee;
+
+              img {
+                width: 40px; // Reducimos el tamaño de las imágenes
+                height: 40px;
+              }
+            }
+
+            tr {
+              &:hover td {
+                background-color: #f8f9fa;
+              }
+
+              &.selected {
+                background-color: #5e6c4d !important;
+                td {
+                  color: #7dd707;
+                }
+              }
 
               &:hover {
-                background: #6f9645;
+                background-color: #f3f3f3;
+                td {
+                  color: #202229;
+                }
               }
+            }
+          }
+
+          // Personalización del scrollbar
+          &::-webkit-scrollbar {
+            width: 6px;
+            height: 6px; // Para scroll horizontal
+          }
+
+          &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #bbfa63;
+            border-radius: 3px;
+
+            &:hover {
+              background: #6f9645;
             }
           }
         }
@@ -249,78 +400,80 @@
     }
 
     .form-container-fixed {
-      position: fixed;
-      top: 182px; // Ajustado para alinear con la tabla
-      right: 48px;
-      width: 28%;
-      margin-top: 20px; // Añadido margen superior para alinear con la tabla
-
-      // Si necesitas ajustar la posición en pantallas más pequeñas
-      @media (max-width: 1200px) {
-        top: 140px;
-        height: calc(100vh - 170px);
-      }
-
-      max-height: calc(100vh - 130px); // Ajustado para evitar overflow
-      overflow-y: auto;
+      position: relative;
       background: white;
       border-radius: 16px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-      z-index: 100;
-
-      // Personalización del scrollbar
-      &::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #bbfa63;
-        border-radius: 4px;
-      }
-
-      &::-webkit-scrollbar-thumb:hover {
-        background: #6f9645;
-      }
 
       .form-section {
-        padding: 20px;  // Reducimos el padding
-        height: auto;
-        background: white;
+        padding: 24px;
+        height: 100%;
+        box-sizing: border-box;
 
         .form-container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+
           form {
-            mat-form-field {
-              width: 100%;
-              font-size: 0.9rem;  // Reducimos ligeramente el tamaño de la fuente
-
-              .mat-form-field-label {
-                color: #54545c;
-              }
-
-              &.mat-focused {
-                .mat-form-field-label {
-                  color: #6f9645;
-                }
-              }
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            
+            // Ajusta el espaciado del contenido del formulario
+            & > *:not(:last-child) {
+              margin-bottom: 16px;
             }
 
-            textarea {
-              min-height: 80px;  // Reducimos la altura mínima del textarea
+            // Asegura que las acciones estén al final
+            mat-dialog-actions {
+              margin-top: auto;
+              padding-top: 16px;
             }
           }
         }
       }
 
-      // Hacemos los botones más compactos
-      .actions {
-        button {
-          padding: 4px 16px;
-          font-size: 0.9rem;
+      &.delete-mode {
+        border: 2px dashed #54545c;
+        padding: 16px;
+        
+        .form-section {
+          opacity: 0.8;
+        }
+
+        // Estilo para campos deshabilitados en modo eliminación
+        mat-form-field.mat-form-field-disabled {
+          .mat-form-field-outline {
+            background-color: #f3f3f3;
+          }
+          
+          input, textarea {
+            color: #54545c;
+          }
+          
+          .mat-form-field-label {
+            color: #898989;
+          }
+        }
+
+        // Vista previa de imagen en modo eliminación
+        .image-preview-container {
+          background-color: #f3f3f3;
+          border: 1px solid #898989;
+          
+          img {
+            opacity: 0.8;
+            &:hover {
+              transform: none;
+            }
+          }
+
+          .preview-actions {
+            .file-name {
+              color: #54545c;
+            }
+          }
         }
       }
     }
@@ -382,15 +535,15 @@
     border: 1px solid #e0e0e0;
     
     img {
-      width: 100px;
-      height: 100px;
+      width: 150px; // Aumentado de 100px
+      height: 150px; // Aumentado de 100px
       object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 12px; // Aumentado para mejor aspecto
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); // Mejorada la sombra
       transition: transform 0.3s ease;
       
       &:hover {
-        transform: scale(1.05);
+        transform: scale(1.08); // Aumentado el efecto hover
       }
     }
 
@@ -400,6 +553,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      padding-left: 16px; // Añadido padding para separar de la imagen
 
       .file-name {
         font-size: 0.9rem;
@@ -481,24 +635,24 @@
     margin: 16px 0;
     border-left: 4px solid #464943;
   }
+
+  .mat-card-header,
+  mat-card-header {
+    display: none;
+  }
 }
 
 :host {
-  @include mat.form-field-overrides((outlined-focus-outline-color: #bbfa63,
-      outlined-focus-label-text-color: #bbfa63,
-      outlined-caret-color: #bbfa63,
-      outlined-input-text-color: #202229,
-      outlined-hover-outline-color: #6f9645,
-      outlined-error-focus-outline-color: #ff0000,
-    ));
   display: block;
   height: 100%;
   overflow: hidden;
 }
 
 .split-layout {
-  display: flex;
-  height: calc(100vh - 150px); // Reducir el alto total
+  & {
+    display: flex;
+    height: calc(100vh - 150px); // Reducir el alto total
+  }
 
   .table-section {
     flex: 1;
@@ -542,36 +696,38 @@
 }
 
 .file-drop-area {
-  border: 2px dashed #bbfa63;
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  margin: 20px 0;
-  position: relative;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-  background-color: #fcfcfc;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+  & {
+    border: 2px dashed #bbfa63;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin: 20px 0;
+    position: relative;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    background-color: #fcfcfc;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
-.file-drop-area:hover {
-  border-color: #6f9645;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+  &:hover {
+    border-color: #6f9645;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
 
-.file-drop-area p {
-  color: #202229;
-}
+  p {
+    color: #202229;
+  }
 
-.upload-icon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 16px;
+  .upload-icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+  }
 }
 
 .cancel-icon,
@@ -588,6 +744,19 @@ button.mat-raised-button.mat-primary {
     background-color: #6f9645;
     color: #ffffff;
   }
+}
+
+:host {
+  @include mat.form-field-overrides((outlined-focus-outline-color: #bbfa63,
+      outlined-focus-label-text-color: #000000,
+      outlined-caret-color: #bbfa63,
+      outlined-input-text-color: #202229,
+      outlined-hover-outline-color: #6f9645,
+      outlined-error-focus-outline-color: #ff0000,
+    ));
+  display: block;
+  height: 100%;
+  overflow: hidden;
 }
 
 // Animaciones
@@ -609,35 +778,22 @@ button.mat-raised-button.mat-primary {
 // Media queries para responsividad
 @media (max-width: 1200px) {
   .admin-competencias .split-layout {
-    .table-section {
-      width: 58%;
-      margin-right: 40%;
-      padding-right: 32px;
-    }
+    grid-template-columns: 1fr 1fr;
     
+    .table-section,
     .form-container-fixed {
-      width: 32%;
-      right: 32px;
+      height: calc(100vh - 360px);
     }
   }
 }
 
 @media (max-width: 992px) {
   .admin-competencias .split-layout {
-    .table-section {
-      width: 100%;
-      margin-right: 0;
-    }
-    
+    grid-template-columns: 1fr;
+    gap: 16px;
+
     .form-container-fixed {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 90%;
-      max-width: 400px;
-      z-index: 1000;
-      background: white;
+      height: auto;
     }
   }
 }
