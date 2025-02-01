@@ -86,6 +86,7 @@ WSGI_APPLICATION = 'competencies.wsgi.application'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "http://localhost:8000",
 ]
 
 CORS_ALLOW_HEADERS = [

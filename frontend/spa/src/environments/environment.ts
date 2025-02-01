@@ -3,7 +3,7 @@ export const environment = {
     production: false,
     protocol: 'http',
     baseUrl: 'localhost',
-    port: 8003,
+    port: 8000,
     suffix: '', // '/api',
     apiUrl: '',
     services: {
@@ -36,7 +36,6 @@ export const environment = {
                 localities: '/localities',
                 countries: '/countries',
                 formats: '/formats',
-                media: '/media',
             },
         },
     },
@@ -70,4 +69,3 @@ environment.services.competencies.endpoints.teams = `${environment.services.comp
 environment.services.competencies.endpoints.localities = `${environment.services.competencies.base}/localities/`;
 environment.services.competencies.endpoints.countries = `${environment.services.competencies.base}/countries/`;
 environment.services.competencies.endpoints.formats = `${environment.services.competencies.base}/formats/`;
-environment.services.competencies.endpoints.media = `${environment.services.competencies.base}/media/`;

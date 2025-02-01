@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from django.conf import settings
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,23 +42,28 @@ class RuleCompetenceSerializer(serializers.ModelSerializer):
         model = RuleCompetition
         fields = '__all__'
 
-
-
 class RuleDisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = RuleDiscipline
         fields = '__all__'
 
 class CompetenceSerializer(serializers.ModelSerializer):
-    logo = serializers.ImageField(required=False)
+    logo = serializers.ImageField(required=False, allow_null=True)
     rule_list = RuleCompetenceSerializer(many=True, required=False)
     rule_discipline_list = RuleDisciplineSerializer(many=True, required=False)
-    competence_format = serializers.PrimaryKeyRelatedField(queryset=Format.objects.all(), required=False)
+    competence_format = serializers.PrimaryKeyRelatedField(queryset=Format.objects.all(), required=False, allow_null=True)
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation['logo']:
+            # Solo reemplazar la URL si existe el logo
+            representation['logo'] = representation['logo'].replace('http://ms2-competencies:8003', 'http://localhost:8000')
+        return representation
 
     class Meta:
         model = Competence
         fields = '__all__'
-        
+
 class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
         model = Discipline
@@ -87,7 +93,6 @@ class StageCompetitionSerializer(serializers.ModelSerializer):
     class Meta:
         model = StageCompetition
         fields = '__all__'
-        
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:

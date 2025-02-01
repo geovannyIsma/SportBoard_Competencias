@@ -43,5 +43,6 @@ services:
     routes:
       - name: media-files-route
         paths:
-          - /media/
+          - /media
         strip_path: false
+        preserve_host: false
