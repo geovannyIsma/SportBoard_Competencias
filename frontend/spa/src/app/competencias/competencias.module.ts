@@ -17,6 +17,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HomeCompetenciesComponent } from './home-competencies/home-competencies.component';
 import { AdminCompetenciasComponent } from './admin-competencias/admin-competencias.component';
 import { MatTableDataSource } from '@angular/material/table';
+import { AdminDisciplinasComponent } from './admin-disciplinas/admin-disciplinas.component';
+import { DisciplineService } from '../services/competencies/discipline.service';
 
 @NgModule({
   imports: [
@@ -36,7 +38,8 @@ import { MatTableDataSource } from '@angular/material/table';
     DragDropModule,
     HomeCompetenciesComponent,
     AdminCompetenciasComponent,
+    AdminDisciplinasComponent,
   ],
-  providers: [CompetenceService, TitleCasePipe],
+  providers: [CompetenceService, DisciplineService, TitleCasePipe],
 })
 export class CompetenciasModule { }

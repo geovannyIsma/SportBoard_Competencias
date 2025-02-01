@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SharedModule } from '../../shared/shared.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-competencies',
@@ -20,14 +21,22 @@ export class HomeCompetenciesComponent {
     { title: 'Registration', description: 'Modelo de registro', icon: 'how_to_reg' },
     { title: 'Planning', description: 'Modelo de planificación', icon: 'event' },
     { title: 'Rule', description: 'Modelo de regla', icon: 'gavel' },
-    { title: 'Discipline', description: 'Modelo de disciplina', icon: 'fitness_center' },
+    { title: 'Discipline', description: 'Modelo de disciplina', icon: 'fitness_center', route: 'admin-discipline' },
     { title: 'RuleCompetition', description: 'Regla de competencia', icon: 'rule' },
     { title: 'RuleDiscipline', description: 'Regla de disciplina', icon: 'rule' },
     { title: 'CompetitionEdition', description: 'Edición de competencia', icon: 'emoji_events' },
     { title: 'Stage', description: 'Modelo de etapa', icon: 'flag' },
     { title: 'StageCompetition', description: 'Etapa de competencia', icon: 'flag' },
-    { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events' },
+    { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events', route: 'admin-competence' },
     { title: 'Country', description: 'Modelo de país', icon: 'public' },
     { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes' },
   ];
+
+  constructor(private router: Router) {}
+
+  navigateTo(route: string | undefined): void {
+    if (route) {
+      this.router.navigate(['/competencias', route]);
+    }
+  }
 }
