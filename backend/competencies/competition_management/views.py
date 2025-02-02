@@ -1,7 +1,8 @@
 from rest_framework import viewsets
-from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework import status
+import json
 from .models import *
 from .serializers import *
 
@@ -36,7 +37,7 @@ class RegistrationViewSet(viewsets.ModelViewSet):
 class CompetenceViewSet(viewsets.ModelViewSet):
     queryset = Competence.objects.all()
     serializer_class = CompetenceSerializer
-    parser_classes = (MultiPartParser, FormParser)
+    parser_classes = (MultiPartParser, FormParser, JSONParser)
 
     def perform_create(self, serializer):
         competence = serializer.save()
@@ -62,31 +63,51 @@ class CompetenceViewSet(viewsets.ModelViewSet):
 
     def partial_update(self, request, *args, **kwargs):
         instance = self.get_object()
-        # Mantener el logo existente si no se proporciona uno nuevo
-        if 'logo' not in request.data:
-            request.data._mutable = True
-            request.data.pop('logo', None)
-            request.data._mutable = False
-            
-        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        
+        # Convertir el FormData a un diccionario
+        data = request.data.dict() if hasattr(request.data, 'dict') else request.data
+        
+        # Manejar rule_discipline_list
+        rule_discipline_list = data.get('rule_discipline_list')
+        if rule_discipline_list:
+            try:
+                # Convertir de string JSON a lista si es necesario
+                if isinstance(rule_discipline_list, str):
+                    rule_discipline_list = json.loads(rule_discipline_list)
+                
+                # Asegurarnos de que tenemos una lista
+                if isinstance(rule_discipline_list, list):
+                    # Obtener los IDs de las reglas
+                    rule_ids = []
+                    for rule in rule_discipline_list:
+                        if isinstance(rule, dict):
+                            rule_ids.append(rule.get('id'))
+                        elif isinstance(rule, int):
+                            rule_ids.append(rule)
+                    
+                    # Limpiar las reglas existentes y agregar las nuevas
+                    instance.rule_discipline_list.clear()
+                    if rule_ids:
+                        rules = RuleDiscipline.objects.filter(id__in=rule_ids)
+                        instance.rule_discipline_list.add(*rules)
+            except Exception as e:
+                print(f"Error processing rule_discipline_list: {str(e)}")
+                return Response(
+                    {"error": f"Error processing rule_discipline_list: {str(e)}"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+        # Actualizar otros campos
+        serializer = self.get_serializer(instance, data=data, partial=True)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
-
-        # Actualizar las reglas si se proporcionan
-        rules_data = request.data.get('rule_list')
-        if rules_data:
-            try:
-                rules_data = json.loads(rules_data)
-                instance.rule_list.clear()
-                for rule_data in rules_data:
-                    rule_id = rule_data.get('id')
-                    if rule_id:
-                        rule = RuleCompetition.objects.get(id=rule_id)
-                        instance.rule_list.add(rule)
-            except Exception as e:
-                print(f"Error updating rules: {str(e)}")
-
-        return Response(serializer.data)
+        
+        # Refrescar la instancia para obtener los datos actualizados
+        instance.refresh_from_db()
+        
+        # Serializar y devolver la respuesta actualizada
+        response_serializer = self.get_serializer(instance)
+        return Response(response_serializer.data)
 
 class RuleCompetenceViewSet(viewsets.ModelViewSet):
     queryset = RuleCompetition.objects.all()

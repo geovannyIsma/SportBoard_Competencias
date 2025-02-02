@@ -219,6 +219,7 @@ class Competence(models.Model):
     competence_format = models.ForeignKey('Format', on_delete=models.CASCADE, blank=True, null=True)
     rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences', blank=True)
     rule_list = models.ManyToManyField('RuleCompetition', related_name='competences', blank=True)
+    discipline = models.ForeignKey('Discipline', on_delete=models.CASCADE, related_name='competences')
     
     def __str__(self):
         return self.name + " - " + self.description

@@ -71,6 +71,20 @@
               </mat-error>
             </mat-form-field>
 
+            <!-- Agregar el selector de disciplina después del nombre -->
+            <mat-form-field appearance="outline">
+              <mat-label>Disciplina</mat-label>
+              <mat-select formControlName="discipline" [disabled]="isDeleteMode">
+                <mat-option *ngFor="let discipline of disciplines" [value]="discipline.id">
+                  {{discipline.name}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>sports</mat-icon>
+              <mat-error *ngIf="form.get('discipline')?.invalid && form.get('discipline')?.touched">
+                {{ getErrorMessage('discipline') }}
+              </mat-error>
+            </mat-form-field>
+
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
               <textarea matInput formControlName="description" 

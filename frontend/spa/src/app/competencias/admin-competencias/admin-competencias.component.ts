@@ -11,6 +11,9 @@ import { FlashMessageComponent } from '../../shared/flash-message/flash-message.
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DisciplineService } from '../../services/competencies/discipline.service';
+import { Discipline } from '../../models/competencies/discipline.model';
+
 
 @Component({
   selector: 'app-admin-competencias',
@@ -41,8 +44,14 @@ export class AdminCompetenciasComponent implements OnInit {
   isLoading: boolean = false;
   allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
   maxFileSize = 5 * 1024 * 1024; // 5MB
+  disciplines: Discipline[] = [];
 
-  constructor(private competenceService: CompetenceService, private dialog: MatDialog, private fb: FormBuilder) {
+  constructor(
+    private competenceService: CompetenceService,
+    private disciplineService: DisciplineService, // Añadir DisciplineService
+    private dialog: MatDialog,
+    private fb: FormBuilder
+  ) {
     this.form = this.fb.group({
       name: ['', [
         Validators.required, 
@@ -55,6 +64,7 @@ export class AdminCompetenciasComponent implements OnInit {
         Validators.minLength(10),
         Validators.maxLength(500)
       ]],
+      discipline: ['', Validators.required], // Añadir control para disciplina
       logo: [null, [
         Validators.required,
         this.fileTypeValidator(),
@@ -64,6 +74,7 @@ export class AdminCompetenciasComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadDisciplines(); // Cargar disciplinas al inicio
     this.loadCompetences();
   }
 
@@ -80,6 +91,20 @@ export class AdminCompetenciasComponent implements OnInit {
       },
       error: (error) => this.handleError(error),
       complete: () => this.isLoading = false
+    });
+  }
+
+  loadDisciplines(): void {
+    this.isLoading = true;
+    this.disciplineService.getDisciplines().subscribe({
+      next: (data) => {
+        this.disciplines = data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        this.handleError(error);
+        this.isLoading = false;
+      }
     });
   }
 
@@ -126,6 +151,7 @@ export class AdminCompetenciasComponent implements OnInit {
     this.form.patchValue({
       name: competence.name,
       description: competence.description,
+      discipline: competence.discipline.id, // Añadir disciplina al patchValue
       logo: competence.logo,
       // Otros campos
     });
@@ -140,6 +166,7 @@ export class AdminCompetenciasComponent implements OnInit {
       const formData = new FormData();
       formData.append('name', this.form.get('name')?.value);
       formData.append('description', this.form.get('description')?.value);
+      formData.append('discipline', this.form.get('discipline')?.value); // Añadir disciplina al FormData
 
       const logoFile = this.form.get('logo')?.value;
       if (logoFile instanceof File) {

@@ -49,15 +49,19 @@ class RuleDisciplineSerializer(serializers.ModelSerializer):
 
 class CompetenceSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(required=False, allow_null=True)
-    rule_list = RuleCompetenceSerializer(many=True, required=False)
-    rule_discipline_list = RuleDisciplineSerializer(many=True, required=False)
+    rule_list = RuleCompetenceSerializer(many=True, required=False, read_only=True)
+    rule_discipline_list = RuleDisciplineSerializer(many=True, required=False, read_only=True)
     competence_format = serializers.PrimaryKeyRelatedField(queryset=Format.objects.all(), required=False, allow_null=True)
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         if representation['logo']:
-            # Solo reemplazar la URL si existe el logo
             representation['logo'] = representation['logo'].replace('http://ms2-competencies:8003', 'http://localhost:8000')
+        
+        # Asegurarse de que rule_discipline_list siempre sea una lista
+        if representation.get('rule_discipline_list') is None:
+            representation['rule_discipline_list'] = []
+            
         return representation
 
     class Meta:

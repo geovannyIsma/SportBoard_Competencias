@@ -29,9 +29,7 @@ export class CompetenceService {
 
     // Añadir método para actualización parcial
     partialUpdateCompetence(id: number, competence: FormData): Observable<Competence> {
-        const headers = new HttpHeaders();
-        headers.append('Content-Type', 'multipart/form-data');
-        return this.http.patch<Competence>(`${this.apiUrl}${id}/`, competence, { headers });
+        return this.http.patch<Competence>(`${this.apiUrl}${id}/`, competence);
     }
 
     deleteCompetence(id: number): Observable<void> {
