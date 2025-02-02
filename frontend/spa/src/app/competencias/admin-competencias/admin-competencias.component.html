@@ -75,6 +75,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Disciplina</mat-label>
               <mat-select formControlName="discipline" [disabled]="isDeleteMode">
+                <mat-option>Ninguno</mat-option>
                 <mat-option *ngFor="let discipline of disciplines" [value]="discipline.id">
                   {{discipline.name}}
                 </mat-option>
@@ -83,6 +84,18 @@
               <mat-error *ngIf="form.get('discipline')?.invalid && form.get('discipline')?.touched">
                 {{ getErrorMessage('discipline') }}
               </mat-error>
+            </mat-form-field>
+
+            <!-- Agregar selector de formato después de la disciplina -->
+            <mat-form-field appearance="outline">
+              <mat-label>Formato de Competencia</mat-label>
+              <mat-select formControlName="competence_format" [disabled]="isDeleteMode">
+                <mat-option>Ninguno</mat-option>
+                <mat-option *ngFor="let format of formats" [value]="format.id">
+                  {{format.name}}
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>format_list_bulleted</mat-icon>
             </mat-form-field>
 
             <mat-form-field appearance="outline">

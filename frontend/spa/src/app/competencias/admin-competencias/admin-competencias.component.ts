@@ -13,7 +13,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DisciplineService } from '../../services/competencies/discipline.service';
 import { Discipline } from '../../models/competencies/discipline.model';
-
+import { FormatService } from '../../services/competencies/format.service';
+import { Format } from '../../models/competencies/format.model';
 
 @Component({
   selector: 'app-admin-competencias',
@@ -45,10 +46,12 @@ export class AdminCompetenciasComponent implements OnInit {
   allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
   maxFileSize = 5 * 1024 * 1024; // 5MB
   disciplines: Discipline[] = [];
+  formats: Format[] = []; // Añadir esta propiedad
 
   constructor(
     private competenceService: CompetenceService,
     private disciplineService: DisciplineService, // Añadir DisciplineService
+    private formatService: FormatService, // Añadir FormatService
     private dialog: MatDialog,
     private fb: FormBuilder
   ) {
@@ -65,6 +68,7 @@ export class AdminCompetenciasComponent implements OnInit {
         Validators.maxLength(500)
       ]],
       discipline: ['', Validators.required], // Añadir control para disciplina
+      competence_format: [''], // Añadir control para formato (opcional)
       logo: [null, [
         Validators.required,
         this.fileTypeValidator(),
@@ -75,6 +79,7 @@ export class AdminCompetenciasComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadDisciplines(); // Cargar disciplinas al inicio
+    this.loadFormats(); // Añadir carga de formatos
     this.loadCompetences();
   }
 
@@ -105,6 +110,15 @@ export class AdminCompetenciasComponent implements OnInit {
         this.handleError(error);
         this.isLoading = false;
       }
+    });
+  }
+
+  loadFormats(): void {
+    this.formatService.getFormats().subscribe({
+      next: (data) => {
+        this.formats = data;
+      },
+      error: (error) => this.handleError(error)
     });
   }
 
@@ -152,6 +166,7 @@ export class AdminCompetenciasComponent implements OnInit {
       name: competence.name,
       description: competence.description,
       discipline: competence.discipline.id, // Añadir disciplina al patchValue
+      competence_format: competence.competence_format?.id, // Añadir valor del formato
       logo: competence.logo,
       // Otros campos
     });
@@ -167,6 +182,11 @@ export class AdminCompetenciasComponent implements OnInit {
       formData.append('name', this.form.get('name')?.value);
       formData.append('description', this.form.get('description')?.value);
       formData.append('discipline', this.form.get('discipline')?.value); // Añadir disciplina al FormData
+
+      const formatId = this.form.get('competence_format')?.value;
+      if (formatId) {
+        formData.append('competence_format', formatId);
+      }
 
       const logoFile = this.form.get('logo')?.value;
       if (logoFile instanceof File) {

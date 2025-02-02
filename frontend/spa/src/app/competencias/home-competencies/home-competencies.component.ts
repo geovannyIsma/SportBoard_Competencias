@@ -28,7 +28,7 @@ export class HomeCompetenciesComponent {
     { title: 'StageCompetition', description: 'Etapa de competencia', icon: 'flag' },
     { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events', route: 'admin-competence' },
     { title: 'Country', description: 'Modelo de país', icon: 'public' },
-    { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes' },
+    { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes', route: 'admin-formats' },
   ];
 
   constructor(private router: Router) {}

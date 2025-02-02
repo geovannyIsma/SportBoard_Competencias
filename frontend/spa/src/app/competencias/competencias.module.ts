@@ -21,6 +21,8 @@ import { DisciplineService } from '../services/competencies/discipline.service';
 import { AdminRuleCompetenceComponent } from './admin-rule-competence/admin-rule-competence.component';
 import { RuleCompetenceService } from '../services/competencies/rule-competence.service';
 import { RuleDisciplineService } from '../services/competencies/rule-discipline.service';
+import { AdminFormatsComponent } from './admin-formats/admin-formats.component';
+import { FormatService } from '../services/competencies/format.service';
 
 @NgModule({
   imports: [
@@ -42,7 +44,8 @@ import { RuleDisciplineService } from '../services/competencies/rule-discipline.
     AdminCompetenciasComponent,
     AdminDisciplinasComponent,
     AdminRuleCompetenceComponent,
+    AdminFormatsComponent,
   ],
-  providers: [CompetenceService, DisciplineService, RuleCompetenceService, RuleDisciplineService,TitleCasePipe],
+  providers: [CompetenceService, DisciplineService, RuleCompetenceService, RuleDisciplineService, FormatService, TitleCasePipe], 
 })
 export class CompetenciasModule { }
