@@ -155,7 +155,3 @@ class CountryViewSet(viewsets.ModelViewSet):
 class FormatViewSet(viewsets.ModelViewSet):
     queryset = Format.objects.all()
     serializer_class = FormatSerializer
-
-class StageCompetitionViewSet(viewsets.ModelViewSet):
-    queryset = StageCompetition.objects.all()
-    serializer_class = StageCompetitionSerializer

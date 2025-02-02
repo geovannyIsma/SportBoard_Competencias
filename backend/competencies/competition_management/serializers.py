@@ -102,10 +102,6 @@ class LocalitySerializer(serializers.ModelSerializer):
         model = Locality
         fields = '__all__'
 
-class StageCompetitionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = StageCompetition
-        fields = '__all__'
 
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:

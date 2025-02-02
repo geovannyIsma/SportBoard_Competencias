@@ -25,7 +25,6 @@ export class HomeCompetenciesComponent {
     { title: 'RuleDiscipline', description: 'Regla de disciplina', icon: 'rule', route: 'admin-rules-discipline' },
     { title: 'CompetitionEdition', description: 'Edición de competencia', icon: 'emoji_events' },
     { title: 'Stage', description: 'Modelo de etapa', icon: 'flag' },
-    { title: 'StageCompetition', description: 'Etapa de competencia', icon: 'flag' },
     { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events', route: 'admin-competence' },
     { title: 'Country', description: 'Modelo de país', icon: 'public' },
     { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes', route: 'admin-formats' },

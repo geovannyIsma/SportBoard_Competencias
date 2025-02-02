@@ -188,7 +188,7 @@ class CompetitionEdition(models.Model):
     planning = models.ForeignKey('Planning', on_delete=models.CASCADE)
     inscription_list = models.ManyToManyField('Registration')
     subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions')
-    stage_list = models.ManyToManyField('Stage', through='StageCompetition', related_name='competitions')
+    stage_list = models.ManyToManyField('Stage', related_name='competition_editions')
     competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -205,12 +205,6 @@ class Stage(models.Model):
     def change_end_date(self, new_date):
         self.time.end_date = new_date
         self.time.save()
-
-
-class StageCompetition(models.Model):
-    competition = models.ForeignKey(CompetitionEdition, on_delete=models.CASCADE)
-    stage = models.ForeignKey(Stage, on_delete=models.CASCADE)
-
 
 class Competence(models.Model):
     name = models.CharField(max_length=255)
