@@ -1,23 +1,23 @@
 services:
-  app:
+  ms5-calendar:
     build:
       context: ../../../
       dockerfile: docker/backend/ms5-calendar/Dockerfile
     ports:
       - "9000:9000"
     networks:
-      - kong-net
+      - sportboard-network 
 
   kong-database:
     image: postgres:15
-    container_name: kong-database
+    container_name: calendar-database
     restart: always
     environment:
       POSTGRES_USER: kong
       POSTGRES_DB: kong
       POSTGRES_PASSWORD: kong
     networks:
-      - kong-net
+      - sportboard-network 
     volumes:
       - kong-db-data:/var/lib/postgresql/data
     healthcheck:
@@ -28,7 +28,7 @@ services:
 
   kong-migrations:
     image: kong:3.5
-    container_name: kong-migrations
+    container_name: calendar-migrations
     depends_on:
       kong-database:
         condition: service_healthy
@@ -39,11 +39,11 @@ services:
       KONG_PG_PASSWORD: kong
     command: kong migrations bootstrap
     networks:
-      - kong-net
+      - sportboard-network 
 
   kong:
     image: kong:3.5
-    container_name: kong
+    container_name: calendar-kong
     restart: always
     environment:
       KONG_DATABASE: postgres
@@ -68,10 +68,11 @@ services:
       - "8002:8002"
       - "8444:8444"
     networks:
-      - kong-net
+      - sportboard-network 
 
 networks:
-  kong-net:
+  sportboard-network:
+    external: true
 
 volumes:
   kong-db-data:
