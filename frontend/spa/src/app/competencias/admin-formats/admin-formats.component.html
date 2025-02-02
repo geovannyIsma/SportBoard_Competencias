@@ -61,7 +61,6 @@
             <mat-form-field appearance="outline">
               <mat-label>Nombre del Formato</mat-label>
               <input matInput formControlName="name" 
-                     [disabled]="isDeleteMode" 
                      placeholder="Ingrese el nombre">
               <mat-icon matPrefix>format_shapes</mat-icon>
               <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
@@ -72,7 +71,6 @@
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
               <textarea matInput formControlName="description" 
-                        [disabled]="isDeleteMode" 
                         placeholder="Ingrese una descripción"
                         rows="4"></textarea>
               <mat-icon matPrefix>description</mat-icon>

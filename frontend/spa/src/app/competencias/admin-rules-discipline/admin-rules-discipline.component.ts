@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { RuleDisciplineService } from '../../services/competencies/rule-discipline.service';
 import { RuleDiscipline } from '../../models/competencies/rule-discipline.model';
 import { FlashMessageComponent } from '../../shared/flash-message/flash-message.component';
@@ -46,12 +46,33 @@ export class AdminRulesDisciplineComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      competence: ['', Validators.required],
-      numeration: ['', [Validators.required, Validators.min(1)]],
-      rule_description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
-      actor: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      action: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
-      type_rule: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]]
+      competence: new FormControl({value: '', disabled: false}, [
+        Validators.required
+      ]),
+      numeration: new FormControl({value: '', disabled: false}, [
+        Validators.required, 
+        Validators.min(1)
+      ]),
+      rule_description: new FormControl({value: '', disabled: false}, [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(500)
+      ]),
+      actor: new FormControl({value: '', disabled: false}, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]),
+      action: new FormControl({value: '', disabled: false}, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(100)
+      ]),
+      type_rule: new FormControl({value: '', disabled: false}, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50)
+      ])
     });
   }
 
@@ -116,6 +137,7 @@ export class AdminRulesDisciplineComponent implements OnInit {
 
   create(): void {
     this.selectedRule = null;
+    this.form.enable(); // Usar el método enable() del FormGroup
     this.form.reset();
     if (this.selectedCompetence) {
       this.form.patchValue({
@@ -127,6 +149,7 @@ export class AdminRulesDisciplineComponent implements OnInit {
 
   onSelect(rule: RuleDiscipline): void {
     this.selectedRule = rule;
+    this.form.enable(); // Habilitar el formulario antes de patchValue
     this.form.patchValue({
       ...rule,
       discipline: this.selectedCompetence?.discipline
@@ -136,6 +159,7 @@ export class AdminRulesDisciplineComponent implements OnInit {
 
   delete(): void {
     this.isDeleteMode = true;
+    this.form.disable(); // Usar el método disable() del FormGroup
   }
 
   confirmDelete(): void {
@@ -298,9 +322,15 @@ private updateCompetenceRules(): void {
   }
 
   onCancel(): void {
+    this.form.enable(); // Usar el método enable() del FormGroup
     this.form.reset();
     this.selectedRule = null;
     this.isDeleteMode = false;
+    if (this.selectedCompetence) {
+      this.form.patchValue({
+        competence: this.selectedCompetence.id
+      });
+    }
   }
 
   refresh(): void {

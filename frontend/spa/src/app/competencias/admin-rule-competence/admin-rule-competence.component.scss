@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:color';
 
 // Variables para colores y tamaños
 $primary-color: #bbfa63;
@@ -136,16 +137,16 @@ $warning-color: #ff0000;
       &[color="warn"] {
         background-color: $danger-color;
         color: #f3f3f3;
-        border-bottom-color: darken($danger-color, 10%);
+        border-bottom-color: color.adjust($danger-color, $lightness: -10%);
 
         &:hover {
-          background-color: darken($danger-color, 10%);
+          background-color: color.adjust($danger-color, $lightness: -10%);
         }
 
         &:disabled {
           background-color: #898989;
           color: $danger-color;
-          border-bottom-color: darken($danger-color, 10%);
+          border-bottom-color: color.adjust($danger-color, $lightness: -10%);
           opacity: 0.7;
           cursor: not-allowed;
 
@@ -614,6 +615,15 @@ $warning-color: #ff0000;
     }
   }
 
+  .delete-warning {
+    background-color: $danger-color;
+    color: #f3f3f3;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+    border-left: 4px solid color.adjust($danger-color, $lightness: -10%);
+  }
+
   mat-dialog-actions {
     padding-top: 24px;
     margin-top: 24px;
@@ -638,7 +648,7 @@ $warning-color: #ff0000;
         color: #f3f3f3;
 
         &:hover {
-          background-color: darken($danger-color, 10%);
+          background-color: color.adjust($danger-color, $lightness: -10%);
         }
       }
 
@@ -662,7 +672,7 @@ $warning-color: #ff0000;
     padding: 16px;
     border-radius: 8px;
     margin: 16px 0;
-    border-left: 4px solid darken($danger-color, 10%);
+    border-left: 4px solid color.adjust($danger-color, $lightness: -10%);
   }
 
   .mat-card-header,
@@ -675,6 +685,15 @@ $warning-color: #ff0000;
   display: block;
   height: 100%;
   overflow: hidden;
+
+  @include mat.form-field-overrides((
+    outlined-focus-outline-color: $primary-color,
+    outlined-focus-label-text-color: #000000,
+    outlined-caret-color: $primary-color,
+    outlined-input-text-color: $text-color,
+    outlined-hover-outline-color: $secondary-color,
+    outlined-error-focus-outline-color: $warning-color,
+  ));
 }
 
 .split-layout {
@@ -773,19 +792,6 @@ button.mat-raised-button.mat-primary {
     background-color: $secondary-color;
     color: #ffffff;
   }
-}
-
-:host {
-  @include mat.form-field-overrides((outlined-focus-outline-color: $primary-color,
-      outlined-focus-label-text-color: #000000,
-      outlined-caret-color: $primary-color,
-      outlined-input-text-color: $text-color,
-      outlined-hover-outline-color: $secondary-color,
-      outlined-error-focus-outline-color: $warning-color,
-    ));
-  display: block;
-  height: 100%;
-  overflow: hidden;
 }
 
 // Animaciones

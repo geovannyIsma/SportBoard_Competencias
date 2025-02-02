@@ -44,28 +44,28 @@ export class AdminDisciplinasComponent implements OnInit {
 
   constructor(private disciplineService: DisciplineService, private dialog: MatDialog, private fb: FormBuilder) {
     this.form = this.fb.group({
-      name: ['', [
+      name: [{value: '', disabled: false}, [
         Validators.required, 
         Validators.minLength(3),
         Validators.maxLength(50),
         Validators.pattern(/^[a-zA-Z0-9\s\-_]+$/)
       ]],
-      description: ['', [
+      description: [{value: '', disabled: false}, [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(500)
       ]],
-      surface: ['', [
+      surface: [{value: '', disabled: false}, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ]],
-      federation: ['', [
+      federation: [{value: '', disabled: false}, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ]],
-      image: [null, [
+      image: [{value: null, disabled: false}, [
         Validators.required,
         this.fileTypeValidator(),
         this.fileSizeValidator()
@@ -103,6 +103,7 @@ export class AdminDisciplinasComponent implements OnInit {
 
   create(): void {
     this.selectedDiscipline = null;
+    this.form.enable();
     this.form.reset();
     this.fileName = null;
     this.fileIcon = 'insert_drive_file';
@@ -113,7 +114,7 @@ export class AdminDisciplinasComponent implements OnInit {
 
   delete(): void {
     this.isDeleteMode = true;
-    this.isEditMode = false;
+    this.form.disable();
   }
 
   confirmDelete(): void {
@@ -133,6 +134,7 @@ export class AdminDisciplinasComponent implements OnInit {
 
   onSelect(discipline: Discipline): void {
     this.selectedDiscipline = discipline;
+    this.form.enable();
     this.form.patchValue({
       name: discipline.name,
       description: discipline.description,
@@ -248,6 +250,7 @@ export class AdminDisciplinasComponent implements OnInit {
   }
 
   onCancel(): void {
+    this.form.enable();
     this.form.reset();
     this.selectedDiscipline = null;
     this.fileName = null;

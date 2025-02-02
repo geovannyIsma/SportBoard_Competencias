@@ -6,7 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, FormControl } from '@angular/forms';
 import { FlashMessageComponent } from '../../shared/flash-message/flash-message.component';
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -56,24 +56,28 @@ export class AdminCompetenciasComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      name: ['', [
+      name: new FormControl({value: '', disabled: false}, [
         Validators.required, 
         Validators.minLength(3),
         Validators.maxLength(50),
         Validators.pattern(/^[a-zA-Z0-9\s\-_]+$/)
-      ]],
-      description: ['', [
+      ]),
+      description: new FormControl({value: '', disabled: false}, [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(500)
-      ]],
-      discipline: ['', Validators.required], // Añadir control para disciplina
-      competence_format: [''], // Añadir control para formato (opcional)
-      logo: [null, [
+      ]),
+      discipline: new FormControl({value: '', disabled: false}, [
+        Validators.required
+      ]),
+      competence_format: new FormControl({value: '', disabled: false}, [
+        Validators.required
+      ]),
+      logo: new FormControl({value: null, disabled: false}, [
         Validators.required,
         this.fileTypeValidator(),
         this.fileSizeValidator()
-      ]],
+      ])
     });
   }
 
@@ -132,6 +136,7 @@ export class AdminCompetenciasComponent implements OnInit {
 
   create(): void {
     this.selectedCompetence = null;
+    this.form.enable(); // Usar el método enable() del FormGroup
     this.form.reset();
     this.fileName = null;
     this.fileIcon = 'insert_drive_file';
@@ -143,6 +148,7 @@ export class AdminCompetenciasComponent implements OnInit {
   delete(): void {
     this.isDeleteMode = true;
     this.isEditMode = false;
+    this.form.disable(); // Usar el método disable() del FormGroup
   }
 
   confirmDelete(): void {
@@ -162,6 +168,7 @@ export class AdminCompetenciasComponent implements OnInit {
 
   onSelect(competence: Competence): void {
     this.selectedCompetence = competence;
+    this.form.enable();
     this.form.patchValue({
       name: competence.name,
       description: competence.description,
@@ -283,6 +290,7 @@ export class AdminCompetenciasComponent implements OnInit {
   }
 
   onCancel(): void {
+    this.form.enable(); // Usar el método enable() del FormGroup
     this.form.reset();
     this.selectedCompetence = null;
     this.fileName = null;

@@ -15,7 +15,6 @@
       </button>
       <button mat-raised-button 
               (click)="delete()" 
-              [disabled]="!selectedCompetence" 
               color="warn">
         <mat-icon>delete_outline</mat-icon>
         Eliminar
@@ -64,7 +63,7 @@
           <form [formGroup]="form">
             <mat-form-field appearance="outline">
               <mat-label>Nombre de la Competencia</mat-label>
-              <input matInput formControlName="name" [disabled]="isDeleteMode" placeholder="Ingrese el nombre">
+              <input matInput formControlName="name" placeholder="Ingrese el nombre">
               <mat-icon matPrefix>emoji_events</mat-icon>
               <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
                 {{ getErrorMessage('name') }}
@@ -74,7 +73,7 @@
             <!-- Agregar el selector de disciplina después del nombre -->
             <mat-form-field appearance="outline">
               <mat-label>Disciplina</mat-label>
-              <mat-select formControlName="discipline" [disabled]="isDeleteMode">
+              <mat-select formControlName="discipline">
                 <mat-option>Ninguno</mat-option>
                 <mat-option *ngFor="let discipline of disciplines" [value]="discipline.id">
                   {{discipline.name}}
@@ -89,7 +88,7 @@
             <!-- Agregar selector de formato después de la disciplina -->
             <mat-form-field appearance="outline">
               <mat-label>Formato de Competencia</mat-label>
-              <mat-select formControlName="competence_format" [disabled]="isDeleteMode">
+              <mat-select formControlName="competence_format">
                 <mat-option>Ninguno</mat-option>
                 <mat-option *ngFor="let format of formats" [value]="format.id">
                   {{format.name}}
@@ -100,8 +99,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
-              <textarea matInput formControlName="description" 
-                        [disabled]="isDeleteMode" 
+              <textarea matInput formControlName="description"  
                         placeholder="Ingrese una descripción"
                         rows="4"></textarea>
               <mat-icon matPrefix>description</mat-icon>
@@ -149,7 +147,7 @@
                 <mat-icon>close</mat-icon>
                 Cancelar
               </button>
-              <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isDeleteMode" [disabled]="form.invalid">
+              <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isDeleteMode">
                 <mat-icon>check_circle</mat-icon>
                 {{ selectedCompetence ? 'Actualizar' : 'Crear' }}
               </button>

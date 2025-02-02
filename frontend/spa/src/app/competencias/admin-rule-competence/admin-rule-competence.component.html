@@ -83,7 +83,7 @@
               
             <mat-form-field appearance="outline">
               <mat-label>Número de Regla</mat-label>
-              <input matInput formControlName="numeration" type="number" [disabled]="isDeleteMode">
+              <input matInput formControlName="numeration" type="number">
               <mat-icon matPrefix>format_list_numbered</mat-icon>
               <mat-error *ngIf="form.get('numeration')?.invalid && form.get('numeration')?.touched">
                 {{ getErrorMessage('numeration') }}
@@ -93,7 +93,6 @@
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
               <textarea matInput formControlName="rule_description" 
-                      [disabled]="isDeleteMode" 
                       placeholder="Describa la regla"
                       rows="4"></textarea>
               <mat-icon matPrefix>description</mat-icon>
@@ -104,7 +103,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Actor</mat-label>
-              <input matInput formControlName="actor" [disabled]="isDeleteMode">
+              <input matInput formControlName="actor">
               <mat-icon matPrefix>person</mat-icon>
               <mat-error *ngIf="form.get('actor')?.invalid && form.get('actor')?.touched">
                 {{ getErrorMessage('actor') }}
@@ -113,7 +112,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Acción</mat-label>
-              <input matInput formControlName="action" [disabled]="isDeleteMode">
+              <input matInput formControlName="action">
               <mat-icon matPrefix>play_arrow</mat-icon>
               <mat-error *ngIf="form.get('action')?.invalid && form.get('action')?.touched">
                 {{ getErrorMessage('action') }}
@@ -122,7 +121,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Tipo de Regla</mat-label>
-              <input matInput formControlName="type_rule" [disabled]="isDeleteMode">
+              <input matInput formControlName="type_rule">
               <mat-icon matPrefix>category</mat-icon>
               <mat-error *ngIf="form.get('type_rule')?.invalid && form.get('type_rule')?.touched">
                 {{ getErrorMessage('type_rule') }}

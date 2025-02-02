@@ -74,7 +74,7 @@
           <form [formGroup]="form">
             <mat-form-field appearance="outline">
               <mat-label>Nombre de la Disciplina</mat-label>
-              <input matInput formControlName="name" [disabled]="isDeleteMode" placeholder="Ingrese el nombre">
+              <input matInput formControlName="name" placeholder="Ingrese el nombre">
               <mat-icon matPrefix>emoji_events</mat-icon>
               <mat-error *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
                 {{ getErrorMessage('name') }}
@@ -83,7 +83,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Superficie</mat-label>
-              <input matInput formControlName="surface" [disabled]="isDeleteMode" placeholder="Ingrese la superficie">
+              <input matInput formControlName="surface" placeholder="Ingrese la superficie">
               <mat-icon matPrefix>terrain</mat-icon>
               <mat-error *ngIf="form.get('surface')?.invalid && form.get('surface')?.touched">
                 {{ getErrorMessage('surface') }}
@@ -92,7 +92,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Federación</mat-label>
-              <input matInput formControlName="federation" [disabled]="isDeleteMode" placeholder="Ingrese la federación">
+              <input matInput formControlName="federation" placeholder="Ingrese la federación">
               <mat-icon matPrefix>groups</mat-icon>
               <mat-error *ngIf="form.get('federation')?.invalid && form.get('federation')?.touched">
                 {{ getErrorMessage('federation') }}
@@ -102,7 +102,6 @@
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
               <textarea matInput formControlName="description" 
-                        [disabled]="isDeleteMode" 
                         placeholder="Ingrese una descripción"
                         rows="4"></textarea>
               <mat-icon matPrefix>description</mat-icon>

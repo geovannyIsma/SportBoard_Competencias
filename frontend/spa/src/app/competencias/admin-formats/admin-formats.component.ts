@@ -42,13 +42,13 @@ export class AdminFormatsComponent implements OnInit {
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      name: ['', [
+      name: [{value: '', disabled: false}, [
         Validators.required, 
         Validators.minLength(3),
         Validators.maxLength(50),
         Validators.pattern(/^[a-zA-Z0-9\s\-_]+$/)
       ]],
-      description: ['', [
+      description: [{value: '', disabled: false}, [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(500)
@@ -86,12 +86,14 @@ export class AdminFormatsComponent implements OnInit {
 
   create(): void {
     this.selectedFormat = null;
+    this.form.enable();
     this.form.reset();
     this.isDeleteMode = false;
   }
 
   delete(): void {
     this.isDeleteMode = true;
+    this.form.disable();
   }
 
   confirmDelete(): void {
@@ -111,6 +113,7 @@ export class AdminFormatsComponent implements OnInit {
 
   onSelect(format: Format): void {
     this.selectedFormat = format;
+    this.form.enable();
     this.form.patchValue({
       name: format.name,
       description: format.description
@@ -152,6 +155,7 @@ export class AdminFormatsComponent implements OnInit {
   }
 
   onCancel(): void {
+    this.form.enable();
     this.form.reset();
     this.selectedFormat = null;
     this.isDeleteMode = false;
