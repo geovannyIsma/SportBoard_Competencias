@@ -3,7 +3,7 @@ _transform: true
 
 services:
   - name: sportboard-backend
-    url: http://backend:3000
+    url: http://ms4-estadisticas:3000
     routes:
       - name: teams-route
         paths:

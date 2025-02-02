@@ -22,7 +22,7 @@ import { TablaPosicionesComponent } from './tabla-posiciones/tabla-posiciones.co
 import { JugadoresEstadisticaComponent } from './jugadores-estadistica/jugadores-estadistica.component';
 import { CompetenciaInfoComponent } from './competencia-info/competencia-info.component';
 
-import { EstadisticasService } from '../services/catalogs/estadistica.service';
+import { EstadisticasService } from '../services/estadisticas/estadistica.service';
 
 
 @NgModule({

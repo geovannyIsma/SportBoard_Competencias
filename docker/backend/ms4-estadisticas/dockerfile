@@ -18,3 +18,4 @@ EXPOSE 3000
 
 #? Comandos defecto pa iniciar el sv
 CMD ["npm", "run", "dev"]
+

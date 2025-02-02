@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EstadisticasService } from '../../services/catalogs/estadistica.service';
+import { EstadisticasService } from '../../services/estadisticas/estadistica.service';
 
 type TeamStat = 'goalsFor' | 'goalsAgainst' | 'goalDifference' | 'points' | 
                 'possession' | 'shotsOnTarget' | 'passesCompleted' | 

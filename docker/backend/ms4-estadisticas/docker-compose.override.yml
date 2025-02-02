@@ -1,8 +1,8 @@
 services:
   ms4-estadisticas:
     build:
-      context: ./backend/Estadisticas
-      dockerfile: dockerfile
+      context: ../../../backend/Estadisticas
+      dockerfile: ../../docker/backend/ms4-estadisticas/Dockerfile
     container_name: ms4-estadisticas
     restart: always
     ports:
@@ -16,7 +16,7 @@ services:
       kong:
         condition: service_started
     volumes:
-      - ./backend/Estadisticas:/usr/src/app
+      - ../../../backend/Estadisticas:/usr/src/app
       - /usr/src/app/node_modules
     networks:
       - sportboard-network
@@ -62,10 +62,10 @@ services:
       KONG_ADMIN_LISTEN: 0.0.0.0:8001
       KONG_PROXY_LISTEN: 0.0.0.0:8000
     ports:
-      - "8002:8000"
-      - "8003:8001"
+      - "8005:8000"
+      - "8004:8001"
     volumes:
-      - ./kong.yml:/usr/local/kong/declarative/kong.yml
+      - ../../api-gateway/kong-estadisticas.yml:/usr/local/kong/declarative/kong.yml
     networks:
       - sportboard-network
     healthcheck:
@@ -81,4 +81,3 @@ volumes:
 networks:
   sportboard-network:
     external: true
-

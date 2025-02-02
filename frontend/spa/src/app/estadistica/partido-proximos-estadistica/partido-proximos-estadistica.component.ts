@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EstadisticasService } from '../../services/catalogs/estadistica.service';
+import { EstadisticasService } from '../../services/estadisticas/estadistica.service';
 
 @Component({
   selector: 'app-partido-proximos-estadistica',

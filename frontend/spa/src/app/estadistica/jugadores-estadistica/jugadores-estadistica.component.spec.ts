@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { JugadoresEstadisticaComponent } from './jugadores-estadistica.component';
-import { EstadisticasService } from '../../services/catalogs/estadistica.service';
+import { EstadisticasService } from '../../services/estadisticas/estadistica.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';

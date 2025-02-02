@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { EncabezadoCompetenciaComponent } from './encabezado-competencia.component';
-import { EstadisticasService } from '../../services/catalogs/estadistica.service';
+import { EstadisticasService } from '../../services/estadisticas/estadistica.service';
 
 describe('EncabezadoCompetenciaComponent', () => {
   let component: EncabezadoCompetenciaComponent;
