@@ -46,15 +46,62 @@ class CompetenceViewSet(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         competence = serializer.save()
-        competence.rule_list.clear()
-        rules_data = self.request.data.get('rule_list', [])
-        for rule_data in rules_data:
-            RuleCompetition.objects.create(competence=competence, **rule_data)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        rules_data = self.request.data.get('rule_list')
+        if rules_data:
+            try:
+                rules_data = json.loads(rules_data)
+                competence.rule_list.clear()
+                for rule_data in rules_data:
+                    rule_id = rule_data.get('id')
+                    if rule_id:
+                        rule = RuleCompetition.objects.get(id=rule_id)
+                        competence.rule_list.add(rule)
+            except Exception as e:
+                print(f"Error updating rules: {str(e)}")
+        return competence
+
+    def partial_update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # Mantener el logo existente si no se proporciona uno nuevo
+        if 'logo' not in request.data:
+            request.data._mutable = True
+            request.data.pop('logo', None)
+            request.data._mutable = False
+            
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+
+        # Actualizar las reglas si se proporcionan
+        rules_data = request.data.get('rule_list')
+        if rules_data:
+            try:
+                rules_data = json.loads(rules_data)
+                instance.rule_list.clear()
+                for rule_data in rules_data:
+                    rule_id = rule_data.get('id')
+                    if rule_id:
+                        rule = RuleCompetition.objects.get(id=rule_id)
+                        instance.rule_list.add(rule)
+            except Exception as e:
+                print(f"Error updating rules: {str(e)}")
+
+        return Response(serializer.data)
 
 class RuleCompetenceViewSet(viewsets.ModelViewSet):
     queryset = RuleCompetition.objects.all()
     serializer_class = RuleCompetenceSerializer
+
+    def perform_create(self, serializer):
+        rule = serializer.save()
+        competence_id = self.request.data.get('competence')
+        if competence_id:
+            try:
+                competence = Competence.objects.get(id=competence_id)
+                competence.rule_list.add(rule)
+            except Competence.DoesNotExist:
+                pass
+        return rule
 
 class RuleDisciplineViewSet(viewsets.ModelViewSet):
     queryset = RuleDiscipline.objects.all()

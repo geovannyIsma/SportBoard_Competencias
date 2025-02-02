@@ -16,7 +16,7 @@ export class CompetenceService {
     }
 
     getCompetence(id: number): Observable<Competence> {
-        return this.http.get<Competence>(`${this.apiUrl}/${id}`);
+        return this.http.get<Competence>(`${this.apiUrl}${id}`);
     }
 
     createCompetence(competence: FormData): Observable<Competence> {
@@ -25,6 +25,13 @@ export class CompetenceService {
 
     updateCompetence(id: number, competence: FormData): Observable<Competence> {
         return this.http.put<Competence>(`${this.apiUrl}${id}/`, competence);
+    }
+
+    // Añadir método para actualización parcial
+    partialUpdateCompetence(id: number, competence: FormData): Observable<Competence> {
+        const headers = new HttpHeaders();
+        headers.append('Content-Type', 'multipart/form-data');
+        return this.http.patch<Competence>(`${this.apiUrl}${id}/`, competence, { headers });
     }
 
     deleteCompetence(id: number): Observable<void> {

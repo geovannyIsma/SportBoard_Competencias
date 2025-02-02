@@ -16,9 +16,10 @@ import { TitleCasePipe } from '@angular/common';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HomeCompetenciesComponent } from './home-competencies/home-competencies.component';
 import { AdminCompetenciasComponent } from './admin-competencias/admin-competencias.component';
-import { MatTableDataSource } from '@angular/material/table';
 import { AdminDisciplinasComponent } from './admin-disciplinas/admin-disciplinas.component';
 import { DisciplineService } from '../services/competencies/discipline.service';
+import { AdminRuleCompetenceComponent } from './admin-rule-competence/admin-rule-competence.component';
+import { RuleCompetenceService } from '../services/competencies/rule-competence.service';
 
 @NgModule({
   imports: [
@@ -39,7 +40,8 @@ import { DisciplineService } from '../services/competencies/discipline.service';
     HomeCompetenciesComponent,
     AdminCompetenciasComponent,
     AdminDisciplinasComponent,
+    AdminRuleCompetenceComponent,
   ],
-  providers: [CompetenceService, DisciplineService, TitleCasePipe],
+  providers: [CompetenceService, DisciplineService, RuleCompetenceService, TitleCasePipe],
 })
 export class CompetenciasModule { }

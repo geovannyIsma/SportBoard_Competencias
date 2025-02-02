@@ -20,7 +20,7 @@ export class HomeCompetenciesComponent {
     { title: 'Locality', description: 'Modelo de localidad', icon: 'location_on' },
     { title: 'Registration', description: 'Modelo de registro', icon: 'how_to_reg' },
     { title: 'Planning', description: 'Modelo de planificación', icon: 'event' },
-    { title: 'Rule', description: 'Modelo de regla', icon: 'gavel' },
+    { title: 'Rule', description: 'Modelo de regla', icon: 'gavel', route: 'admin-rules' },
     { title: 'Discipline', description: 'Modelo de disciplina', icon: 'fitness_center', route: 'admin-discipline' },
     { title: 'RuleCompetition', description: 'Regla de competencia', icon: 'rule' },
     { title: 'RuleDiscipline', description: 'Regla de disciplina', icon: 'rule' },
