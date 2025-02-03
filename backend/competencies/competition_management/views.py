@@ -148,10 +148,6 @@ class LocalityViewSet(viewsets.ModelViewSet):
     queryset = Locality.objects.all()
     serializer_class = LocalitySerializer
 
-class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all()
-    serializer_class = CountrySerializer
-
 class FormatViewSet(viewsets.ModelViewSet):
     queryset = Format.objects.all()
     serializer_class = FormatSerializer

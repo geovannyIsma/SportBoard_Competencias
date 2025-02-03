@@ -20,9 +20,9 @@ class User(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    country = models.ForeignKey('Country', on_delete=models.CASCADE)
+    country = models.CharField(max_length=255)
     logo = models.ImageField(upload_to="logos/")
-    squads = models.ManyToManyField('Squad', related_name='teams')
+    squads = models.ManyToManyField('Squad', related_name='teams', blank=True)
 
     def __str__(self):
         return self.name
@@ -214,14 +214,6 @@ class Competence(models.Model):
     rule_discipline_list = models.ManyToManyField('RuleDiscipline', related_name='competences', blank=True)
     rule_list = models.ManyToManyField('RuleCompetition', related_name='competences', blank=True)
     discipline = models.ForeignKey('Discipline', on_delete=models.CASCADE, related_name='competences')
-    
-    def __str__(self):
-        return self.name + " - " + self.description
-
-
-class Country(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
     
     def __str__(self):
         return self.name + " - " + self.description

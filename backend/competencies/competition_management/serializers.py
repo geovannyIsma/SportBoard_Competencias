@@ -93,6 +93,14 @@ class StageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TeamSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(required=False, allow_null=True)
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation['logo']:
+            representation['logo'] = representation['logo'].replace('http://ms2-competencies:8003', 'http://localhost:8000')
+        return representation
+    
     class Meta:
         model = Team
         fields = '__all__'
@@ -100,12 +108,6 @@ class TeamSerializer(serializers.ModelSerializer):
 class LocalitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Locality
-        fields = '__all__'
-
-
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Country
         fields = '__all__'
 
 class FormatSerializer(serializers.ModelSerializer):

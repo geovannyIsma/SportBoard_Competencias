@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class HomeCompetenciesComponent {
   models = [
     { title: 'User', description: 'Modelo de usuario', icon: 'person' },
-    { title: 'Team', description: 'Modelo de equipo', icon: 'group' },
+    { title: 'Team', description: 'Modelo de equipo', icon: 'group', route: 'admin-equipos' },
     { title: 'Squad', description: 'Modelo de escuadra', icon: 'sports_soccer' },
     { title: 'PlayerAssignment', description: 'Asignación de jugador', icon: 'assignment_ind' },
     { title: 'CoachAssignment', description: 'Asignación de entrenador', icon: 'assignment' },
@@ -26,7 +26,6 @@ export class HomeCompetenciesComponent {
     { title: 'CompetitionEdition', description: 'Edición de competencia', icon: 'emoji_events' },
     { title: 'Stage', description: 'Modelo de etapa', icon: 'flag' },
     { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events', route: 'admin-competence' },
-    { title: 'Country', description: 'Modelo de país', icon: 'public' },
     { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes', route: 'admin-formats' },
   ];
 

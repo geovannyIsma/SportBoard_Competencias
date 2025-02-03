@@ -34,7 +34,6 @@ export const environment = {
                 stages: '/stages',
                 teams: '/teams',
                 localities: '/localities',
-                countries: '/countries',
                 formats: '/formats',
             },
         },
@@ -67,5 +66,4 @@ environment.services.competencies.endpoints.competenceEditions = `${environment.
 environment.services.competencies.endpoints.stages = `${environment.services.competencies.base}/stages/`;
 environment.services.competencies.endpoints.teams = `${environment.services.competencies.base}/teams/`;
 environment.services.competencies.endpoints.localities = `${environment.services.competencies.base}/localities/`;
-environment.services.competencies.endpoints.countries = `${environment.services.competencies.base}/countries/`;
 environment.services.competencies.endpoints.formats = `${environment.services.competencies.base}/formats/`;
