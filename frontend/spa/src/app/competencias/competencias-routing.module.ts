@@ -7,6 +7,7 @@ import { AdminRuleCompetenceComponent } from './admin-rule-competence/admin-rule
 import { AdminRulesDisciplineComponent } from './admin-rules-discipline/admin-rules-discipline.component';
 import { AdminFormatsComponent } from './admin-formats/admin-formats.component';
 import { AdminEquiposComponent } from './admin-equipos/admin-equipos.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 
 const routes: Routes = [
   { path: '', component: HomeCompetenciesComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'admin-rules-discipline', component: AdminRulesDisciplineComponent },
   { path: 'admin-formats', component: AdminFormatsComponent },
   { path: 'admin-equipos', component: AdminEquiposComponent },
+  {path: 'admin-users', component: AdminUsersComponent}
 ];
 
 @NgModule({

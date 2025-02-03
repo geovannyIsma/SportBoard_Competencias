@@ -41,10 +41,28 @@ export class CatalogService {
         return this.http.put<any>(`${this.apiUrl}/${id}`, catalog);
     }
 
+    
+
     getCountries(): Observable<Catalog[]> {
         return this.getCatalogs().pipe(
             map((catalogs: Catalog[]) => 
                 catalogs.filter((catalog: Catalog) => catalog.groupCode === 'PAIS')
+            )
+        );
+    }
+
+    getGenders(): Observable<Catalog[]> {
+        return this.getCatalogs().pipe(
+            map((catalogs: Catalog[]) => 
+                catalogs.filter((catalog: Catalog) => catalog.groupCode === 'TIPO_SEXO')
+            )
+        );
+    }
+
+    getNationalities(): Observable<Catalog[]> {
+        return this.getCatalogs().pipe(
+            map((catalogs: Catalog[]) => 
+                catalogs.filter((catalog: Catalog) => catalog.groupCode === 'NACIONALIDAD')
             )
         );
     }

@@ -25,6 +25,8 @@ import { AdminFormatsComponent } from './admin-formats/admin-formats.component';
 import { FormatService } from '../services/competencies/format.service';
 import { AdminEquiposComponent } from './admin-equipos/admin-equipos.component';
 import { TeamService } from '../services/competencies/team.service';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { UserService } from '../services/competencies/user.service';
 
 @NgModule({
   imports: [
@@ -48,6 +50,7 @@ import { TeamService } from '../services/competencies/team.service';
     AdminRuleCompetenceComponent,
     AdminFormatsComponent,
     AdminEquiposComponent,
+    AdminUsersComponent,
   ],
   providers: [
     CompetenceService,
@@ -56,6 +59,7 @@ import { TeamService } from '../services/competencies/team.service';
     RuleDisciplineService,
     FormatService,
     TeamService,
+    UserService,
     TitleCasePipe], 
 })
 export class CompetenciasModule { }
