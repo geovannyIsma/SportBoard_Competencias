@@ -1,6 +1,13 @@
 package com.pentavirato.calendarioModule.modelo;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "addresses")
 public class Address {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String principalStreet;
     private String secondaryStreet;
     private String reference;
@@ -8,10 +15,19 @@ public class Address {
     public Address() {
     }
 
-    public Address(String principalStreet, String secondaryStreet, String reference) {
+    public Address(Integer id, String principalStreet, String secondaryStreet, String reference) {
+        this.id = id;
         this.principalStreet = principalStreet;
         this.secondaryStreet = secondaryStreet;
         this.reference = reference;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getPrincipalStreet() {

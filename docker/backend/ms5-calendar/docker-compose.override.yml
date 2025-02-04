@@ -8,25 +8,7 @@ services:
     networks:
       - sportboard-network 
 
-  kong-database:
-    image: postgres:15
-    container_name: calendar-database
-    restart: always
-    environment:
-      POSTGRES_USER: kong
-      POSTGRES_DB: kong
-      POSTGRES_PASSWORD: kong
-    networks:
-      - sportboard-network 
-    volumes:
-      - kong-db-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD", "pg_isready", "-U", "kong"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  kong-migrations:
+  calendar-migrations:
     image: kong:3.5
     container_name: calendar-migrations
     depends_on:
@@ -41,34 +23,6 @@ services:
     networks:
       - sportboard-network 
 
-  kong:
-    image: kong:3.5
-    container_name: calendar-kong
-    restart: always
-    environment:
-      KONG_DATABASE: postgres
-      KONG_PG_HOST: kong-database
-      KONG_PG_USER: kong
-      KONG_PG_PASSWORD: kong
-      KONG_PROXY_ACCESS_LOG: /dev/stdout
-      KONG_ADMIN_ACCESS_LOG: /dev/stdout
-      KONG_PROXY_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001,0.0.0.0:8444 ssl
-      KONG_ADMIN_GUI_URL: http://localhost:8002
-    depends_on:
-      kong-database:
-        condition: service_healthy
-      kong-migrations:
-        condition: service_completed_successfully
-    ports:
-      - "8000:8000"
-      - "8443:8443"
-      - "8001:8001"
-      - "8002:8002"
-      - "8444:8444"
-    networks:
-      - sportboard-network 
 
 networks:
   sportboard-network:
