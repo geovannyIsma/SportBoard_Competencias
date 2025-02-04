@@ -61,6 +61,19 @@ services:
             file: ./backend/ms4-estadisticas/docker-compose.override.yml
             service: ms4-estadisticas
 
+
+# Microservicio de usuarios
+    ms1-usermanagement:
+        extends:
+            file: ./backend/ms1-usermanagement/docker-compose.override.yml
+            service: ms1-usermanagement
+        networks:
+            - sportboard-network
+
+    postgres-usermanagement:
+        extends:
+            file: ./backend/ms1-usermanagement/docker-compose.override.yml
+            service: postgres-usermanagement
 networks:
     sportboard-network:
         name: sportboard-network
