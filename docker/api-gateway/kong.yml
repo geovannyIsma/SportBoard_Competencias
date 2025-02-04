@@ -12,7 +12,7 @@ services:
         methods:
           - GET
           - OPTIONS
-      - name: matches-route
+      - name: matches-route-estadisticas
         paths:
           - /api/estadisticas/matches
         strip_path: false
@@ -67,27 +67,31 @@ services:
         methods:
           - GET
           - OPTIONS
+
   - name: groups-service
     url: http://catalogs:5241/api/groups
     routes:
       - name: groups-route
         paths:
           - /catalog/groups
+
   - name: catalogs-service
     url: http://catalogs:5241/api/catalogs
     routes:
       - name: catalogs-route
         paths:
           - /catalog/catalogs
+
   - name: real-time-service
-    url: http://ms3-real-time:5001/api  
+    url: http://ms3-real-time:5001/api
     routes:
-      - name: matches-route
+      - name: matches-route-realtime
         paths:
           - /api/partidos
       - name: events-route
         paths:
           - /api/eventos
+
   - name: ms2-competencies
     url: http://ms2-competencies:8003
     routes:
@@ -95,6 +99,7 @@ services:
         paths:
           - /api
         strip_path: false
+
   - name: static-files
     url: http://ms2-competencies:8003
     routes:
@@ -102,6 +107,7 @@ services:
         paths:
           - /static/
         strip_path: false
+
   - name: media-files
     url: http://ms2-competencies:8003
     routes:
@@ -139,11 +145,12 @@ plugins:
       credentials: true
       max_age: 3600
       preflight_continue: false
+
   - name: jwt
     config:
       claims_to_verify:
         - exp
       secret_is_base64: false
       run_on_preflight: true
-      header_names: 
+      header_names:
         - authorization

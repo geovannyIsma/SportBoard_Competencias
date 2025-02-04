@@ -61,11 +61,6 @@ services:
             file: ./backend/ms4-estadisticas/docker-compose.override.yml
             service: ms4-estadisticas
 
-    kong-estadisticas:
-        extends:
-            file: ./backend/ms4-estadisticas/docker-compose.override.yml
-            service: kong
-
 networks:
     sportboard-network:
         name: sportboard-network

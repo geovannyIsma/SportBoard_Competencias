@@ -48,33 +48,7 @@ services:
       retries: 5
       start_period: 40s
 
-  kong:
-    image: kong:latest
-    container_name: kong-estadisticas
-    restart: always
-    environment:
-      KONG_DATABASE: "off"
-      KONG_DECLARATIVE_CONFIG: /usr/local/kong/declarative/kong.yml
-      KONG_PROXY_ACCESS_LOG: /dev/stdout
-      KONG_ADMIN_ACCESS_LOG: /dev/stdout
-      KONG_PROXY_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_ERROR_LOG: /dev/stderr
-      KONG_ADMIN_LISTEN: 0.0.0.0:8001
-      KONG_PROXY_LISTEN: 0.0.0.0:8000
-    ports:
-      - "8005:8000"
-      - "8004:8001"
-    volumes:
-      - ../../api-gateway/kong.yml:/usr/local/kong/declarative/kong.yml
-    networks:
-      - sportboard-network
-    healthcheck:
-      test: ["CMD", "kong", "health"]
-      interval: 10s
-      timeout: 10s
-      retries: 5
-      start_period: 30s
-
+  
 volumes:
   mongodb_estadisticas_data:
 
