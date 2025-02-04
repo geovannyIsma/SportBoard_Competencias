@@ -3,6 +3,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from rest_framework import status
 import json
+from django.db import transaction
 from .models import *
 from .serializers import *
 
@@ -29,6 +30,118 @@ class PlanningViewSet(viewsets.ModelViewSet):
 class SquadViewSet(viewsets.ModelViewSet):
     queryset = Squad.objects.all()
     serializer_class = SquadSerializer
+
+    def get_queryset(self):
+        return Squad.objects.all().select_related('team')
+        
+    def create(self, request, *args, **kwargs):
+        team_id = request.data.get('team')
+        players_data = request.data.get('players', [])
+        coaches_data = request.data.get('coaches', [])
+
+        try:
+            team = Team.objects.get(id=team_id)
+            squad = Squad.objects.create(team=team)
+
+            # Procesar jugadores
+            for player_data in players_data:
+                if isinstance(player_data, dict):
+                    # Nuevo jugador - eliminar ID si existe
+                    if 'id' in player_data:
+                        del player_data['id']
+                    player = User.objects.create(**player_data)
+                else:
+                    # Jugador existente
+                    player = User.objects.get(id=player_data)
+                PlayerAssignment.objects.create(squad=squad, player=player)
+
+            # Procesar entrenadores
+            for coach_data in coaches_data:
+                if isinstance(coach_data, dict):
+                    # Nuevo entrenador - eliminar ID si existe
+                    if 'id' in coach_data:
+                        del coach_data['id']
+                    coach = User.objects.create(**coach_data)
+                else:
+                    # Entrenador existente
+                    coach = User.objects.get(id=coach_data)
+                CoachAssignment.objects.create(squad=squad, coach=coach)
+
+            squad.refresh_from_db()
+            serializer = self.get_serializer(squad)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    @transaction.atomic
+    def update(self, request, *args, **kwargs):
+        squad = self.get_object()
+        team_id = request.data.get('team')
+        players_data = request.data.get('players', [])
+        coaches_data = request.data.get('coaches', [])
+        new_players = request.data.get('new_players', [])
+        new_coaches = request.data.get('new_coaches', [])
+
+        try:
+            with transaction.atomic():
+                # Actualizar equipo si es necesario
+                if team_id and team_id != squad.team.id:
+                    team = Team.objects.get(id=team_id)
+                    squad.team = team
+                    squad.save()
+
+                # Limpiar asignaciones existentes
+                PlayerAssignment.objects.filter(squad=squad).delete()
+                CoachAssignment.objects.filter(squad=squad).delete()
+
+                # Crear nuevos usuarios jugadores
+                created_players = []
+                for player_data in new_players:
+                    player_data['role'] = 'Player'
+                    if 'id' in player_data:
+                        del player_data['id']
+                    player = User.objects.create(**player_data)
+                    created_players.append(player.id)
+
+                # Crear nuevos usuarios entrenadores
+                created_coaches = []
+                for coach_data in new_coaches:
+                    coach_data['role'] = 'Coach'
+                    if 'id' in coach_data:
+                        del coach_data['id']
+                    coach = User.objects.create(**coach_data)
+                    created_coaches.append(coach.id)
+
+                # Combinar IDs existentes con los nuevos
+                all_player_ids = [p for p in players_data if isinstance(p, (int, str))] + created_players
+                all_coach_ids = [c for c in coaches_data if isinstance(c, (int, str))] + created_coaches
+
+                # Crear asignaciones
+                for player_id in all_player_ids:
+                    PlayerAssignment.objects.create(
+                        squad=squad, 
+                        player=User.objects.get(id=player_id)
+                    )
+
+                for coach_id in all_coach_ids:
+                    CoachAssignment.objects.create(
+                        squad=squad, 
+                        coach=User.objects.get(id=coach_id)
+                    )
+
+                squad.refresh_from_db()
+                serializer = self.get_serializer(squad)
+                return Response(serializer.data)
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()

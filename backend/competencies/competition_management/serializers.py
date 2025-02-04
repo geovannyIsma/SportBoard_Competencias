@@ -27,10 +27,31 @@ class PlanningSerializer(serializers.ModelSerializer):
         model = Planning
         fields = '__all__'
 
+class TeamSerializer(serializers.ModelSerializer):
+    logo = serializers.ImageField(required=False, allow_null=True)
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if representation['logo']:
+            representation['logo'] = representation['logo'].replace('http://ms2-competencies:8003', 'http://localhost:8000')
+        return representation
+    
+    class Meta:
+        model = Team
+        fields = '__all__'
+
 class SquadSerializer(serializers.ModelSerializer):
+    players = UserSerializer(many=True, read_only=True)
+    coaches = UserSerializer(many=True, read_only=True)
+    player_assignments = PlayerAssignmentSerializer(many=True, read_only=True, source='playerassignment_set')
+    coach_assignments = CoachAssignmentSerializer(many=True, read_only=True, source='coachassignment_set')
+    team = TeamSerializer(read_only=True)  # Añadir esta línea
+    
     class Meta:
         model = Squad
-        fields = '__all__'
+        fields = ['id', 'season', 'team', 'players', 'coaches', 
+                 'player_assignments', 'coach_assignments', 'registrations']
+        read_only_fields = ['players', 'coaches']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:

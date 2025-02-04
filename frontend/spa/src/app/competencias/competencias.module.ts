@@ -27,6 +27,8 @@ import { AdminEquiposComponent } from './admin-equipos/admin-equipos.component';
 import { TeamService } from '../services/competencies/team.service';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { UserService } from '../services/competencies/user.service';
+import { AdminSquadComponent } from './admin-squad/admin-squad.component';
+import { SquadService } from '../services/competencies/squad.service';
 
 @NgModule({
   imports: [
@@ -51,6 +53,7 @@ import { UserService } from '../services/competencies/user.service';
     AdminFormatsComponent,
     AdminEquiposComponent,
     AdminUsersComponent,
+    AdminSquadComponent,
   ],
   providers: [
     CompetenceService,
@@ -60,6 +63,7 @@ import { UserService } from '../services/competencies/user.service';
     FormatService,
     TeamService,
     UserService,
+    SquadService,
     TitleCasePipe], 
 })
 export class CompetenciasModule { }

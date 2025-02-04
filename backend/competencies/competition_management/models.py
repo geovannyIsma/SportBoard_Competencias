@@ -33,11 +33,11 @@ class Team(models.Model):
 
 
 class Squad(models.Model):
-    season = models.ForeignKey('Planning', on_delete=models.CASCADE)
+    season = models.ForeignKey('Planning', on_delete=models.CASCADE, blank=True, null=True)
     team = models.ForeignKey('Team', on_delete=models.CASCADE, related_name='squads_list')
     players = models.ManyToManyField(User, through='PlayerAssignment', related_name='squad_players')
     coaches = models.ManyToManyField(User, through='CoachAssignment', related_name='squad_coaches')
-    registrations = models.ManyToManyField('Registration', related_name='squads')
+    registrations = models.ManyToManyField('Registration', related_name='squads', blank=True)
 
     def add_player(self, player):
         self.players.add(player)
