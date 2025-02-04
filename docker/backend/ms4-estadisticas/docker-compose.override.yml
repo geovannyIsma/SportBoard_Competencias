@@ -65,7 +65,7 @@ services:
       - "8005:8000"
       - "8004:8001"
     volumes:
-      - ../../api-gateway/kong-estadisticas.yml:/usr/local/kong/declarative/kong.yml
+      - ../../api-gateway/kong.yml:/usr/local/kong/declarative/kong.yml
     networks:
       - sportboard-network
     healthcheck:
