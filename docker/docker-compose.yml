@@ -57,6 +57,11 @@ services:
             file: ./backend/ms5-calendar/docker-compose.override.yml
             service: ms5-calendar
 
+    ms5-calendar-database:
+        extends:
+            file: ./backend/ms5-calendar/docker-compose.override.yml
+            service: ms5-calendar-database
+
 # Microservicio de usuarios
     ms1-usermanagement:
         extends:
