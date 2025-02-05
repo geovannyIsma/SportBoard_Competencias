@@ -7,6 +7,7 @@ import { Stage } from './stage.model';
 import { User } from './user.model';
 
 export interface CompetitionEdition {
+    id: number;
     competence_admin: User;
     planning: Planning;
     inscription_list: Registration[];

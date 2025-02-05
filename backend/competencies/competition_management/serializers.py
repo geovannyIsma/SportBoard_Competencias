@@ -39,6 +39,23 @@ class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = '__all__'
+        
+class RegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Registration
+        fields = '__all__'
+        
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        # Expandir el objeto squad para incluir información del equipo
+        representation['squad'] = {
+            'id': instance.squad.id,
+            'team': {
+                'id': instance.squad.team.id,
+                'name': instance.squad.team.name
+            }
+        }
+        return representation
 
 class SquadSerializer(serializers.ModelSerializer):
     players = UserSerializer(many=True, read_only=True)
@@ -46,17 +63,13 @@ class SquadSerializer(serializers.ModelSerializer):
     player_assignments = PlayerAssignmentSerializer(many=True, read_only=True, source='playerassignment_set')
     coach_assignments = CoachAssignmentSerializer(many=True, read_only=True, source='coachassignment_set')
     team = TeamSerializer(read_only=True)  # Añadir esta línea
+    registrations = RegistrationSerializer(many=True, read_only=True)  # Añadir esta línea
     
     class Meta:
         model = Squad
         fields = ['id', 'season', 'team', 'players', 'coaches', 
                  'player_assignments', 'coach_assignments', 'registrations']
-        read_only_fields = ['players', 'coaches']
-
-class RegistrationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Registration
-        fields = '__all__'
+        read_only_fields = ['players', 'coaches', 'registrations']  # Actualizar read_only_fields
 
 class RuleCompetenceSerializer(serializers.ModelSerializer):
     class Meta:

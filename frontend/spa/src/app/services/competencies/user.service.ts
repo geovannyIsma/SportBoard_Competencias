@@ -31,4 +31,8 @@ export class UserService {
     deleteUser(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}${id}/`);
     }
+
+    getAdminUsers(): Observable<User[]> {
+        return this.http.get<User[]>(`${this.apiUrl}?role=Coach`); //En un futuro, se puede cambiar a 'Admin'
+    }
 }

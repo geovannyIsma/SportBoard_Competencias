@@ -28,6 +28,14 @@ class Team(models.Model):
     logo = models.ImageField(upload_to="logos/")
     squads = models.ManyToManyField('Squad', related_name='teams', blank=True)
 
+    def add_squad(self, squad):
+        self.squads.add(squad)
+        self.save()
+    
+    def remove_squad(self, squad):
+        self.squads.remove(squad)
+        self.save()
+
     def __str__(self):
         return self.name
 
@@ -127,7 +135,13 @@ class Locality(models.Model):
 class Registration(models.Model):
     squad = models.ForeignKey(Squad, on_delete=models.CASCADE)
     serie = models.CharField(max_length=255)
-    competencie = models.ForeignKey('CompetitionEdition', on_delete=models.CASCADE)
+    competencie = models.ForeignKey(
+        'CompetitionEdition', 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True,
+        related_name='registrations'
+    )
 
     def __str__(self):
         return f"{self.squad.team.name} - {self.serie}"
@@ -190,8 +204,8 @@ class RuleDiscipline(Rule):
 class CompetitionEdition(models.Model):
     competence_admin = models.ForeignKey(User, on_delete=models.CASCADE)
     planning = models.ForeignKey('Planning', on_delete=models.CASCADE)
-    inscription_list = models.ManyToManyField('Registration')
-    subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions')
+    inscription_list = models.ManyToManyField('Registration', related_name='competitions', blank=True)
+    subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions', blank=True) #Esto es para subdivisiones, esta por ver si se puede hacer
     stage_list = models.ManyToManyField('Stage', related_name='competition_editions')
     competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
 

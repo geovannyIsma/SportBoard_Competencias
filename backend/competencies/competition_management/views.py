@@ -40,36 +40,40 @@ class SquadViewSet(viewsets.ModelViewSet):
         coaches_data = request.data.get('coaches', [])
 
         try:
-            team = Team.objects.get(id=team_id)
-            squad = Squad.objects.create(team=team)
+            with transaction.atomic():
+                team = Team.objects.get(id=team_id)
+                squad = Squad.objects.create(team=team)
+                
+                # Agregar la squad al equipo
+                team.squads.add(squad)
 
-            # Procesar jugadores
-            for player_data in players_data:
-                if isinstance(player_data, dict):
-                    # Nuevo jugador - eliminar ID si existe
-                    if 'id' in player_data:
-                        del player_data['id']
-                    player = User.objects.create(**player_data)
-                else:
-                    # Jugador existente
-                    player = User.objects.get(id=player_data)
-                PlayerAssignment.objects.create(squad=squad, player=player)
+                # Procesar jugadores
+                for player_data in players_data:
+                    if isinstance(player_data, dict):
+                        # Nuevo jugador - eliminar ID si existe
+                        if 'id' in player_data:
+                            del player_data['id']
+                        player = User.objects.create(**player_data)
+                    else:
+                        # Jugador existente
+                        player = User.objects.get(id=player_data)
+                    PlayerAssignment.objects.create(squad=squad, player=player)
 
-            # Procesar entrenadores
-            for coach_data in coaches_data:
-                if isinstance(coach_data, dict):
-                    # Nuevo entrenador - eliminar ID si existe
-                    if 'id' in coach_data:
-                        del coach_data['id']
-                    coach = User.objects.create(**coach_data)
-                else:
-                    # Entrenador existente
-                    coach = User.objects.get(id=coach_data)
-                CoachAssignment.objects.create(squad=squad, coach=coach)
+                # Procesar entrenadores
+                for coach_data in coaches_data:
+                    if isinstance(coach_data, dict):
+                        # Nuevo entrenador - eliminar ID si existe
+                        if 'id' in coach_data:
+                            del coach_data['id']
+                        coach = User.objects.create(**coach_data)
+                    else:
+                        # Entrenador existente
+                        coach = User.objects.get(id=coach_data)
+                    CoachAssignment.objects.create(squad=squad, coach=coach)
 
-            squad.refresh_from_db()
-            serializer = self.get_serializer(squad)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+                squad.refresh_from_db()
+                serializer = self.get_serializer(squad)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         except Exception as e:
             return Response(
@@ -88,11 +92,19 @@ class SquadViewSet(viewsets.ModelViewSet):
 
         try:
             with transaction.atomic():
-                # Actualizar equipo si es necesario
+                # Si el equipo cambió, actualizar las relaciones
                 if team_id and team_id != squad.team.id:
-                    team = Team.objects.get(id=team_id)
-                    squad.team = team
+                    # Remover la squad del equipo anterior
+                    old_team = squad.team
+                    old_team.squads.remove(squad)
+                    
+                    # Asignar al nuevo equipo
+                    new_team = Team.objects.get(id=team_id)
+                    squad.team = new_team
                     squad.save()
+                    
+                    # Agregar la squad al nuevo equipo
+                    new_team.squads.add(squad)
 
                 # Limpiar asignaciones existentes
                 PlayerAssignment.objects.filter(squad=squad).delete()
@@ -143,9 +155,71 @@ class SquadViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST
             )
 
+    def destroy(self, request, *args, **kwargs):
+        try:
+            squad = self.get_object()
+            team = squad.team
+            
+            with transaction.atomic():
+                # Remover la squad del equipo
+                team.squads.remove(squad)
+                # Eliminar la squad
+                squad.delete()
+                
+            return Response(status=status.HTTP_204_NO_CONTENT)
+            
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 class RegistrationViewSet(viewsets.ModelViewSet):
     queryset = Registration.objects.all()
     serializer_class = RegistrationSerializer
+
+    @transaction.atomic
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        registration = serializer.save()
+        
+        # Actualizar la relación en Squad
+        squad = Squad.objects.get(id=request.data['squad'])
+        squad.registrations.add(registration)
+        
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @transaction.atomic
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        
+        # Guardar el squad anterior
+        old_squad = instance.squad
+        
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        registration = serializer.save()
+        
+        # Actualizar las relaciones en Squad
+        if old_squad.id != registration.squad.id:
+            old_squad.registrations.remove(instance)
+            registration.squad.registrations.add(instance)
+        
+        return Response(serializer.data)
+
+    @transaction.atomic
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        squad = instance.squad
+        
+        # Eliminar la relación en Squad antes de eliminar el registro
+        squad.registrations.remove(instance)
+        
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class CompetenceViewSet(viewsets.ModelViewSet):
     queryset = Competence.objects.all()

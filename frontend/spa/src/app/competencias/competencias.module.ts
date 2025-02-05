@@ -29,6 +29,8 @@ import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { UserService } from '../services/competencies/user.service';
 import { AdminSquadComponent } from './admin-squad/admin-squad.component';
 import { SquadService } from '../services/competencies/squad.service';
+import { AdminRegistrosComponent } from './admin-registros/admin-registros.component';
+import { RegistrationService } from '../services/competencies/registration.service';
 
 @NgModule({
   imports: [
@@ -54,6 +56,7 @@ import { SquadService } from '../services/competencies/squad.service';
     AdminEquiposComponent,
     AdminUsersComponent,
     AdminSquadComponent,
+    AdminRegistrosComponent,
   ],
   providers: [
     CompetenceService,
@@ -64,6 +67,7 @@ import { SquadService } from '../services/competencies/squad.service';
     TeamService,
     UserService,
     SquadService,
+    RegistrationService,
     TitleCasePipe], 
 })
 export class CompetenciasModule { }
