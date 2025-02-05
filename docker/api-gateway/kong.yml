@@ -115,6 +115,14 @@ services:
         paths:
           - /media/
         strip_path: false
+        
+  - name: ms1-usermanagement
+    url: http://ms1-usermanagement:8004
+    routes:
+      - name: ms1-usermanagement-route
+        paths:
+          - /ms1/
+        strip_path: false
 
 consumers:
   - username: sportboard-consumer
@@ -154,10 +162,4 @@ plugins:
       run_on_preflight: true
       header_names:
         - authorization
-  - name: ms1-usermanagement
-    url: http://ms1-usermanagement:8004
-    routes:
-      - name: ms1-usermanagement-route
-        paths:
-          - /ms1/
-        strip_path: false
+  
