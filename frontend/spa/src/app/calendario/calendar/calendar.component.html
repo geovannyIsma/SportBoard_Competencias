@@ -1,32 +1,32 @@
-<div class="calendar-container">
-  <!-- Título del calendario -->
-  <h2 class="calendar-title">Octubre 2024</h2>
+<div class="contenedor-calendario">
+  <!-- Encabezado del calendario -->
+  <div class="encabezado-calendario">
+    <button class="boton-navegacion" (click)="cambiarMes(-1)">&lt;</button>
+    <h2 class="titulo-calendario">{{ nombreMesActual | titlecase }} {{ anioActual }}</h2>
+    <button class="boton-navegacion" (click)="cambiarMes(1)">&gt;</button>
+  </div>
 
-  <!-- Controles de navegación del calendario -->
+  <!-- Controles adicionales -->
   <div class="calendar-controls">
-    <button class="prev-month-btn" aria-label="Mes anterior">&lt;</button>
-    <span class="month-label">Octubre</span>
-    <button class="next-month-btn" aria-label="Mes siguiente">&gt;</button>
-    
     <!-- Botón para crear un nuevo partido -->
-    <button class="create-match-btn">Crear Partido</button>
-    
+    <button class="create-match-btn" (click)="crearPartido()">Crear Partido</button>
+
     <!-- Botón para ver grupos -->
     <button class="view-groups-btn" (click)="navigateToGroups()">Ver Grupos</button>
 
     <!-- Selector de vista del calendario -->
-    <select class="view-selector" aria-label="Cambiar vista del calendario">
-      <option value="month">Mes</option>
-      <option value="week">Semana</option>
-      <option value="day">Día</option>
+    <select class="view-selector" aria-label="Cambiar vista del calendario" (change)="cambiarVista($event)">
+      <option value="mes">Mes</option>
+      <option value="semana">Semana</option>
+      <option value="dia">Día</option>
     </select>
-    
+
     <!-- Botón para gestionar partidos -->
-    <button class="manage-matches-btn">Gestionar partidos</button>
+    <button class="manage-matches-btn" (click)="gestionarPartidos()">Gestionar partidos</button>
   </div>
 
   <!-- Tabla del calendario -->
-  <table class="calendar-table">
+  <table class="tabla-calendario">
     <thead>
       <tr>
         <th>Lunes</th>
@@ -39,34 +39,26 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td class="day-cell">01</td>
-        <td class="day-cell">02</td>
-        <td class="day-cell">
-          <div class="match">
-            <span class="team home-team">Barcelona SC</span>
-            <span class="score">5</span>
-            <span class="team away-team">Emelec</span>
-            <span class="score">0</span>
-            <button class="edit-match-btn">✎</button>
-            <button class="delete-match-btn">🗑️</button>
+      <tr *ngFor="let semana of diasCalendario">
+        <td *ngFor="let dia of semana"
+            [ngClass]="{
+              'celda-dia': true,
+              'mes-actual': dia.esMesActual,
+              'tiene-partido': dia.partidos.length > 0
+            }">
+          {{ dia.fecha }}
+
+          <!-- Lista de partidos -->
+          <div *ngFor="let partido of dia.partidos" class="partido">
+            <span class="equipo equipo-local">{{ partido.equipoLocal }}</span>
+            <span class="marcador">{{ partido.marcadorLocal }}</span>
+            <span class="equipo equipo-visitante">{{ partido.equipoVisitante }}</span>
+            <span class="marcador">{{ partido.marcadorVisitante }}</span>
+            <button class="edit-match-btn" (click)="editarPartido(partido)">✎</button>
+            <button class="delete-match-btn" (click)="eliminarPartido(partido)">🗑️</button>
           </div>
         </td>
-        <td class="day-cell">04</td>
-        <td class="day-cell">
-          <div class="match">
-            <span class="team home-team">Libertad FC</span>
-            <span class="score">2</span>
-            <span class="team away-team">Guayaquil City</span>
-            <span class="score">0</span>
-            <button class="edit-match-btn">✎</button>
-            <button class="delete-match-btn">🗑️</button>
-          </div>
-        </td>
-        <td class="day-cell">06</td>
-        <td class="day-cell">07</td>
       </tr>
-      <!-- Agrega más filas de la tabla según sea necesario -->
     </tbody>
   </table>
 
@@ -76,39 +68,29 @@
 
     <div class="filter-group">
       <label for="torneo">Torneo</label>
-      <select id="torneo" aria-label="Seleccionar torneo">
-        <option value="copa-ecuador">Copa Ecuador</option>
-        <option value="champions-league">Champions League</option>
+      <select id="torneo" (change)="filtrarTorneo($event)">
+        <option *ngFor="let torneo of torneos" [value]="torneo.id">{{ torneo.nombre }}</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label for="temporada">Temporada</label>
-      <select id="temporada" aria-label="Seleccionar temporada">
-        <option value="2024-2025">2024 - 2025</option>
+      <select id="temporada" (change)="filtrarTemporada($event)">
+        <option *ngFor="let temporada of temporadas" [value]="temporada.id">{{ temporada.nombre }}</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label for="categoria">Categoría</label>
-      <select id="categoria" aria-label="Seleccionar categoría">
-        <option value="primera-a">Primera A</option>
+      <select id="categoria" (change)="filtrarCategoria($event)">
+        <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre }}</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label for="equipo">Equipo</label>
-      <select id="equipo" aria-label="Seleccionar equipo">
-        <option value="barcelona-sc">Barcelona SC</option>
-        <option value="emelec">Emelec</option>
-        <option value="ldu-quito">LDU Quito</option>
-        <option value="macara">Macará</option>
-        <option value="universidad-catolica">Universidad Católica</option>
-        <option value="guayaquil-city">Guayaquil City</option>
-        <option value="el-nacional">El Nacional</option>
-        <option value="independiente-valle">Independiente del Valle</option>
-        <option value="olmedo">Olmedo</option>
-        <option value="deportivo-cuenca">Deportivo Cuenca</option>
+      <select id="equipo" (change)="filtrarEquipo($event)">
+        <option *ngFor="let equipo of equipos" [value]="equipo.id">{{ equipo.nombre }}</option>
       </select>
     </div>
   </div>

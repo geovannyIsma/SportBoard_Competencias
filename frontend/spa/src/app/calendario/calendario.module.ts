@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CalendarioRoutingModule } from './calendario-routing.module';
 import { MatchtableComponent } from './matchtable/matchtable.component';
+import {SorteoComponent} from './sorteo/sorteo.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { MatchtableComponent } from './matchtable/matchtable.component';
     CalendarioRoutingModule,
     CalendarComponent,
     MatchtableComponent,
+    SorteoComponent
   ],
   exports: []
 })
