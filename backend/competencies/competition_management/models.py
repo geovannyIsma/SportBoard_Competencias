@@ -206,7 +206,7 @@ class CompetitionEdition(models.Model):
     planning = models.ForeignKey('Planning', on_delete=models.CASCADE)
     inscription_list = models.ManyToManyField('Registration', related_name='competitions', blank=True)
     subdivision_list = models.ManyToManyField('self', symmetrical=False, related_name='subdivisions', blank=True) #Esto es para subdivisiones, esta por ver si se puede hacer
-    stage_list = models.ManyToManyField('Stage', related_name='competition_editions')
+    stage_list = models.ManyToManyField('Stage', related_name='competition_editions', blank=True)
     competence = models.ForeignKey('Competence', on_delete=models.CASCADE)
 
     def __str__(self):

@@ -120,11 +120,55 @@ class CompetenceEditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompetitionEdition
         fields = '__all__'
+        extra_kwargs = {
+            'competence': {'required': True},
+            'competence_admin': {'required': True},
+            'planning': {'required': True},
+        }
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        
+        # Expandir los objetos relacionados para la respuesta
+        competence_data = CompetenceSerializer(instance.competence).data
+        # Asegurarse de que la URL de la imagen sea completa
+        if competence_data.get('logo') and not competence_data['logo'].startswith('http'):
+            competence_data['logo'] = f"http://localhost:8000{competence_data['logo']}"
+        representation['competence'] = competence_data
+
+        representation['competence_admin'] = UserSerializer(instance.competence_admin).data
+        representation['planning'] = PlanningSerializer(instance.planning).data
+        representation['stage_list'] = StageSerializer(instance.stage_list.all(), many=True).data
+        
+        # Obtener inscripciones y actualizar el campo competencie
+        inscriptions = instance.inscription_list.all()
+        inscription_data = []
+        for inscription in inscriptions:
+            inscription_repr = RegistrationSerializer(inscription).data
+            inscription_repr['competencie'] = instance.id
+            inscription_data.append(inscription_repr)
+        
+        representation['inscription_list'] = inscription_data
+        
+        return representation
 
 class StageSerializer(serializers.ModelSerializer):
+    time = PlanningSerializer()  # Cambiar para incluir el planning completo
+    
     class Meta:
         model = Stage
         fields = '__all__'
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if isinstance(instance.time, (int, str)):
+            # Si time es un ID, obtener el planning completo
+            try:
+                planning = Planning.objects.get(id=instance.time)
+                representation['time'] = PlanningSerializer(planning).data
+            except Planning.DoesNotExist:
+                pass
+        return representation
 
 class TeamSerializer(serializers.ModelSerializer):
     logo = serializers.ImageField(required=False, allow_null=True)

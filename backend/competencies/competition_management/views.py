@@ -323,9 +323,177 @@ class CompetenceEditionViewSet(viewsets.ModelViewSet):
     queryset = CompetitionEdition.objects.all()
     serializer_class = CompetenceEditionSerializer
 
+    def create(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                # 1. Crear el Planning principal
+                planning_data = request.data.get('planning', {})
+                planning = Planning.objects.create(
+                    start_date=planning_data.get('start_date'),
+                    end_date=planning_data.get('end_date')
+                )
+
+                # 2. Crear las Stages con sus respectivos Planning
+                stages_data = request.data.get('stage_list', [])
+                stage_ids = []
+                for stage_data in stages_data:
+                    stage_planning = Planning.objects.create(
+                        start_date=stage_data['time']['start_date'],
+                        end_date=stage_data['time']['end_date']
+                    )
+                    stage = Stage.objects.create(time=stage_planning)
+                    stage_ids.append(stage.id)
+
+                # 3. Preparar los datos para la creación de la edición
+                edition_data = {
+                    'competence': request.data.get('competence'),  # Debe ser ID
+                    'competence_admin': request.data.get('competence_admin'),  # Debe ser ID
+                    'planning': planning.id,
+                    'stage_list': stage_ids,
+                    'inscription_list': request.data.get('inscription_list', [])  # Debe ser lista de IDs
+                }
+
+                # 4. Crear la edición
+                serializer = self.get_serializer(data=edition_data)
+                serializer.is_valid(raise_exception=True)
+                edition = serializer.save()
+
+                # 5. Agregar las relaciones many-to-many
+                if stage_ids:
+                    edition.stage_list.set(stage_ids)
+                
+                if edition_data['inscription_list']:
+                    edition.inscription_list.set(edition_data['inscription_list'])
+                    # Actualizar el campo competencie de las inscripciones
+                    Registration.objects.filter(
+                        id__in=edition_data['inscription_list']
+                    ).update(competencie=edition)
+
+                # 6. Obtener la instancia actualizada
+                instance = self.get_queryset().get(id=edition.id)
+                response_serializer = self.get_serializer(instance)
+
+                return Response(
+                    response_serializer.data, 
+                    status=status.HTTP_201_CREATED
+                )
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def update(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                instance = self.get_object()
+
+                # 1. Actualizar Planning principal
+                planning_data = request.data.get('planning', {})
+                if planning_data:
+                    Planning.objects.filter(id=instance.planning.id).update(
+                        start_date=planning_data.get('start_date'),
+                        end_date=planning_data.get('end_date')
+                    )
+
+                # 2. Actualizar Stages
+                new_stages_data = request.data.get('stage_list', [])
+                
+                # Eliminar stages antiguos
+                old_stages = Stage.objects.filter(competition_editions=instance)
+                for stage in old_stages:
+                    stage.time.delete()  # Esto eliminará también el Planning asociado
+                    stage.delete()
+
+                # Crear nuevos stages
+                stage_ids = []
+                for stage_data in new_stages_data:
+                    stage_planning = Planning.objects.create(
+                        start_date=stage_data['time']['start_date'],
+                        end_date=stage_data['time']['end_date']
+                    )
+                    stage = Stage.objects.create(time=stage_planning)
+                    stage_ids.append(stage.id)
+
+                # 3. Preparar datos para actualización
+                edition_data = {
+                    'competence': request.data.get('competence'),
+                    'competence_admin': request.data.get('competence_admin'),
+                    'stage_list': stage_ids,
+                    'inscription_list': request.data.get('inscription_list', [])
+                }
+
+                # 4. Actualizar la edición
+                serializer = self.get_serializer(instance, data=edition_data, partial=True)
+                serializer.is_valid(raise_exception=True)
+                self.perform_update(serializer)
+
+                # Actualizar inscripciones
+                new_inscription_list = request.data.get('inscription_list', [])
+                
+                # Limpiar competencie de las inscripciones anteriores
+                Registration.objects.filter(competencie=instance).update(competencie=None)
+                
+                # Actualizar con las nuevas inscripciones
+                if new_inscription_list:
+                    Registration.objects.filter(
+                        id__in=new_inscription_list
+                    ).update(competencie=instance)
+
+                # 5. Obtener la instancia actualizada
+                instance.refresh_from_db()
+                response_serializer = self.get_serializer(instance)
+                return Response(response_serializer.data)
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+    def destroy(self, request, *args, **kwargs):
+        try:
+            with transaction.atomic():
+                instance = self.get_object()
+                
+                # Limpiar competencie de las inscripciones
+                Registration.objects.filter(competencie=instance).update(competencie=None)
+                
+                # Eliminar stages y sus plannings
+                stages = Stage.objects.filter(competition_editions=instance)
+                for stage in stages:
+                    stage.time.delete()
+                    stage.delete()
+
+                # Eliminar planning principal
+                instance.planning.delete()
+                
+                # Eliminar la edición
+                self.perform_destroy(instance)
+                
+                return Response(status=status.HTTP_204_NO_CONTENT)
+
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 class StageViewSet(viewsets.ModelViewSet):
     queryset = Stage.objects.all()
     serializer_class = StageSerializer
+
+    def get_queryset(self):
+        return Stage.objects.all().select_related('time')
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        # Asegurarse de que time está cargado
+        if isinstance(instance.time, (int, str)):
+            instance.time = Planning.objects.get(id=instance.time)
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data)
 
 class TeamViewSet(viewsets.ModelViewSet):
     queryset = Team.objects.all()

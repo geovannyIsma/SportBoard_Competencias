@@ -1,8 +1,6 @@
 import { Competence } from './competence.model';
 import { Planning } from './planning.model';
 import { Registration } from './registration.model';
-import { RuleCompetition } from './rule-competence.model';
-import { RuleDiscipline } from './rule-discipline.model';
 import { Stage } from './stage.model';
 import { User } from './user.model';
 

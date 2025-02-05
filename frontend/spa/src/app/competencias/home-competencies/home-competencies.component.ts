@@ -20,7 +20,7 @@ export class HomeCompetenciesComponent {
     { title: 'Rule', description: 'Modelo de regla', icon: 'gavel', route: 'admin-rules' },
     { title: 'Discipline', description: 'Modelo de disciplina', icon: 'fitness_center', route: 'admin-discipline' },
     { title: 'RuleDiscipline', description: 'Regla de disciplina', icon: 'rule', route: 'admin-rules-discipline' },
-    { title: 'CompetitionEdition', description: 'Edición de competencia', icon: 'emoji_events' },
+    { title: 'CompetitionEdition', description: 'Edición de competencia', icon: 'emoji_events', route: 'admin-edition-competence' },  
     //{ title: 'Stage', description: 'Modelo de etapa', icon: 'flag' },
     { title: 'Competence', description: 'Modelo de competencia', icon: 'emoji_events', route: 'admin-competence' },
     { title: 'Format', description: 'Modelo de formato', icon: 'format_shapes', route: 'admin-formats' },

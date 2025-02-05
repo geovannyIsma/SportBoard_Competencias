@@ -10,7 +10,7 @@ import { AdminEquiposComponent } from './admin-equipos/admin-equipos.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { AdminSquadComponent } from './admin-squad/admin-squad.component';
 import { AdminRegistrosComponent } from './admin-registros/admin-registros.component';
-
+import { AdminEdicionCompetenciaComponent } from './admin-edicion-competencia/admin-edicion-competencia.component';
 const routes: Routes = [
   { path: '', component: HomeCompetenciesComponent },
   { path: 'admin-competence', component: AdminCompetenciasComponent },
@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'admin-users', component: AdminUsersComponent },
   { path: 'admin-squad', component: AdminSquadComponent },
   { path: 'admin-registrations', component: AdminRegistrosComponent },
+  { path: 'admin-edition-competence', component: AdminEdicionCompetenciaComponent },
 ];
 
 @NgModule({
