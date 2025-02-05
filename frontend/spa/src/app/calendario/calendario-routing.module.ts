@@ -3,18 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { SorteoComponent } from './sorteo/sorteo.component'; // Componente de sorteo
 import { CalendarComponent } from './calendar/calendar.component';
 import { MatchtableComponent } from './matchtable/matchtable.component';
+import {CardMenuComponent} from './card-menu/card-menu.component';
 
-const routes: Routes = [  
+const routes: Routes = [
   {
     path: '',
-    component: CalendarComponent
+    redirectTo: 'calendar',
+    pathMatch: 'full'
   },
+    {
+      path: 'calendar',
+        component: CalendarComponent
+    },
   {
     path: 'sorteo',
     component: SorteoComponent
   },
   {
-    path: 'matchable',
+    path: 'matchtable',
     component: MatchtableComponent
   }
 ];

@@ -37,6 +37,7 @@ services:
         extends:
             file: ./backend/ms3-real-time/docker-compose.override.yml
             service: mariadb-real-time
+
 # Microservicio de competencias
     ms2-competencies:
         extends:
@@ -49,6 +50,17 @@ services:
         extends:
             file: ./backend/ms2-competencies/docker-compose.override.yml
             service: postgres-competencies
+
+# Microservicio de calendario
+    ms5-calendar:
+        extends:
+            file: ./backend/ms5-calendar/docker-compose.override.yml
+            service: ms5-calendar
+
+    ms5-calendar-database:
+        extends:
+            file: ./backend/ms5-calendar/docker-compose.override.yml
+            service: ms5-calendar-database
 
 # Microservicio de estadísticas
     mongodb-estadisticas:
@@ -82,4 +94,5 @@ networks:
 volumes:
     mariadb_data:
     static_volume:
+    kong-db-data:
     mongodb_estadisticas_data:

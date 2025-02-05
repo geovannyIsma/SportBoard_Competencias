@@ -24,9 +24,10 @@ interface Partido {
 
 @Component({
     selector: 'app-matchtable',
-    imports: [RouterModule, SharedModule, CommonModule, CoreModule, MatExpansionModule],
+    standalone: true,
+    imports: [RouterModule, SharedModule, CommonModule, CoreModule ,MatExpansionModule],
     templateUrl: './matchtable.component.html',
-    styleUrl: './matchtable.component.scss'
+    styleUrl: './matchtable.component.scss',
 })
 export class MatchtableComponent {
     displayedColumns: string[] = [
@@ -314,8 +315,8 @@ export class MatchtableComponent {
         enVivo: true,
     },
   ];
-  
-  public tabSeleccionada: string = 'pasados'; 
+
+  public tabSeleccionada: string = 'pasados';
   public expandedPartido: any;
 
     cambiarTab(tab: string) {
@@ -323,8 +324,8 @@ export class MatchtableComponent {
         this.expandedPartido = null;
     }
 
-    toggleExpansionPanel(partido: any) { 
-        this.expandedPartido = this.expandedPartido === partido ? null : partido; 
+    toggleExpansionPanel(partido: any) {
+        this.expandedPartido = this.expandedPartido === partido ? null : partido;
     }
 
 
@@ -337,7 +338,7 @@ export class MatchtableComponent {
             } else if (this.tabSeleccionada === 'proximos') {
                 return fechaPartido > hoy;
             } else if (this.tabSeleccionada === 'vivo') {
-                return partido.enVivo; 
+                return partido.enVivo;
             }
             return false;
         });
