@@ -11,6 +11,34 @@ $hover-color: #f8f9fa;
 $danger-color: #54545c;
 $warning-color: #ff0000;
 
+// Agregar las siguientes variables
+$dark-green: #547c34;
+$olive-green: #5e6c4d;
+$medium-gray: #898989;
+$dark-gray: #54545c;
+$darker-gray: #464943;
+$light-gray: #f3f3f3;
+
+// Agregar los mixins después de las variables
+@mixin card-shadow {
+  box-shadow: 0 4px 20px rgba($darker-gray, 0.1);
+  border-radius: 12px;
+  background-color: white;
+}
+
+@mixin flexible-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin hover-transform {
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
 .admin-registros {
   font-family: 'Space Grotesk', sans-serif;
   color: $text-color;
@@ -262,16 +290,6 @@ $warning-color: #ff0000;
 
   // Para asegurar que el padding y márgenes sean consistentes
   .table-section {
-    padding: 16px !important; // Sobrescribe otros paddings
-    margin: 0 !important; // Sobrescribe otros márgenes
-  }
-
-  .form-container-fixed {
-    padding: 16px !important;
-    margin: 0 !important;
-  }
-
-  .table-section {
     width: 100%; // Cambiado de 62% a 100%
     margin-right: 0; // Eliminado el margen
     padding-right: 48px;  // Aumentado el padding derecho
@@ -283,7 +301,7 @@ $warning-color: #ff0000;
     background-color: #ffffff; // Fondo blanco para contraste
     border-right: 1px solid $border-color; // Línea divisoria
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 20px rgba($darker-gray, 0.1);
     height: calc(100vh - 300px); // Ajustado para considerar el header y paddings
     margin-top: 20px; // Añadido margen superior igual al del formulario
 
@@ -314,19 +332,22 @@ $warning-color: #ff0000;
               top: 0;
               z-index: 2;
               background-color: #f5f5f5;
+              text-align: center;
             }
 
             th {
-              background: #f5f5f5;
+              background: $light-gray;
+              color: $text-color;
               position: sticky;
               top: 0;
               z-index: 2;
-              border-bottom: 2px solid #ddd;
+              border-bottom: 2px solid $medium-gray;
               padding: 8px 16px; // Reducimos el padding del header
               font-size: 0.95rem; // Ajustamos el tamaño de la fuente del header
               font-weight: 600;
               white-space: nowrap;
-              text-align: left;
+              text-align: center !important;
+              vertical-align: middle;
 
               &:after {
                 content: '';
@@ -335,16 +356,24 @@ $warning-color: #ff0000;
                 right: 0;
                 bottom: 0;
                 height: 2px;
-                background-color: #ddd;
+                background-color: $medium-gray;
               }
+            }
+
+            th, td {
+              padding: 8px 16px;
+              color: $text-color;
+              text-align: center;
+              vertical-align: middle;
             }
 
             td {
               background: white; // Para asegurar que las celdas tengan fondo
-              padding: 6px 16px; // Reducimos el padding vertical de las celdas
+              padding: 12px 16px; // Reducimos el padding vertical de las celdas
               font-size: 0.9rem; // Reducimos ligeramente el tamaño de la fuente
               line-height: 1.2; // Reducimos el espaciado entre líneas
               border-bottom: 1px solid #eee;
+              transition: background-color 0.3s ease;
 
               img {
                 width: 40px; // Reducimos el tamaño de las imágenes
@@ -354,13 +383,13 @@ $warning-color: #ff0000;
 
             tr {
               &:hover td {
-                background-color: $hover-color;
+                background-color: rgba($primary-color, 0.1);
               }
 
               &.selected {
-                background-color: #5e6c4d !important;
+                background-color: rgba($olive-green, 0.2) !important;
                 td {
-                  color: #7dd707;
+                  color: $dark-green;
                 }
               }
 
@@ -380,7 +409,7 @@ $warning-color: #ff0000;
           }
 
           &::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: $light-gray;
             border-radius: 4px;
           }
 
@@ -465,43 +494,32 @@ $warning-color: #ff0000;
       }
 
       &.delete-mode {
-        border: 2px dashed $danger-color;
-        padding: 16px;
-        
+        border: 2px dashed $dark-gray;
+        background-color: rgba($dark-gray, 0.05);
+        transition: all 0.3s ease;
+
         .form-section {
-          opacity: 0.8;
+          opacity: 0.7;
+          pointer-events: none;
         }
 
-        // Estilo para campos deshabilitados en modo eliminación
-        mat-form-field.mat-form-field-disabled {
-          .mat-form-field-outline {
-            background-color: #f3f3f3;
-          }
+        .delete-warning {
+          background-color: rgba($dark-gray, 0.1);
+          color: $dark-gray;
+          padding: 16px;
+          border-radius: 8px;
+          margin: 16px 0;
+          border-left: 4px solid $dark-gray;
+          font-weight: 500;
           
-          input, textarea {
-            color: $danger-color;
-          }
-          
-          .mat-form-field-label {
-            color: #898989;
-          }
-        }
+          p {
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
 
-        // Vista previa de imagen en modo eliminación
-        .image-preview-container {
-          background-color: #f3f3f3;
-          border: 1px solid #898989;
-          
-          img {
-            opacity: 0.8;
-            &:hover {
-              transform: none;
-            }
-          }
-
-          .preview-actions {
-            .file-name {
-              color: $danger-color;
+            &::before {
+              content: '⚠️';
             }
           }
         }
