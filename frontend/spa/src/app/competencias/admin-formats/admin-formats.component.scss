@@ -166,16 +166,16 @@ $light-gray: #f3f3f3;
       &[color="warn"] {
         background-color: $danger-color;
         color: #f3f3f3;
-        border-bottom-color: color.adjust($danger-color, $lightness: -10%);
+        border-bottom-color: color.scale($danger-color, $lightness: -10%);
 
         &:hover {
-          background-color: color.adjust($danger-color, $lightness: -10%);
+          background-color: color.scale($danger-color, $lightness: -10%);
         }
 
         &:disabled {
           background-color: #898989;
           color: $danger-color;
-          border-bottom-color: color.adjust($danger-color, $lightness: -10%);
+          border-bottom-color: color.scale($danger-color, $lightness: -10%);
           opacity: 0.7;
           cursor: not-allowed;
 
@@ -486,6 +486,71 @@ $light-gray: #f3f3f3;
     }
   }
 
+  .form-container-fixed.delete-mode {
+    border: 2px dashed $dark-gray;
+    background-color: rgba($dark-gray, 0.05);
+    transition: all 0.3s ease;
+
+    .form-section {
+      opacity: 0.7;
+      
+      // Remover pointer-events: none y aplicarlo solo a los campos del formulario
+      .mat-form-field {
+        pointer-events: none;
+      }
+      
+      // Permitir interacción con los botones y el scrollbar
+      mat-dialog-actions {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
+
+    mat-form-field.mat-form-field-disabled {
+      .mat-form-field-outline {
+        background-color: #f3f3f3;
+      }
+      
+      input, textarea {
+        color: $danger-color;
+      }
+      
+      .mat-form-field-label {
+        color: #898989;
+      }
+    }
+
+    // Estilo para el mensaje de advertencia
+    .delete-warning {
+      background-color: rgba($dark-gray, 0.1);
+      color: $dark-gray;
+      padding: 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      border-left: 4px solid $dark-gray;
+      font-weight: 500;
+      pointer-events: all;
+      
+      p {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        &::before {
+          content: '⚠️';
+        }
+      }
+    }
+
+    // Asegurar que los botones sean interactuables
+    mat-dialog-actions {
+      button {
+        pointer-events: all;
+      }
+    }
+  }
+
   th,
   td {
     color: $text-color;
@@ -596,39 +661,67 @@ $light-gray: #f3f3f3;
     padding-top: 24px;
     margin-top: 24px;
     border-top: 1px solid #eee;
+    justify-content: flex-end;
+    gap: 16px;
+    display: flex;
+    width: 100%;
 
     button {
       min-width: 120px;
       padding: 8px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
 
       &[color="primary"] {
         background-color: $primary-color;
         color: $text-color;
+        border-bottom: 3px solid $secondary-color;
 
         &:hover {
           background-color: $secondary-color;
-          color: #f3f3f3;
+          color: white;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        &:disabled {
+          background-color: #e0e0e0;
+          color: #898989;
+          border-bottom-color: #898989;
+          transform: none;
+          box-shadow: none;
         }
       }
 
       &[color="warn"] {
-        background-color: $danger-color;
-        color: #f3f3f3;
+        background-color: #ff4d4f;
+        color: white;
+        border-bottom: 3px solid #cc0000;
 
         &:hover {
-          background-color: color.adjust($danger-color, $lightness: -10%);
+          background-color: #cc0000;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
         }
       }
 
-      // Botón cancelar
       &:not([color]) {
-        background-color: #f3f3f3;
-        color: $danger-color;
+        background-color: #f5f5f5;
+        color: $text-color;
+        border-bottom: 3px solid #d9d9d9;
 
         &:hover {
-          background-color: #898989;
-          color: #f3f3f3;
+          background-color: #e0e0e0;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+      }
+
+      mat-icon {
+        margin-right: 8px;
+        font-size: 18px;
       }
     }
   }

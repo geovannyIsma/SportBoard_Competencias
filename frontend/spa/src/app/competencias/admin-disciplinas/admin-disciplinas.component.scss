@@ -487,14 +487,14 @@ $light-gray: #f3f3f3;
       }
 
       &.delete-mode {
-        border: 2px dashed $danger-color;
-        padding: 16px;
-        
+        border: 2px dashed $dark-gray;
+        background-color: rgba($dark-gray, 0.05);
+        transition: all 0.3s ease;
+
         .form-section {
           opacity: 0.8;
         }
 
-        // Estilo para campos deshabilitados en modo eliminación
         mat-form-field.mat-form-field-disabled {
           .mat-form-field-outline {
             background-color: #f3f3f3;
@@ -509,21 +509,24 @@ $light-gray: #f3f3f3;
           }
         }
 
-        // Vista previa de imagen en modo eliminación
-        .image-preview-container {
-          background-color: #f3f3f3;
-          border: 1px solid #898989;
+        .delete-warning {
+          background-color: rgba($dark-gray, 0.1);
+          color: $dark-gray;
+          padding: 16px;
+          border-radius: 8px;
+          margin: 16px 0;
+          border-left: 4px solid $dark-gray;
+          font-weight: 500;
           
-          img {
-            opacity: 0.8;
-            &:hover {
-              transform: none;
-            }
-          }
+          p {
+            margin: 0;
+            color: $dark-gray;
+            display: flex;
+            align-items: center;
+            gap: 8px;
 
-          .preview-actions {
-            .file-name {
-              color: $danger-color;
+            &::before {
+              content: '⚠️';
             }
           }
         }
@@ -539,9 +542,20 @@ $light-gray: #f3f3f3;
 
     .form-section {
       opacity: 0.7;
-      pointer-events: none;
+      
+      // Remover pointer-events: none y aplicarlo solo a los campos del formulario
+      .mat-form-field {
+        pointer-events: none;
+      }
+      
+      // Permitir interacción con los botones y el scrollbar
+      mat-dialog-actions {
+        opacity: 1;
+        pointer-events: all;
+      }
     }
 
+    // Estilo para el mensaje de advertencia
     .delete-warning {
       background-color: rgba($dark-gray, 0.1);
       color: $dark-gray;
@@ -550,6 +564,7 @@ $light-gray: #f3f3f3;
       margin: 16px 0;
       border-left: 4px solid $dark-gray;
       font-weight: 500;
+      pointer-events: all; // Asegurar que el mensaje sea visible e interactuable
       
       p {
         margin: 0;
@@ -560,6 +575,13 @@ $light-gray: #f3f3f3;
         &::before {
           content: '⚠️';
         }
+      }
+    }
+
+    // Asegurar que los botones sean interactuables
+    mat-dialog-actions {
+      button {
+        pointer-events: all;
       }
     }
   }
@@ -690,11 +712,14 @@ $light-gray: #f3f3f3;
       }
 
       &[color="warn"] {
-        background-color: $danger-color;
-        color: #f3f3f3;
-
+        background-color: #ff4d4f;
+        color: white;
+        border-bottom: 3px solid #cc0000;
+  
         &:hover {
-          background-color: color.scale($danger-color, $lightness: -10%);
+          background-color: #cc0000;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
         }
       }
 
@@ -875,6 +900,75 @@ button.mat-raised-button.mat-primary {
 
     .form-container-fixed {
       height: auto;
+    }
+  }
+}
+
+mat-dialog-actions {
+  padding-top: 24px;
+  margin-top: 24px;
+  border-top: 1px solid #eee;
+  justify-content: flex-end;
+  gap: 16px;
+  display: flex;
+  width: 100%;
+
+  button {
+    min-width: 120px;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+
+    &[color="primary"] {
+      background-color: $primary-color;
+      color: $text-color;
+      border-bottom: 3px solid $secondary-color;
+
+      &:hover {
+        background-color: $secondary-color;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      &:disabled {
+        background-color: #e0e0e0;
+        color: #898989;
+        border-bottom-color: #898989;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+
+    &[color="warn"] {
+      background-color: #ff4d4f;
+      color: white;
+      border-bottom: 3px solid #cc0000;
+
+      &:hover {
+        background-color: #cc0000;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(204, 0, 0, 0.2);
+      }
+    }
+
+    &:not([color]) {
+      background-color: #f5f5f5;
+      color: $text-color;
+      border-bottom: 3px solid #d9d9d9;
+
+      &:hover {
+        background-color: #e0e0e0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    }
+
+    mat-icon {
+      margin-right: 8px;
+      font-size: 18px;
     }
   }
 }
