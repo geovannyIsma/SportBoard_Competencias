@@ -147,6 +147,7 @@ plugins:
     config:
       origins:
         - http://localhost:4200
+        - http://localhost:65293
       methods:
         - GET
         - POST
