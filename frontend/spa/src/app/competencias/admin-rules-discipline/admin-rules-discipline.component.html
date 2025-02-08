@@ -56,9 +56,8 @@
               </ng-container>
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-                  (click)="onSelect(row)"
-                  [class.selected]="row === selectedRule"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onSelect(row)"
+                [class.selected]="row === selectedRule"></tr>
             </table>
           </div>
         </mat-card-content>
@@ -80,7 +79,28 @@
                 {{ getErrorMessage('competence') }}
               </mat-error>
             </mat-form-field>
-              
+
+            <!-- Agregar sección de información de la disciplina -->
+            <div class="discipline-info" *ngIf="selectedDiscipline">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Disciplina</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="discipline-details">
+                    <div class="discipline-image">
+                      <img [src]="selectedDiscipline.image" [alt]="selectedDiscipline.name">
+                    </div>
+                    <div class="discipline-text">
+                      <h3>{{selectedDiscipline.name}}</h3>
+                      <p><strong>Superficie:</strong> {{selectedDiscipline.surface}}</p>
+                      <p><strong>Federación:</strong> {{selectedDiscipline.federation}}</p>
+                    </div>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </div>
+
             <mat-form-field appearance="outline">
               <mat-label>Número de Regla</mat-label>
               <input matInput formControlName="numeration" type="number">
@@ -92,9 +112,7 @@
 
             <mat-form-field appearance="outline">
               <mat-label>Descripción</mat-label>
-              <textarea matInput formControlName="rule_description" 
-                      placeholder="Describa la regla"
-                      rows="4"></textarea>
+              <textarea matInput formControlName="rule_description" placeholder="Describa la regla" rows="4"></textarea>
               <mat-icon matPrefix>description</mat-icon>
               <mat-error *ngIf="form.get('rule_description')?.invalid && form.get('rule_description')?.touched">
                 {{ getErrorMessage('rule_description') }}
@@ -130,7 +148,8 @@
 
             <div *ngIf="isDeleteMode" class="delete-warning">
               <p>¿Está seguro de que desea eliminar esta regla?</p>
-              <p *ngIf="selectedCompetence">Esta acción también eliminará la regla de la disciplina {{selectedCompetence.discipline.name}}</p>
+              <p *ngIf="selectedCompetence">Esta acción también eliminará la regla de la disciplina
+                {{selectedCompetence.discipline.name}}</p>
             </div>
 
             <mat-dialog-actions align="end">
@@ -138,7 +157,8 @@
                 <mat-icon>close</mat-icon>
                 Cancelar
               </button>
-              <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isDeleteMode" [disabled]="form.invalid">
+              <button mat-raised-button color="primary" (click)="onSubmit()" *ngIf="!isDeleteMode"
+                [disabled]="form.invalid">
                 <mat-icon>check_circle</mat-icon>
                 {{ selectedRule ? 'Actualizar' : 'Crear' }}
               </button>

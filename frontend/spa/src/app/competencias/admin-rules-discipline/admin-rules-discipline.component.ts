@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CompetenceService } from '../../services/competencies/competence.service';
 import { Competence } from '../../models/competencies/competence.model';
+import { DisciplineService } from '../../services/competencies/discipline.service';
+import { Discipline } from '../../models/competencies/discipline.model';
 
 @Component({
   selector: 'app-admin-rules-discipline',
@@ -33,6 +35,7 @@ export class AdminRulesDisciplineComponent implements OnInit {
   competences: Competence[] = [];
   selectedCompetence: Competence | null = null;
   selectedRule: RuleDiscipline | null = null;
+  selectedDiscipline: Discipline | null = null;
   form: FormGroup;
   isLoading = false;
   isDeleteMode = false;
@@ -42,33 +45,34 @@ export class AdminRulesDisciplineComponent implements OnInit {
   constructor(
     private ruleDisciplineService: RuleDisciplineService,
     private competenceService: CompetenceService,
+    private disciplineService: DisciplineService,
     private dialog: MatDialog,
     private fb: FormBuilder
   ) {
     this.form = this.fb.group({
-      competence: new FormControl({value: '', disabled: false}, [
+      competence: new FormControl({ value: '', disabled: false }, [
         Validators.required
       ]),
-      numeration: new FormControl({value: '', disabled: false}, [
-        Validators.required, 
+      numeration: new FormControl({ value: '', disabled: false }, [
+        Validators.required,
         Validators.min(1)
       ]),
-      rule_description: new FormControl({value: '', disabled: false}, [
+      rule_description: new FormControl({ value: '', disabled: false }, [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(500)
       ]),
-      actor: new FormControl({value: '', disabled: false}, [
+      actor: new FormControl({ value: '', disabled: false }, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ]),
-      action: new FormControl({value: '', disabled: false}, [
+      action: new FormControl({ value: '', disabled: false }, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(100)
       ]),
-      type_rule: new FormControl({value: '', disabled: false}, [
+      type_rule: new FormControl({ value: '', disabled: false }, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(50)
@@ -99,7 +103,21 @@ export class AdminRulesDisciplineComponent implements OnInit {
     this.competenceService.getCompetence(competenceId).subscribe({
       next: (competence) => {
         this.selectedCompetence = competence;
-        this.loadRules();
+        // Obtener el ID de la disciplina desde la competencia
+        const disciplineId = typeof competence.discipline === 'object' ?
+          competence.discipline.id : competence.discipline;
+
+        if (disciplineId) {
+          this.disciplineService.getDiscipline(disciplineId).subscribe({
+            next: (discipline) => {
+              this.selectedDiscipline = discipline;
+              this.loadRules();
+            },
+            error: (error) => {
+              this.handleError(error);
+            }
+          });
+        }
       },
       error: (error) => {
         this.handleError(error);
@@ -186,28 +204,28 @@ export class AdminRulesDisciplineComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid && this.selectedCompetence) {
-        const ruleData = {
-            numeration: this.form.get('numeration')?.value,
-            rule_description: this.form.get('rule_description')?.value,
-            actor: this.form.get('actor')?.value,
-            action: this.form.get('action')?.value,
-            type_rule: this.form.get('type_rule')?.value,
-            discipline: this.selectedCompetence.discipline
-        };
-        
-        console.log('ruleData:', ruleData);
+      const ruleData = {
+        numeration: this.form.get('numeration')?.value,
+        rule_description: this.form.get('rule_description')?.value,
+        actor: this.form.get('actor')?.value,
+        action: this.form.get('action')?.value,
+        type_rule: this.form.get('type_rule')?.value,
+        discipline: this.selectedCompetence.discipline
+      };
 
-        this.isLoading = true;
-        if (this.selectedRule) {
-            this.updateRule(ruleData);
-        } else {
-            this.createRule(ruleData);
-        }
+      console.log('ruleData:', ruleData);
+
+      this.isLoading = true;
+      if (this.selectedRule) {
+        this.updateRule(ruleData);
+      } else {
+        this.createRule(ruleData);
+      }
     } else {
-        this.markFormGroupTouched(this.form);
-        this.openFlashMessage('Por favor, complete todos los campos requeridos correctamente', 'warning');
+      this.markFormGroupTouched(this.form);
+      this.openFlashMessage('Por favor, complete todos los campos requeridos correctamente', 'warning');
     }
-}
+  }
 
   private updateRule(ruleData: any): void {
     if (this.selectedRule) {
@@ -221,91 +239,91 @@ export class AdminRulesDisciplineComponent implements OnInit {
         }
       });
     }
-}
+  }
 
   private createRule(ruleData: any): void {
     this.ruleDisciplineService.createRuleDiscipline(ruleData).subscribe({
-        next: (newRule) => {
-            if (this.selectedCompetence) {
-                if (!this.selectedCompetence.rule_discipline_list) {
-                    this.selectedCompetence.rule_discipline_list = [];
-                }
-                this.selectedCompetence.rule_discipline_list.push(newRule);
-                this.updateCompetenceWithNewRule(newRule);
-            }
-        },
-        error: (error) => {
-            this.handleError(error);
-            this.isLoading = false;
+      next: (newRule) => {
+        if (this.selectedCompetence) {
+          if (!this.selectedCompetence.rule_discipline_list) {
+            this.selectedCompetence.rule_discipline_list = [];
+          }
+          this.selectedCompetence.rule_discipline_list.push(newRule);
+          this.updateCompetenceWithNewRule(newRule);
         }
+      },
+      error: (error) => {
+        this.handleError(error);
+        this.isLoading = false;
+      }
     });
-}
+  }
 
   private updateCompetenceWithNewRule(newRule: RuleDiscipline): void {
     if (this.selectedCompetence) {
-        const competenceData = new FormData();
-        competenceData.append('id', this.selectedCompetence.id.toString());
-        competenceData.append('name', this.selectedCompetence.name);
-        competenceData.append('description', this.selectedCompetence.description);
-        
-        if (this.selectedCompetence.logo && !this.selectedCompetence.logo.startsWith('http')) {
-            competenceData.append('logo', this.selectedCompetence.logo);
-        }
+      const competenceData = new FormData();
+      competenceData.append('id', this.selectedCompetence.id.toString());
+      competenceData.append('name', this.selectedCompetence.name);
+      competenceData.append('description', this.selectedCompetence.description);
 
-        // Asegurar que rule_discipline_list es un array y convertirlo a string JSON
-        const ruleDisciplineList = this.selectedCompetence.rule_discipline_list || [];
-        if (!ruleDisciplineList.find(rule => rule.numeration === newRule.numeration)) {
-            ruleDisciplineList.push(newRule);
-        }
-        competenceData.append('rule_discipline_list', JSON.stringify(ruleDisciplineList));
+      if (this.selectedCompetence.logo && !this.selectedCompetence.logo.startsWith('http')) {
+        competenceData.append('logo', this.selectedCompetence.logo);
+      }
 
-        // Mantener las reglas de competencia existentes
-        if (this.selectedCompetence.rule_list) {
-            competenceData.append('rule_list', JSON.stringify(this.selectedCompetence.rule_list));
-        }
+      // Asegurar que rule_discipline_list es un array y convertirlo a string JSON
+      const ruleDisciplineList = this.selectedCompetence.rule_discipline_list || [];
+      if (!ruleDisciplineList.find(rule => rule.numeration === newRule.numeration)) {
+        ruleDisciplineList.push(newRule);
+      }
+      competenceData.append('rule_discipline_list', JSON.stringify(ruleDisciplineList));
 
-        this.competenceService.partialUpdateCompetence(this.selectedCompetence.id, competenceData).subscribe({
-            next: (updatedCompetence) => {
-                this.selectedCompetence = updatedCompetence;
-                this.openFlashMessage('Regla asignada exitosamente', 'success');
-                this.loadRules();
-                this.onCancel();
-            },
-            error: (error) => {
-                this.handleError(error);
-                this.isLoading = false;
-            }
-        });
+      // Mantener las reglas de competencia existentes
+      if (this.selectedCompetence.rule_list) {
+        competenceData.append('rule_list', JSON.stringify(this.selectedCompetence.rule_list));
+      }
+
+      this.competenceService.partialUpdateCompetence(this.selectedCompetence.id, competenceData).subscribe({
+        next: (updatedCompetence) => {
+          this.selectedCompetence = updatedCompetence;
+          this.openFlashMessage('Regla asignada exitosamente', 'success');
+          this.loadRules();
+          this.onCancel();
+        },
+        error: (error) => {
+          this.handleError(error);
+          this.isLoading = false;
+        }
+      });
     }
-}
+  }
 
-// Actualizar también el método updateCompetenceRules
-private updateCompetenceRules(): void {
+  // Actualizar también el método updateCompetenceRules
+  private updateCompetenceRules(): void {
     if (this.selectedCompetence) {
-        const competenceData = new FormData();
-        competenceData.append('id', this.selectedCompetence.id.toString());
-        competenceData.append('name', this.selectedCompetence.name);
-        competenceData.append('description', this.selectedCompetence.description);
-        
-        // Asegurar que se envían las reglas de disciplina actualizadas
-        if (this.selectedCompetence.rule_discipline_list) {
-            competenceData.append('rule_discipline_list', 
-                JSON.stringify(this.selectedCompetence.rule_discipline_list));
-        }
+      const competenceData = new FormData();
+      competenceData.append('id', this.selectedCompetence.id.toString());
+      competenceData.append('name', this.selectedCompetence.name);
+      competenceData.append('description', this.selectedCompetence.description);
 
-        this.competenceService.partialUpdateCompetence(this.selectedCompetence.id, competenceData).subscribe({
-            next: (updatedCompetence) => {
-                this.selectedCompetence = updatedCompetence;
-                this.loadRules();
-                this.isLoading = false;
-            },
-            error: (error) => {
-                this.handleError(error);
-                this.isLoading = false;
-            }
-        });
+      // Asegurar que se envían las reglas de disciplina actualizadas
+      if (this.selectedCompetence.rule_discipline_list) {
+        competenceData.append('rule_discipline_list',
+          JSON.stringify(this.selectedCompetence.rule_discipline_list));
+      }
+
+      this.competenceService.partialUpdateCompetence(this.selectedCompetence.id, competenceData).subscribe({
+        next: (updatedCompetence) => {
+          this.selectedCompetence = updatedCompetence;
+          this.loadRules();
+          this.isLoading = false;
+        },
+        error: (error) => {
+          this.handleError(error);
+          this.isLoading = false;
+        }
+      });
     }
-}
+  }
 
   private handleRuleUpdateSuccess(updatedRule: RuleDiscipline): void {
     if (this.selectedCompetence && this.selectedCompetence.rule_discipline_list) {
