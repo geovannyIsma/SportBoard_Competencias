@@ -25,6 +25,8 @@ import { Planning } from '../../models/competencies/planning.model';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { CompetitionEditionPayload } from '../../models/competencies/edition-payload.model';
 import { PlanningService } from '../../services/competencies/planning.service';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-edicion-competencia',
@@ -36,6 +38,7 @@ import { PlanningService } from '../../services/competencies/planning.service';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    BreadcrumbCompetenciasComponent,
   ],
   providers: [
     provideNativeDateAdapter()  // Agregar este proveedor
@@ -62,6 +65,7 @@ export class AdminEdicionCompetenciaComponent implements OnInit {
   selectedEdition: CompetitionEdition | null = null;
   isDeleteMode = false;
   searchText = '';
+  currentRoute: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -71,7 +75,8 @@ export class AdminEdicionCompetenciaComponent implements OnInit {
     private userService: UserService,
     private stageService: StageService,
     private registrationService: RegistrationService,
-    private planningService: PlanningService  // Agregar el servicio
+    private planningService: PlanningService, // Agregar el servicio
+    private router: Router
   ) {
     this.form = this.fb.group({
       competence: ['', Validators.required],
@@ -81,6 +86,7 @@ export class AdminEdicionCompetenciaComponent implements OnInit {
       stage_start_date: [''],
       stage_end_date: ['']
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

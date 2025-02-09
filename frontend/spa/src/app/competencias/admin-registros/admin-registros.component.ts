@@ -14,6 +14,8 @@ import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RegistrationDTO } from '../../models/competencies/registration-dto.model';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-registros',
@@ -23,7 +25,8 @@ import { RegistrationDTO } from '../../models/competencies/registration-dto.mode
     MatDialogModule, 
     MatIconModule, 
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent,
   ],
   templateUrl: './admin-registros.component.html',
   styleUrls: ['./admin-registros.component.scss']
@@ -40,12 +43,14 @@ export class AdminRegistrosComponent implements OnInit {
   isEditMode: boolean = false;
   isDeleteMode: boolean = false;
   isLoading: boolean = false;
+  currentRoute: string = '';
 
   constructor(
     private registrationService: RegistrationService,
     private squadService: SquadService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       squad: ['', [Validators.required]],
@@ -55,6 +60,7 @@ export class AdminRegistrosComponent implements OnInit {
         Validators.maxLength(50)
       ]]
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

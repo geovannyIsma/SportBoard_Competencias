@@ -15,6 +15,8 @@ import { CompetenceService } from '../../services/competencies/competence.servic
 import { Competence } from '../../models/competencies/competence.model';
 import { DisciplineService } from '../../services/competencies/discipline.service';
 import { Discipline } from '../../models/competencies/discipline.model';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-rules-discipline',
@@ -24,7 +26,8 @@ import { Discipline } from '../../models/competencies/discipline.model';
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent,
   ],
   templateUrl: './admin-rules-discipline.component.html',
   styleUrls: ['./admin-rules-discipline.component.scss']
@@ -41,13 +44,15 @@ export class AdminRulesDisciplineComponent implements OnInit {
   isDeleteMode = false;
   searchText = '';
   displayedColumns: string[] = ['numeration', 'rule_description', 'actor', 'action', 'type_rule'];
+  currentRoute: string = '';
 
   constructor(
     private ruleDisciplineService: RuleDisciplineService,
     private competenceService: CompetenceService,
     private disciplineService: DisciplineService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       competence: new FormControl({ value: '', disabled: false }, [
@@ -78,6 +83,7 @@ export class AdminRulesDisciplineComponent implements OnInit {
         Validators.maxLength(50)
       ])
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

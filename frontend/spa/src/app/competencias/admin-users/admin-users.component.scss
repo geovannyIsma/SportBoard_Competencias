@@ -79,7 +79,7 @@ $darker-gray: #464943;
   h1 {
     text-align: left;
     color: $text-color; // Título
-    margin-bottom: 24px; // Reducido de 32px a 24px
+    margin-bottom: 10px; // Reducido de 32px a 24px
     font-size: 2rem;
     font-weight: 600;
     padding-left: 16px;
@@ -120,7 +120,6 @@ $darker-gray: #464943;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
     gap: 16px;
 
     .search-field {

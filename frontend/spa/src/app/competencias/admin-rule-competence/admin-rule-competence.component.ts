@@ -13,6 +13,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-rule-competence',
@@ -22,7 +24,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule,
     MatIconModule,
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent,
   ],
   templateUrl: './admin-rule-competence.component.html',
   styleUrls: ['./admin-rule-competence.component.scss']
@@ -38,12 +41,14 @@ export class AdminRuleCompetenceComponent implements OnInit {
   isDeleteMode = false;
   searchText = '';
   displayedColumns: string[] = ['numeration', 'rule_description', 'actor', 'action', 'type_rule'];
+  currentRoute: string = '';
 
   constructor(
     private ruleCompetenceService: RuleCompetenceService,
     private competenceService: CompetenceService,
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       competence: new FormControl({value: '', disabled: false}, [Validators.required]),
@@ -72,6 +77,7 @@ export class AdminRuleCompetenceComponent implements OnInit {
         Validators.maxLength(50)
       ])
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

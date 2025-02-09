@@ -11,6 +11,8 @@ import { FlashMessageComponent } from '../../shared/flash-message/flash-message.
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-disciplinas',
@@ -20,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule, 
     MatIconModule, 
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent
   ],
   templateUrl: './admin-disciplinas.component.html',
   styleUrls: ['./admin-disciplinas.component.scss']
@@ -41,8 +44,14 @@ export class AdminDisciplinasComponent implements OnInit {
   isLoading: boolean = false;
   allowedFileTypes = ['image/jpeg', 'image/png', 'image/gif'];
   maxFileSize = 5 * 1024 * 1024; // 5MB
+  currentRoute: string = '';
 
-  constructor(private disciplineService: DisciplineService, private dialog: MatDialog, private fb: FormBuilder) {
+  constructor(
+    private disciplineService: DisciplineService,
+    private dialog: MatDialog,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.form = this.fb.group({
       name: [{value: '', disabled: false}, [
         Validators.required, 
@@ -71,6 +80,7 @@ export class AdminDisciplinasComponent implements OnInit {
         this.fileSizeValidator()
       ]],
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

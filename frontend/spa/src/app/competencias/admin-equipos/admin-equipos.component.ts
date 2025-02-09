@@ -13,6 +13,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CatalogService } from '../../services/catalogs/catalog.service';
 import { Catalog } from '../../models/catalogs/catalog.model';
+import { BreadcrumbCompetenciasComponent } from '../../competencias/breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-equipos',
@@ -22,7 +24,8 @@ import { Catalog } from '../../models/catalogs/catalog.model';
     MatDialogModule, 
     MatIconModule, 
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent,
   ],
   templateUrl: './admin-equipos.component.html',
   styleUrls: ['./admin-equipos.component.scss']
@@ -42,18 +45,21 @@ export class AdminEquiposComponent implements OnInit {
   filePreview: string | null = null;
   isLoading: boolean = false;
   countries: Catalog[] = [];
+  currentRoute: string = '';
 
   constructor(
     private teamService: TeamService, 
     private dialog: MatDialog, 
     private fb: FormBuilder,
-    private catalogService: CatalogService
+    private catalogService: CatalogService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       country: ['', [Validators.required]],
       logo: [null, Validators.required],
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

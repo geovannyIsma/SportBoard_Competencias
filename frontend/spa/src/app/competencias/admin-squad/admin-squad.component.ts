@@ -19,6 +19,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Squad } from '../../models/competencies/squad.model';
 import { UserDetailsDialogComponent } from './user-details-dialog/user-details-dialog.component';
 import { MatSelectionList } from '@angular/material/list';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-squad',
@@ -30,6 +32,7 @@ import { MatSelectionList } from '@angular/material/list';
     MatButtonModule,
     MatProgressSpinnerModule,
     MatChipsModule,
+    BreadcrumbCompetenciasComponent,
   ],
   templateUrl: './admin-squad.component.html',
   styleUrls: ['./admin-squad.component.scss']
@@ -53,17 +56,20 @@ export class AdminSquadComponent implements OnInit {
   isLoading = false;
   selectedSquad: Squad | null = null;
   isDeleteMode: boolean = false;  // Añadir esta propiedad
+  currentRoute: string = '';
 
   constructor(
     private fb: FormBuilder,
     private dialog: MatDialog,
     private squadService: SquadService,
     private teamService: TeamService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       team: ['', Validators.required]
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

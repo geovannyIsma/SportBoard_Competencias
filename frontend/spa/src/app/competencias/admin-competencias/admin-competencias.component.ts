@@ -15,6 +15,8 @@ import { DisciplineService } from '../../services/competencies/discipline.servic
 import { Discipline } from '../../models/competencies/discipline.model';
 import { FormatService } from '../../services/competencies/format.service';
 import { Format } from '../../models/competencies/format.model';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-competencias',
@@ -24,7 +26,8 @@ import { Format } from '../../models/competencies/format.model';
     MatDialogModule, 
     MatIconModule, 
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent
   ],
   templateUrl: './admin-competencias.component.html',
   styleUrls: ['./admin-competencias.component.scss']
@@ -47,13 +50,15 @@ export class AdminCompetenciasComponent implements OnInit {
   maxFileSize = 5 * 1024 * 1024; // 5MB
   disciplines: Discipline[] = [];
   formats: Format[] = []; // Añadir esta propiedad
+  currentRoute: string = '';
 
   constructor(
     private competenceService: CompetenceService,
     private disciplineService: DisciplineService, // Añadir DisciplineService
     private formatService: FormatService, // Añadir FormatService
     private dialog: MatDialog,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       name: new FormControl({value: '', disabled: false}, [
@@ -79,6 +84,7 @@ export class AdminCompetenciasComponent implements OnInit {
         this.fileSizeValidator()
       ])
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {

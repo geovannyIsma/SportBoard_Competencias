@@ -15,16 +15,19 @@ import { CatalogService } from '../../services/catalogs/catalog.service';
 import { Catalog } from '../../models/catalogs/catalog.model';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { DatePipe } from '@angular/common';
+import { BreadcrumbCompetenciasComponent } from '../../competencias/breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
   imports: [
-    SharedModule, 
-    MatDialogModule, 
-    MatIconModule, 
+    SharedModule,
+    MatDialogModule,
+    MatIconModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent
   ],
   providers: [
     provideNativeDateAdapter(),
@@ -46,13 +49,15 @@ export class AdminUsersComponent implements OnInit {
   isLoading: boolean = false;
   genders: Catalog[] = [];
   nationalities: Catalog[] = [];
+  currentRoute: string = '';
 
   constructor(
     private userService: UserService,
     private dialog: MatDialog,
     private fb: FormBuilder,
     private catalogService: CatalogService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private router: Router
   ) {
     this.form = this.fb.group({
       firstname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
@@ -63,6 +68,7 @@ export class AdminUsersComponent implements OnInit {
       nationality: ['', [Validators.required]],
       gender: ['', [Validators.required]]
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {
@@ -79,8 +85,8 @@ export class AdminUsersComponent implements OnInit {
         this.dataSource.sort = this.sort;
         this.dataSource.filterPredicate = (data: User, filter: string) => {
           return data.firstname.toLowerCase().includes(filter.toLowerCase()) ||
-                 data.lastname.toLowerCase().includes(filter.toLowerCase()) ||
-                 data.email.toLowerCase().includes(filter.toLowerCase());
+            data.lastname.toLowerCase().includes(filter.toLowerCase()) ||
+            data.email.toLowerCase().includes(filter.toLowerCase());
         };
       },
       error: (error) => this.handleError(error),
@@ -139,10 +145,10 @@ export class AdminUsersComponent implements OnInit {
   onSelect(user: User): void {
     this.selectedUser = user;
     this.form.enable();
-    
+
     // Convertir la fecha string a objeto Date si es necesario
     const birthDate = user.birth_date ? new Date(user.birth_date) : null;
-    
+
     this.form.patchValue({
       firstname: user.firstname,
       lastname: user.lastname,
@@ -158,8 +164,8 @@ export class AdminUsersComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      const userData = {...this.form.value};
-      
+      const userData = { ...this.form.value };
+
       // Formatear la fecha al formato YYYY-MM-DD
       if (userData.birth_date) {
         userData.birth_date = this.datePipe.transform(userData.birth_date, 'yyyy-MM-dd');

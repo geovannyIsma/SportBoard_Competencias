@@ -11,6 +11,8 @@ import { FlashMessageComponent } from '../../shared/flash-message/flash-message.
 import { Sort, MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BreadcrumbCompetenciasComponent } from '../breadcrumb-competencias/breadcrumb-competencias.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-formats',
@@ -20,7 +22,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatDialogModule, 
     MatIconModule, 
     MatButtonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BreadcrumbCompetenciasComponent
   ],
   templateUrl: './admin-formats.component.html',
   styleUrls: ['./admin-formats.component.scss']
@@ -35,11 +38,13 @@ export class AdminFormatsComponent implements OnInit {
   form: FormGroup;
   isDeleteMode: boolean = false;
   isLoading: boolean = false;
+  currentRoute: string = '';
 
   constructor(
     private formatService: FormatService, 
     private dialog: MatDialog, 
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     this.form = this.fb.group({
       name: [{value: '', disabled: false}, [
@@ -54,6 +59,7 @@ export class AdminFormatsComponent implements OnInit {
         Validators.maxLength(500)
       ]]
     });
+    this.currentRoute = this.router.url;
   }
 
   ngOnInit(): void {
