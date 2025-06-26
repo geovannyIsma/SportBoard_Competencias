@@ -3,17 +3,17 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /source
 
 # Copiar archivo de solución y dependencias
-COPY *.csproj ./Catalogs/
+COPY backend/Catalogs/*.csproj ./Catalogs/
 RUN dotnet restore ./Catalogs/*.csproj
 
 # Copiar el código fuente y compilar
-COPY ./ ./Catalogs/
+COPY backend/Catalogs/ ./Catalogs/
 WORKDIR /source/Catalogs
 RUN dotnet publish -c Release -o /app
 
 # Copiar archivos de datos
-COPY ./SeedData/backup_groups.csv /app/SeedData/
-COPY ./SeedData/backup_catalogs.csv /app/SeedData/
+COPY backend/Catalogs/SeedData/backup_groups.csv /app/SeedData/
+COPY backend/Catalogs/SeedData/backup_catalogs.csv /app/SeedData/
 
 # Etapa 2: Ejecutar el proyecto
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
